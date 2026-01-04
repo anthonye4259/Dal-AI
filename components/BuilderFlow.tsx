@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { ArrowLeft, ArrowRight, Check, CheckCircle2, Sparkles, Plus, Trash2, Clock, DollarSign, Users } from 'lucide-react';
+import { ArrowLeft, ArrowRight, Check, CheckCircle2, Sparkles, Plus, Trash2, Clock, DollarSign, Users, Home, Calendar, MessageCircle, ShoppingBag, User, PlayCircle, Settings, Palette, Smartphone } from 'lucide-react';
 import { ClassCategory } from '@/lib/types';
 
 // Theme Presets (Mobile Parity)
@@ -250,7 +250,18 @@ const SUGGESTED_CLASSES: Record<ClassCategory, BuilderClass[]> = {
     ],
 };
 
-const STEPS = ['Studio', 'Theme', 'Brand', 'Classes', 'Features', 'Launch'];
+// Available Tabs (Mobile Parity)
+const AVAILABLE_TABS = [
+    { id: 'home', label: 'Home', icon: <Home className="w-5 h-5" />, desc: 'Dashboard & highlights' },
+    { id: 'schedule', label: 'Schedule', icon: <Calendar className="w-5 h-5" />, desc: 'Class booking calendar' },
+    { id: 'inbox', label: 'Inbox', icon: <MessageCircle className="w-5 h-5" />, desc: 'Messages & notifications' },
+    { id: 'shop', label: 'Shop', icon: <ShoppingBag className="w-5 h-5" />, desc: 'Merch & packages' },
+    { id: 'content', label: 'Content', icon: <PlayCircle className="w-5 h-5" />, desc: 'On-demand videos' },
+    { id: 'profile', label: 'Profile', icon: <User className="w-5 h-5" />, desc: 'Account settings' },
+];
+
+const STEPS = ['Studio', 'Theme', 'Brand', 'Navigation', 'Classes', 'Features', 'Launch'];
+
 
 export default function BuilderFlow({ onPreviewUpdate }: { onPreviewUpdate?: (props: any) => void }) {
     const router = useRouter();
@@ -267,6 +278,15 @@ export default function BuilderFlow({ onPreviewUpdate }: { onPreviewUpdate?: (pr
     const [brandColor, setBrandColor] = useState('#4A9FD4');
     const [themeId, setThemeId] = useState('zen');
     const [fontFamily, setFontFamily] = useState('Inter');
+
+    // Advanced Customization State
+    const [useCustomColor, setUseCustomColor] = useState(false);
+    const [customColor, setCustomColor] = useState('#00E5FF');
+    const [backgroundMode, setBackgroundMode] = useState<'light' | 'dark' | 'black'>('black');
+
+    // Navigation State
+    const [selectedTabs, setSelectedTabs] = useState<string[]>(['home', 'schedule', 'profile']);
+
     const [icon, setIcon] = useState('🧘');
 
     // Classes & Features
@@ -293,17 +313,21 @@ export default function BuilderFlow({ onPreviewUpdate }: { onPreviewUpdate?: (pr
     // Update preview
     useEffect(() => {
         if (onPreviewUpdate) {
+            const currentBrandColor = useCustomColor ? customColor : brandColor;
+
             onPreviewUpdate({
-                studioName,
-                brandColor,
+                studioName: studioName || 'Your Studio',
+                brandColor: currentBrandColor,
+                theme: themeId,
+                studioType,
                 icon,
-                classes,
                 tagline,
-                themeId,
-                fontFamily
+                fontFamily,
+                backgroundMode: backgroundMode, // Pass background mode
+                tabs: selectedTabs // Pass selected tabs
             });
         }
-    }, [studioName, brandColor, icon, classes, tagline, themeId, fontFamily, onPreviewUpdate]);
+    }, [studioName, brandColor, customColor, useCustomColor, studioType, icon, themeId, tagline, fontFamily, backgroundMode, selectedTabs, onPreviewUpdate]); // Added dependencies
 
     // Apply Theme Presets
     const applyTheme = (id: string) => {
@@ -341,9 +365,10 @@ export default function BuilderFlow({ onPreviewUpdate }: { onPreviewUpdate?: (pr
             case 0: return studioName.trim().length > 0;
             case 1: return true; // Theme
             case 2: return true; // Brand
-            case 3: return classes.length > 0;
-            case 4: return true; // Rules
-            case 5: return true;
+            case 3: return selectedTabs.length >= 3 && selectedTabs.length <= 5; // Navigation
+            case 4: return classes.length > 0; // Classes
+            case 5: return true; // Features
+            case 6: return true; // Launch
             default: return false;
         }
     };
@@ -369,18 +394,27 @@ export default function BuilderFlow({ onPreviewUpdate }: { onPreviewUpdate?: (pr
                 studioName,
                 tagline,
                 studioType,
-                brandColor,
+                brandColor: useCustomColor ? customColor : brandColor,
                 themeId,
                 fontFamily,
                 icon,
                 classes,
                 features,
                 settings,
+                backgroundMode,
+                tabs: JSON.stringify(selectedTabs), // Store selected tabs
+                launchedAt: new Date().toISOString()
             }));
-            router.push('/checkout');
+
+            // If we have a user, ensure we don't clear their auth state
+            // but we can clear the builder state if we want
+            // For now, let's keep it simple and just redirect
+            // router.push('/onboarding/signup'); // Changed from /checkout to /onboarding/signup for mobile parity flow if needed, but sticking to checkout for web
+            router.push('/checkout'); // Revert to checkout for now
         } catch (error) {
-            console.error("Error launching checkout:", error);
-            setIsLoading(false);
+            console.error('Error saving builder state:', error);
+            // Fallback navigation
+            router.push('/checkout');
         }
     };
 
@@ -493,8 +527,8 @@ export default function BuilderFlow({ onPreviewUpdate }: { onPreviewUpdate?: (pr
                                             key={type.value}
                                             onClick={() => setStudioType(type.value as ClassCategory)}
                                             className={`flex items-center gap-3 p-4 rounded-xl border transition-all text-left ${studioType === type.value
-                                                    ? 'bg-primary/10 border-primary text-foreground'
-                                                    : 'bg-surface border-border text-text-secondary hover:border-primary/50'
+                                                ? 'bg-primary/10 border-primary text-foreground'
+                                                : 'bg-surface border-border text-text-secondary hover:border-primary/50'
                                                 }`}
                                         >
                                             <span className="text-2xl">{type.icon}</span>
@@ -518,8 +552,8 @@ export default function BuilderFlow({ onPreviewUpdate }: { onPreviewUpdate?: (pr
                                         key={theme.id}
                                         onClick={() => applyTheme(theme.id)}
                                         className={`group relative p-6 rounded-2xl border text-left transition-all overflow-hidden ${themeId === theme.id
-                                                ? 'border-primary ring-1 ring-primary'
-                                                : 'bg-surface border-border hover:border-primary/50'
+                                            ? 'border-primary ring-1 ring-primary'
+                                            : 'bg-surface border-border hover:border-primary/50'
                                             }`}
                                     >
                                         <div className={`absolute inset-0 bg-gradient-to-br ${theme.gradient} opacity-50`} />
@@ -556,8 +590,8 @@ export default function BuilderFlow({ onPreviewUpdate }: { onPreviewUpdate?: (pr
                                                     key={emoji}
                                                     onClick={() => setIcon(emoji)}
                                                     className={`w-12 h-12 rounded-xl flex items-center justify-center text-2xl border transition-all flex-shrink-0 ${icon === emoji
-                                                            ? 'bg-primary/20 border-primary'
-                                                            : 'bg-surface border-border hover:bg-surface-hover'
+                                                        ? 'bg-primary/20 border-primary'
+                                                        : 'bg-surface border-border hover:bg-surface-hover'
                                                         }`}
                                                 >
                                                     {emoji}
@@ -575,8 +609,8 @@ export default function BuilderFlow({ onPreviewUpdate }: { onPreviewUpdate?: (pr
                                                     key={font.id}
                                                     onClick={() => setFontFamily(font.family)}
                                                     className={`p-3 rounded-xl border text-left transition-all ${fontFamily === font.family
-                                                            ? 'bg-primary/10 border-primary'
-                                                            : 'bg-surface border-border hover:border-border-highlight'
+                                                        ? 'bg-primary/10 border-primary'
+                                                        : 'bg-surface border-border hover:border-border-highlight'
                                                         }`}
                                                 >
                                                     <span className="block font-medium text-foreground mb-0.5" style={{ fontFamily: font.family }}>{font.name}</span>
@@ -587,19 +621,71 @@ export default function BuilderFlow({ onPreviewUpdate }: { onPreviewUpdate?: (pr
                                     </div>
 
                                     {/* Colors */}
+                                    <div className="space-y-4">
+                                        <div className="flex justify-between items-center">
+                                            <label className="text-sm font-medium text-text-secondary">Brand Color</label>
+                                            <button
+                                                onClick={() => setUseCustomColor(!useCustomColor)}
+                                                className="text-xs text-primary hover:text-primary-hover flex items-center gap-1"
+                                            >
+                                                <Palette className="w-3 h-3" />
+                                                {useCustomColor ? 'Use Presets' : 'Custom Hex'}
+                                            </button>
+                                        </div>
+
+                                        {useCustomColor ? (
+                                            <div className="flex gap-4 items-center animate-fade-in">
+                                                <div
+                                                    className="w-12 h-12 rounded-xl border border-border shadow-inner"
+                                                    style={{ backgroundColor: customColor }}
+                                                />
+                                                <input
+                                                    type="text"
+                                                    value={customColor}
+                                                    onChange={(e) => setCustomColor(e.target.value)}
+                                                    placeholder="#000000"
+                                                    className="flex-1 bg-surface border border-border rounded-xl px-4 py-3 font-mono uppercase focus:border-primary focus:outline-none"
+                                                    maxLength={7}
+                                                />
+                                            </div>
+                                        ) : (
+                                            <div className="grid grid-cols-5 md:grid-cols-8 gap-2 animate-fade-in">
+                                                {COLOR_PRESETS.map((preset) => (
+                                                    <button
+                                                        key={preset.name}
+                                                        onClick={() => setBrandColor(preset.color)}
+                                                        className={`w-full aspect-square rounded-full flex items-center justify-center transition-transform hover:scale-110 ${brandColor === preset.color ? 'ring-2 ring-white ring-offset-2 ring-offset-background' : ''
+                                                            }`}
+                                                        style={{ backgroundColor: preset.color }}
+                                                        title={preset.name}
+                                                    >
+                                                        {brandColor === preset.color && <Check className="w-4 h-4 text-white" />}
+                                                    </button>
+                                                ))}
+                                            </div>
+                                        )}
+                                    </div>
+
+                                    {/* Background Mode */}
                                     <div className="space-y-3">
-                                        <label className="text-sm font-medium text-text-secondary">Brand Color</label>
-                                        <div className="grid grid-cols-5 md:grid-cols-8 gap-2">
-                                            {COLOR_PRESETS.map((preset) => (
+                                        <label className="text-sm font-medium text-text-secondary">App Theme</label>
+                                        <div className="grid grid-cols-3 gap-3">
+                                            {[
+                                                { id: 'light', label: 'Light', bg: '#ffffff', text: '#000000' },
+                                                { id: 'dark', label: 'Dark', bg: '#1a1a1a', text: '#ffffff' },
+                                                { id: 'black', label: 'OLED Black', bg: '#000000', text: '#ffffff' },
+                                            ].map((mode) => (
                                                 <button
-                                                    key={preset.name}
-                                                    onClick={() => setBrandColor(preset.color)}
-                                                    className={`w-full aspect-square rounded-full flex items-center justify-center transition-transform hover:scale-110 ${brandColor === preset.color ? 'ring-2 ring-white ring-offset-2 ring-offset-background' : ''
+                                                    key={mode.id}
+                                                    onClick={() => setBackgroundMode(mode.id as 'light' | 'dark' | 'black')}
+                                                    className={`p-3 rounded-xl border transition-all flex items-center justify-center gap-2 ${backgroundMode === mode.id
+                                                            ? 'border-primary ring-1 ring-primary'
+                                                            : 'border-border opacity-70 hover:opacity-100'
                                                         }`}
-                                                    style={{ backgroundColor: preset.color }}
-                                                    title={preset.name}
+                                                    style={{ backgroundColor: mode.bg }}
                                                 >
-                                                    {brandColor === preset.color && <Check className="w-4 h-4 text-white" />}
+                                                    <span className={`text-sm font-medium`} style={{ color: mode.text }}>{mode.label}</span>
+                                                    {backgroundMode === mode.id && <CheckCircle2 className="w-4 h-4 text-primary" />}
                                                 </button>
                                             ))}
                                         </div>
@@ -609,8 +695,67 @@ export default function BuilderFlow({ onPreviewUpdate }: { onPreviewUpdate?: (pr
                         </div>
                     )}
 
-                    {/* Step 3: Classes (Unchanged, just repositioned index) */}
+                    {/* Step 3: Navigation (New) */}
                     {currentStep === 3 && (
+                        <div className="space-y-6">
+                            <div className="space-y-2">
+                                <h2 className="text-2xl font-bold">Build your bottom bar.</h2>
+                                <p className="text-text-secondary">Select 3 to 5 tabs for your app's main navigation.</p>
+                            </div>
+
+                            <div className="grid grid-cols-1 gap-3">
+                                {AVAILABLE_TABS.map((tab) => {
+                                    const isSelected = selectedTabs.includes(tab.id);
+                                    const isDisabled = !isSelected && selectedTabs.length >= 5;
+
+                                    return (
+                                        <button
+                                            key={tab.id}
+                                            disabled={isDisabled}
+                                            onClick={() => {
+                                                if (isSelected) {
+                                                    if (selectedTabs.length > 3) {
+                                                        setSelectedTabs(prev => prev.filter(t => t !== tab.id));
+                                                    }
+                                                } else {
+                                                    if (selectedTabs.length < 5) {
+                                                        setSelectedTabs(prev => [...prev, tab.id]);
+                                                    }
+                                                }
+                                            }}
+                                            className={`p-4 rounded-xl border text-left transition-all flex items-center justify-between ${isSelected
+                                                    ? 'border-primary bg-primary/10'
+                                                    : isDisabled
+                                                        ? 'border-border bg-surface/50 opacity-50 cursor-not-allowed'
+                                                        : 'border-border bg-surface hover:border-primary/50'
+                                                }`}
+                                        >
+                                            <div className="flex items-center gap-4">
+                                                <div className={`p-2 rounded-lg ${isSelected ? 'bg-primary text-white' : 'bg-background text-text-secondary'}`}>
+                                                    {tab.icon}
+                                                </div>
+                                                <div>
+                                                    <h3 className="font-semibold text-foreground">{tab.label}</h3>
+                                                    <p className="text-xs text-text-secondary">{tab.desc}</p>
+                                                </div>
+                                            </div>
+                                            {isSelected && <CheckCircle2 className="w-5 h-5 text-primary" />}
+                                        </button>
+                                    );
+                                })}
+                            </div>
+
+                            <div className="bg-surface border border-border rounded-xl p-4 flex items-center gap-3">
+                                <Smartphone className="w-5 h-5 text-text-secondary" />
+                                <span className={`text-sm font-medium ${selectedTabs.length < 3 || selectedTabs.length > 5 ? 'text-amber-500' : 'text-green-500'}`}>
+                                    {selectedTabs.length} tabs selected (Min 3, Max 5)
+                                </span>
+                            </div>
+                        </div>
+                    )}
+
+                    {/* Step 4: Classes (Unchanged, just repositioned index) */}
+                    {currentStep === 4 && (
                         <div className="space-y-6">
                             <div className="flex items-center justify-between">
                                 <h2 className="text-2xl font-bold">Your Schedule</h2>
@@ -663,8 +808,8 @@ export default function BuilderFlow({ onPreviewUpdate }: { onPreviewUpdate?: (pr
                         </div>
                     )}
 
-                    {/* Step 4: Features (New Categorized) */}
-                    {currentStep === 4 && (
+                    {/* Step 5: Features (New Categorized) */}
+                    {currentStep === 5 && (
                         <div className="space-y-6">
                             <h2 className="text-2xl font-bold">App Features</h2>
 
@@ -705,8 +850,8 @@ export default function BuilderFlow({ onPreviewUpdate }: { onPreviewUpdate?: (pr
                         </div>
                     )}
 
-                    {/* Step 5: Launch (Refined) */}
-                    {currentStep === 5 && (
+                    {/* Step 6: Launch (Refined) */}
+                    {currentStep === 6 && (
                         <div className="text-center space-y-8 py-8">
                             <div className="w-20 h-20 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-6 animate-bounce-slow">
                                 <Sparkles className="w-10 h-10 text-primary" />
