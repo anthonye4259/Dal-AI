@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { motion } from 'framer-motion';
+// import { motion } from 'framer-motion';
 import { Check, Sparkles, ArrowLeft, Shield, Zap, Users, Loader2 } from 'lucide-react';
 import { useAuth } from '@/components/auth/AuthProvider';
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
@@ -182,9 +182,7 @@ export default function CheckoutPage() {
 
                 {/* Studio Preview */}
                 {builderState && (
-                    <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
+                    <div
                         className="bg-surface border border-border rounded-2xl p-6 mb-8"
                     >
                         <div className="flex items-center gap-4">
@@ -204,7 +202,7 @@ export default function CheckoutPage() {
                                 Ready to launch
                             </div>
                         </div>
-                    </motion.div>
+                    </div>
                 )}
 
                 {/* Pricing Header */}
@@ -329,9 +327,7 @@ export default function CheckoutPage() {
                 </div>
 
                 {/* Total & Checkout */}
-                <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
+                <div
                     className="bg-surface border border-border rounded-2xl p-6"
                 >
                     {/* Account Creation Section - Only if not logged in */}
@@ -423,7 +419,7 @@ export default function CheckoutPage() {
                     <p className="text-center text-text-muted text-sm mt-4">
                         Instant access • Cancel anytime • Secure checkout
                     </p>
-                </motion.div>
+                </div>
             </div>
         </div>
     );

@@ -137,16 +137,22 @@ function BuilderContent() {
     };
 
     const handleLaunch = () => {
-        setIsLoading(true);
-        sessionStorage.setItem('builderState', JSON.stringify({
-            studioName,
-            studioType,
-            brandColor,
-            icon,
-            classes,
-            settings,
-        }));
-        router.push('/checkout');
+        try {
+            setIsLoading(true);
+            sessionStorage.setItem('builderState', JSON.stringify({
+                studioName,
+                studioType,
+                brandColor,
+                icon,
+                classes,
+                settings,
+            }));
+            router.push('/checkout');
+        } catch (error) {
+            console.error("Error launching checkout:", error);
+            setIsLoading(false);
+            // Optionally set an error state to show to user
+        }
     };
 
     const addClass = () => {
