@@ -56,7 +56,7 @@ export default function LandingPage() {
           </div>
 
           <h1 className="text-5xl md:text-7xl font-bold mb-6 tracking-tight leading-tight">
-            Launch your studio app <br />
+            Launch your branded booking app <br />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent">
               in seconds, not months.
             </span>
@@ -64,7 +64,7 @@ export default function LandingPage() {
 
           <p className="text-xl text-text-secondary mb-10 max-w-2xl mx-auto leading-relaxed">
             No code. No designers. Just you and your brand.
-            Dal AI builds a premium mobile app for your studio instantly.
+            Your studio lives inside the Dal AI app—giving clients a personal, branded booking experience.
           </p>
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
@@ -114,13 +114,13 @@ export default function LandingPage() {
             {[
               {
                 icon: Zap,
-                title: "Instant Deployment",
-                description: "Your app is live on iOS and Android immediately. No waiting for app store approvals."
+                title: "Live on App Store",
+                description: "Your studio lives inside the Dal AI app. Clients download 'Dal AI', find your studio, and get a fully branded experience instantly."
               },
               {
                 icon: Smartphone,
-                title: "Native Mobile Experience",
-                description: "Butter-smooth 60fps performance with a premium design that feels right at home on any device."
+                title: "Powerful Booking System",
+                description: "Complete class scheduling, spot management, and waitlists. Built for wellness studios."
               },
               {
                 icon: Globe,
