@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { motion } from 'framer-motion';
+
 import {
   Sparkles,
   Calendar,
@@ -87,16 +87,13 @@ export default function LandingPage() {
       {/* Hero Section */}
       <section className="gradient-hero min-h-screen flex items-center justify-center pt-20 px-6">
         <div className="max-w-4xl mx-auto text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-          >
+          <div>
             {/* Badge */}
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-surface border border-border mb-8">
               <Zap className="w-4 h-4 text-accent" />
               <span className="text-sm text-text-secondary">Launch your studio app today</span>
             </div>
+
 
             {/* Headline */}
             <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-foreground mb-6 leading-tight">
@@ -137,7 +134,7 @@ export default function LandingPage() {
                 <span className="text-xs">App Store</span>
               </div>
             </div>
-          </motion.div>
+          </div>
         </div>
       </section>
 
@@ -159,28 +156,19 @@ export default function LandingPage() {
       {/* Features Section */}
       <section id="features" className="py-24 px-6">
         <div className="max-w-7xl mx-auto">
-          <motion.div
-            className="text-center mb-16"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-          >
+          <div className="text-center mb-16">
             <h2 className="text-3xl sm:text-4xl font-bold text-foreground mb-4">
               Everything you need to run your studio
             </h2>
             <p className="text-text-secondary text-lg max-w-2xl mx-auto">
               From booking to payments, Dal AI handles it all so you can focus on teaching.
             </p>
-          </motion.div>
+          </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {features.map((feature, index) => (
-              <motion.div
+              <div
                 key={feature.title}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
                 className="p-6 rounded-2xl bg-surface border border-border card-hover"
               >
                 <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mb-4">
@@ -188,7 +176,7 @@ export default function LandingPage() {
                 </div>
                 <h3 className="text-lg font-semibold text-foreground mb-2">{feature.title}</h3>
                 <p className="text-text-secondary">{feature.description}</p>
-              </motion.div>
+              </div>
             ))}
           </div>
         </div>
