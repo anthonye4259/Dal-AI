@@ -24,7 +24,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     const router = useRouter();
 
     useEffect(() => {
+        // Safe check for auth instance
         if (!auth) {
+            console.warn("Firebase Auth not initialized - check environment variables");
             setLoading(false);
             return;
         }
