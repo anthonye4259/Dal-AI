@@ -231,7 +231,7 @@ const AVAILABLE_TABS = [
     { id: 'profile', label: 'Profile', icon: <User className="w-5 h-5" />, desc: 'Account settings' },
 ];
 
-const STEPS = ['Studio', 'Theme', 'Brand', 'Navigation', 'Classes', 'Features', 'Launch'];
+const STEPS = ['Studio', 'Magic Build', 'Theme', 'Brand', 'Navigation', 'Classes', 'Features', 'Launch'];
 
 
 export default function BuilderFlow({ onPreviewUpdate }: { onPreviewUpdate?: (props: any) => void }) {
@@ -244,6 +244,10 @@ export default function BuilderFlow({ onPreviewUpdate }: { onPreviewUpdate?: (pr
     const [studioName, setStudioName] = useState('');
     const [tagline, setTagline] = useState('');
     const [studioType, setStudioType] = useState<ClassCategory>('yoga');
+
+    // Magic Build State
+    const [magicPrompt, setMagicPrompt] = useState('');
+    const [isGenerating, setIsGenerating] = useState(false);
 
     // Visual Brand
     const [brandColor, setBrandColor] = useState('#4A9FD4');
@@ -311,28 +315,88 @@ export default function BuilderFlow({ onPreviewUpdate }: { onPreviewUpdate?: (pr
         }
     }, [searchParams]);
 
-    // Update suggested classes when studio type changes
+    // Magic Build Logic (Mock AI)
+    const handleMagicBuild = () => {
+        setIsGenerating(true);
+
+        // Simulate AI thinking time
+        setTimeout(() => {
+            const prompt = magicPrompt.toLowerCase();
+            let predictedType: ClassCategory = 'other';
+            let predictedThemeId = 'zen';
+            let predictedFeatures = ['classes', 'notifications'];
+
+            // 1. Predict Studio Type
+            if (prompt.match(/yoga|flow|stretch|mindful/)) predictedType = 'yoga';
+            else if (prompt.match(/pilates|reformer|core/)) predictedType = 'pilates';
+            else if (prompt.match(/barre|ballet|tone/)) predictedType = 'barre';
+            else if (prompt.match(/medit|calm|zen|breath/)) predictedType = 'meditation';
+            else if (prompt.match(/box|fight|gym|lift|strength|hiit|crossfit/)) {
+                // Approximate mapping for types not in strict enum
+                predictedType = 'other';
+            }
+
+            // 2. Predict Theme/Vibe
+            if (prompt.match(/energy|power|intense|hard|box|hiit/)) predictedThemeId = 'energy';
+            else if (prompt.match(/luxury|premium|exclusive|private/)) predictedThemeId = 'luxe';
+            else if (prompt.match(/calm|peace|restore|slow/)) predictedThemeId = 'zen';
+            else if (prompt.match(/swim|water|pool|recovery/)) predictedThemeId = 'ocean';
+            else if (prompt.match(/nature|out|ground|earth/)) predictedThemeId = 'earth';
+            else if (prompt.match(/dark|night|cycle|spin/)) predictedThemeId = 'night';
+
+            // 3. Predict Features
+            if (prompt.match(/video|content|demand/)) predictedFeatures.push('video');
+            if (prompt.match(/community|chat|social/)) predictedFeatures.push('community');
+            if (prompt.match(/product|merch|gear|shop|sell/)) predictedFeatures.push('shop');
+            if (prompt.match(/private|1:1|appoint|personal/)) predictedFeatures.push('appointments');
+            if (prompt.match(/challenge|compete|leader/)) predictedFeatures.push('challenges');
+            if (prompt.match(/food|diet|meal|nutrition/)) predictedFeatures.push('nutrition');
+            if (prompt.match(/ai|coach|smart/)) predictedFeatures.push('ai_coach');
+
+            // Apply Predictions
+            setStudioType(predictedType);
+            applyTheme(predictedThemeId);
+            setFeatures([...new Set(predictedFeatures)]); // Dedup
+
+            // Auto-fill tagline if empty
+            if (!tagline) {
+                if (predictedType === 'yoga') setTagline('Find your flow.');
+                else if (predictedType === 'pilates') setTagline('Strengthen your core.');
+                else if (predictedThemeId === 'energy') setTagline('Unleash your potential.');
+                else setTagline('Welcome to your studio.');
+            }
+
+            setIsGenerating(false);
+            setCurrentStep(2); // Move to next step (Theme used to be 1, now 2)
+        }, 1500);
+    };
+
+    // Update suggested classes when studio type changes (Modified to run only if not empty)
     useEffect(() => {
+        if (!studioType) return;
         const suggestions = SUGGESTED_CLASSES[studioType];
-        setClasses(suggestions);
+
+        // Only override if classes are empty (don't overwrite manual edits if coming back)
+        if (classes.length === 0) {
+            setClasses(suggestions);
+        }
+
         setIcon(STUDIO_TYPES.find(t => t.value === studioType)?.icon || '🧘');
 
-        // Auto-select matchy theme
-        let matchTheme = 'zen';
-        if (studioType === 'barre' || studioType === 'pilates') matchTheme = 'fresh';
-        if (studioType === 'meditation') matchTheme = 'earth';
-        applyTheme(matchTheme);
+        // Only auto-select theme if user hasn't magically generated or manually picked (simple check)
+        // For now, we trust the magic build or manual selection
     }, [studioType]);
 
     const canProceed = () => {
         switch (currentStep) {
             case 0: return studioName.trim().length > 0;
-            case 1: return true; // Theme
-            case 2: return true; // Brand
-            case 3: return selectedTabs.length >= 3 && selectedTabs.length <= 5; // Navigation
-            case 4: return classes.length > 0; // Classes
-            case 5: return true; // Features
-            case 6: return true; // Launch
+            case 1: return true; // Magic Build (Input optional, can skip)
+            case 2: return true; // Theme
+            case 3: return true; // Brand
+            case 4: return selectedTabs.length >= 3 && selectedTabs.length <= 5; // Navigation
+            case 5: return classes.length > 0; // Classes
+            case 6: return true; // Features
+            case 7: return true; // Launch
             default: return false;
         }
     };
@@ -504,8 +568,63 @@ export default function BuilderFlow({ onPreviewUpdate }: { onPreviewUpdate?: (pr
                         </div>
                     )}
 
-                    {/* Step 1: Themes (New) */}
+                    {/* Step 1: Magic Build (New) */}
                     {currentStep === 1 && (
+                        <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4">
+                            <div className="space-y-4">
+                                <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center mb-4 shadow-lg shadow-indigo-500/20">
+                                    <Sparkles className="w-8 h-8 text-white" />
+                                </div>
+                                <h2 className="text-3xl font-bold">Build your app with words.</h2>
+                                <p className="text-lg text-text-secondary">
+                                    Describe your vision, and our AI will generate a starting point for you.
+                                </p>
+                            </div>
+
+                            <div className="space-y-4">
+                                <textarea
+                                    value={magicPrompt}
+                                    onChange={(e) => setMagicPrompt(e.target.value)}
+                                    placeholder="e.g. A high-energy boxing gym in New York with a focus on community challenges and heavy metal music."
+                                    className="w-full h-40 bg-surface border border-border rounded-2xl p-6 text-lg focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all resize-none placeholder:text-text-muted/50"
+                                    autoFocus
+                                />
+
+                                <div className="flex gap-3">
+                                    <button
+                                        onClick={handleMagicBuild}
+                                        disabled={!magicPrompt.trim() || isGenerating}
+                                        className="flex-1 py-4 bg-foreground text-background rounded-xl font-bold text-lg flex items-center justify-center gap-2 hover:opacity-90 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                                    >
+                                        {isGenerating ? (
+                                            <>
+                                                <Sparkles className="w-5 h-5 animate-spin" />
+                                                Generating...
+                                            </>
+                                        ) : (
+                                            <>
+                                                <Sparkles className="w-5 h-5" />
+                                                Generate Base
+                                            </>
+                                        )}
+                                    </button>
+                                    <button
+                                        onClick={() => setCurrentStep(2)}
+                                        className="px-6 rounded-xl font-medium text-text-secondary hover:text-foreground hover:bg-surface border border-transparent hover:border-border transition-all"
+                                    >
+                                        Skip
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div className="p-4 rounded-xl bg-surface/50 border border-border/50 text-sm text-text-muted">
+                                <p><strong>Tip:</strong> Try describing your vibe ("calm", "intense"), colors ("green", "neon"), or features ("video library", "shop").</p>
+                            </div>
+                        </div>
+                    )}
+
+                    {/* Step 2: Themes (Shifted from 1) */}
+                    {currentStep === 2 && (
                         <div className="space-y-6">
                             <h2 className="text-2xl font-bold">Choose a starting vibe.</h2>
                             <p className="text-text-secondary">These presets set your colors and fonts. You can tweak them next.</p>
@@ -538,8 +657,8 @@ export default function BuilderFlow({ onPreviewUpdate }: { onPreviewUpdate?: (pr
                         </div>
                     )}
 
-                    {/* Step 2: Brand Identity (Refined) */}
-                    {currentStep === 2 && (
+                    {/* Step 3: Brand Identity (Shifted from 2) */}
+                    {currentStep === 3 && (
                         <div className="space-y-8">
                             <div>
                                 <h2 className="text-2xl font-bold mb-6">Fine tune your brand.</h2>
@@ -659,8 +778,8 @@ export default function BuilderFlow({ onPreviewUpdate }: { onPreviewUpdate?: (pr
                         </div>
                     )}
 
-                    {/* Step 3: Navigation (New) */}
-                    {currentStep === 3 && (
+                    {/* Step 4: Navigation (Shifted from 3) */}
+                    {currentStep === 4 && (
                         <div className="space-y-6">
                             <div className="space-y-2">
                                 <h2 className="text-2xl font-bold">Build your bottom bar.</h2>
@@ -718,8 +837,8 @@ export default function BuilderFlow({ onPreviewUpdate }: { onPreviewUpdate?: (pr
                         </div>
                     )}
 
-                    {/* Step 4: Classes (Unchanged, just repositioned index) */}
-                    {currentStep === 4 && (
+                    {/* Step 5: Classes (Shifted from 4) */}
+                    {currentStep === 5 && (
                         <div className="space-y-6">
                             <div className="flex items-center justify-between">
                                 <h2 className="text-2xl font-bold">Your Schedule</h2>
@@ -772,9 +891,8 @@ export default function BuilderFlow({ onPreviewUpdate }: { onPreviewUpdate?: (pr
                         </div>
                     )}
 
-                    {/* Step 5: Features (New Categorized) */}
-                    {/* Step 5: Features (Grid Layout) */}
-                    {currentStep === 5 && (
+                    {/* Step 6: Features (Shifted from 5) */}
+                    {currentStep === 6 && (
                         <div className="space-y-6">
                             <h2 className="text-2xl font-bold">App Features</h2>
                             <p className="text-text-secondary">Toggle the features you want in your app.</p>
@@ -814,8 +932,8 @@ export default function BuilderFlow({ onPreviewUpdate }: { onPreviewUpdate?: (pr
                         </div>
                     )}
 
-                    {/* Step 6: Launch (Refined) */}
-                    {currentStep === 6 && (
+                    {/* Step 7: Launch (Shifted from 6) */}
+                    {currentStep === 7 && (
                         <div className="text-center space-y-8 py-8">
                             <div className="w-20 h-20 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-6 animate-bounce-slow">
                                 <Sparkles className="w-10 h-10 text-primary" />
