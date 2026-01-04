@@ -2,8 +2,122 @@
 
 import { useState, useEffect } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { ArrowLeft, ArrowRight, Check, Sparkles, Plus, Trash2, Clock, DollarSign, Users } from 'lucide-react';
+import { ArrowLeft, ArrowRight, Check, CheckCircle2, Sparkles, Plus, Trash2, Clock, DollarSign, Users } from 'lucide-react';
 import { ClassCategory } from '@/lib/types';
+
+// Theme Presets (Mobile Parity)
+const THEME_PRESETS = [
+    {
+        id: 'zen',
+        name: 'Zen Studio',
+        description: 'Calm, minimal, and grounding',
+        vibe: 'Yoga • Meditation • Wellness',
+        colors: { primary: '#9DB4A0', background: '#0A0A0A', accent: '#C9D4C6', text: '#FFFFFF' },
+        gradient: 'from-[#0A0A0A] to-[#1a1f1a]',
+        font: 'Sans-Serif'
+    },
+    {
+        id: 'energy',
+        name: 'High Energy',
+        description: 'Bold, intense, and powerful',
+        vibe: 'HIIT • Boxing • CrossFit',
+        colors: { primary: '#FF3B30', background: '#0A0A0A', accent: '#FF6B5B', text: '#FFFFFF' },
+        gradient: 'from-[#0A0A0A] to-[#1a0a0a]',
+        font: 'Oswald'
+    },
+    {
+        id: 'luxe',
+        name: 'Luxe Boutique',
+        description: 'Premium, elegant, exclusive',
+        vibe: 'Boutique • Pilates • Private',
+        colors: { primary: '#D4AF37', background: '#0A0A0A', accent: '#E8D5A3', text: '#FFFFFF' },
+        gradient: 'from-[#0A0A0A] to-[#1a1508]',
+        font: 'Playfair Display'
+    },
+    {
+        id: 'ocean',
+        name: 'Ocean Breeze',
+        description: 'Cool, refreshing, serene',
+        vibe: 'Swim • Recovery • Flow',
+        colors: { primary: '#5AC8FA', background: '#0A0A0A', accent: '#8EDAFF', text: '#FFFFFF' },
+        gradient: 'from-[#0A0A0A] to-[#0a1a1f]',
+        font: 'Inter'
+    },
+    {
+        id: 'night',
+        name: 'Night Mode',
+        description: 'Dark, sleek, modern',
+        vibe: 'Evening • Cycle • Strength',
+        colors: { primary: '#BF5AF2', background: '#0A0A0A', accent: '#DA8FFF', text: '#FFFFFF' },
+        gradient: 'from-[#0A0A0A] to-[#150a1a]',
+        font: 'Inter'
+    },
+    {
+        id: 'earth',
+        name: 'Grounded',
+        description: 'Natural, warm, organic',
+        vibe: 'Outdoor • Hiking • Nature',
+        colors: { primary: '#8B7355', background: '#0A0A0A', accent: '#BFA98A', text: '#FFFFFF' },
+        gradient: 'from-[#0A0A0A] to-[#1a1510]',
+        font: 'Merriweather'
+    }
+];
+
+// Font Options (Mobile Parity)
+const FONT_OPTIONS = [
+    { id: 'modern', name: 'Modern', family: 'Inter', desc: 'Clean & contemporary' },
+    { id: 'elegant', name: 'Elegant', family: 'Playfair Display', desc: 'Sophisticated serif' },
+    { id: 'bold', name: 'Bold', family: 'Oswald', desc: 'Strong & impactful' },
+    { id: 'soft', name: 'Soft', family: 'Poppins', desc: 'Friendly & rounded' },
+    { id: 'minimal', name: 'Minimal', family: 'Space Grotesk', desc: 'Light & airy' },
+];
+
+// Feature Categories (Mobile Parity)
+const FEATURE_CATEGORIES = [
+    {
+        id: 'booking',
+        name: 'Booking & Scheduling',
+        icon: '📅',
+        features: [
+            { id: 'class_booking', name: 'Class Booking', desc: 'Clients can book classes', default: true, required: true },
+            { id: 'waitlist', name: 'Waitlist', desc: 'Auto-fill spots from waitlist', default: true },
+            { id: 'recurring', name: 'Recurring Bookings', desc: 'Book same time every week', default: false, premium: true },
+            { id: 'calendar', name: 'Calendar Sync', desc: 'Add to Google/Apple Calendar', default: true },
+        ]
+    },
+    {
+        id: 'payments',
+        name: 'Payments & Packages',
+        icon: '💳',
+        features: [
+            { id: 'payments', name: 'Credit Cards', desc: 'Accept payments via Stripe', default: true },
+            { id: 'memberships', name: 'Memberships', desc: 'Recurring subscriptions', default: true },
+            { id: 'packages', name: 'Class Packs', desc: 'Sell bundles (5-pack, 10-pack)', default: true },
+            { id: 'gift_cards', name: 'Gift Cards', desc: 'Digital gift cards', default: false, premium: true },
+        ]
+    },
+    {
+        id: 'engagement',
+        name: 'Engagement',
+        icon: '❤️',
+        features: [
+            { id: 'push', name: 'Push Notifications', desc: 'Send alerts to home screen', default: true },
+            { id: 'chat', name: 'In-App Chat', desc: 'Message clients directly', default: false },
+            { id: 'reviews', name: 'Class Reviews', desc: 'Collect client feedback', default: true },
+            { id: 'streaks', name: 'Streaks', desc: 'Gamify attendance', default: false },
+        ]
+    },
+    {
+        id: 'content',
+        name: 'Content & Media',
+        icon: '🎬',
+        features: [
+            { id: 'videos', name: 'Video Library', desc: 'On-demand workout videos', default: false, premium: true },
+            { id: 'live', name: 'Live Streaming', desc: 'Stream classes in-app', default: false, premium: true },
+            { id: 'blog', name: 'Studio Blog', desc: 'Share news and wellness tips', default: false },
+        ]
+    }
+];
 
 // Expanded 50+ Color Presets
 const COLOR_PRESETS = [
@@ -68,8 +182,8 @@ const COLOR_PRESETS = [
     { name: 'Black', color: '#000000', icon: '🕶️' },
 ];
 
-// Feature Toggle Options
-const FEATURE_OPTIONS = [
+// Feature Toggle Options (Legacy, keeping for compatibility reference if needed)
+const FEATURE_OPTIONS_LEGACY = [
     { id: 'booking', name: 'Class Booking', icon: '📅', desc: 'Allow clients to book classes' },
     { id: 'waitlist', name: 'Waitlists', icon: '⏳', desc: 'Auto-fill spots from waitlist' },
     { id: 'payments', name: 'Payments', icon: '💳', desc: 'Accept credit cards via Stripe' },
@@ -136,38 +250,70 @@ const SUGGESTED_CLASSES: Record<ClassCategory, BuilderClass[]> = {
     ],
 };
 
-const STEPS = ['Studio', 'Style', 'Classes', 'Features', 'Settings', 'Launch'];
+const STEPS = ['Studio', 'Theme', 'Brand', 'Classes', 'Features', 'Launch'];
 
 export default function BuilderFlow({ onPreviewUpdate }: { onPreviewUpdate?: (props: any) => void }) {
     const router = useRouter();
     const searchParams = useSearchParams();
 
     const [currentStep, setCurrentStep] = useState(0);
-    // Studio basics
+
+    // Core Identity
     const [studioName, setStudioName] = useState('');
+    const [tagline, setTagline] = useState('');
     const [studioType, setStudioType] = useState<ClassCategory>('yoga');
+
+    // Visual Brand
     const [brandColor, setBrandColor] = useState('#4A9FD4');
+    const [themeId, setThemeId] = useState('zen');
+    const [fontFamily, setFontFamily] = useState('Inter');
     const [icon, setIcon] = useState('🧘');
-    // Classes with full details
+
+    // Classes & Features
     const [classes, setClasses] = useState<BuilderClass[]>([]);
-    // Studio settings
+    const [features, setFeatures] = useState<Record<string, boolean>>({
+        class_booking: true,
+        waitlist: true,
+        payments: true,
+        memberships: true,
+        push: true,
+        reviews: true,
+        calendar: true
+    });
+
+    // Settings
     const [settings, setSettings] = useState<StudioSettings>({
         cancellationWindow: 24,
         lateFee: 10,
         waitlistSize: 5,
     });
-    // Features
-    const [features, setFeatures] = useState<Record<string, boolean>>(
-        FEATURE_OPTIONS.reduce((acc, curr) => ({ ...acc, [curr.id]: true }), {})
-    );
+
     const [isLoading, setIsLoading] = useState(false);
 
-    // Update preview whenever state changes
+    // Update preview
     useEffect(() => {
         if (onPreviewUpdate) {
-            onPreviewUpdate({ studioName, brandColor, icon, classes });
+            onPreviewUpdate({
+                studioName,
+                brandColor,
+                icon,
+                classes,
+                tagline,
+                themeId,
+                fontFamily
+            });
         }
-    }, [studioName, brandColor, icon, classes, onPreviewUpdate]);
+    }, [studioName, brandColor, icon, classes, tagline, themeId, fontFamily, onPreviewUpdate]);
+
+    // Apply Theme Presets
+    const applyTheme = (id: string) => {
+        const theme = THEME_PRESETS.find(t => t.id === id);
+        if (theme) {
+            setThemeId(id);
+            setBrandColor(theme.colors.primary);
+            setFontFamily(theme.font);
+        }
+    };
 
     // Pre-fill studio name from URL
     useEffect(() => {
@@ -182,15 +328,21 @@ export default function BuilderFlow({ onPreviewUpdate }: { onPreviewUpdate?: (pr
         const suggestions = SUGGESTED_CLASSES[studioType];
         setClasses(suggestions);
         setIcon(STUDIO_TYPES.find(t => t.value === studioType)?.icon || '🧘');
+
+        // Auto-select matchy theme
+        let matchTheme = 'zen';
+        if (studioType === 'barre' || studioType === 'pilates') matchTheme = 'fresh';
+        if (studioType === 'meditation') matchTheme = 'earth';
+        applyTheme(matchTheme);
     }, [studioType]);
 
     const canProceed = () => {
         switch (currentStep) {
             case 0: return studioName.trim().length > 0;
-            case 1: return true;
-            case 2: return classes.length > 0;
-            case 3: return true; // Features always valid
-            case 4: return true;
+            case 1: return true; // Theme
+            case 2: return true; // Brand
+            case 3: return classes.length > 0;
+            case 4: return true; // Rules
             case 5: return true;
             default: return false;
         }
@@ -215,8 +367,11 @@ export default function BuilderFlow({ onPreviewUpdate }: { onPreviewUpdate?: (pr
             setIsLoading(true);
             sessionStorage.setItem('builderState', JSON.stringify({
                 studioName,
+                tagline,
                 studioType,
                 brandColor,
+                themeId,
+                fontFamily,
                 icon,
                 classes,
                 features,
@@ -298,224 +453,86 @@ export default function BuilderFlow({ onPreviewUpdate }: { onPreviewUpdate?: (pr
 
                 {/* Step Content */}
                 <div key={currentStep} className="pb-24">
+
                     {/* Content for steps (Same as before) */}
 
                     {/* Step 0: Studio Name & Type */}
+                    {/* Step 0: Studio Name & Type */}
                     {currentStep === 0 && (
-                        <div className="space-y-8 animate-fade-in">
-                            <div>
-                                <h1 className="text-3xl font-bold text-foreground mb-2">
-                                    Let&apos;s name your studio
-                                </h1>
-                                <p className="text-text-secondary">
-                                    This is how clients will see your app on their phone.
-                                </p>
+                        <div className="space-y-6">
+                            <h2 className="text-2xl font-bold">First, tell us about your studio.</h2>
+
+                            <div className="space-y-2">
+                                <label className="text-sm font-medium text-text-secondary">Studio Name</label>
+                                <input
+                                    type="text"
+                                    value={studioName}
+                                    onChange={(e) => setStudioName(e.target.value)}
+                                    placeholder="e.g. Zen Yoga"
+                                    className="w-full bg-surface border border-border rounded-xl px-4 py-3 text-lg focus:outline-none focus:border-primary transition-colors"
+                                    autoFocus
+                                />
                             </div>
 
-                            <div className="space-y-6">
-                                <div>
-                                    <label className="block text-sm font-medium text-foreground mb-2">
-                                        Studio Name
-                                    </label>
-                                    <input
-                                        type="text"
-                                        value={studioName}
-                                        onChange={(e) => setStudioName(e.target.value)}
-                                        placeholder="e.g., Zen Flow Yoga"
-                                        className="w-full px-4 py-3 rounded-xl bg-surface border border-border text-foreground placeholder:text-text-muted focus:border-primary focus:outline-none transition-colors"
-                                        autoFocus
-                                    />
-                                </div>
+                            <div className="space-y-2">
+                                <label className="text-sm font-medium text-text-secondary">Tagline</label>
+                                <input
+                                    type="text"
+                                    value={tagline}
+                                    onChange={(e) => setTagline(e.target.value)}
+                                    placeholder="e.g. Find your flow."
+                                    className="w-full bg-surface border border-border rounded-xl px-4 py-3 text-foreground focus:outline-none focus:border-primary transition-colors"
+                                />
+                            </div>
 
-                                <div>
-                                    <label className="block text-sm font-medium text-foreground mb-3">
-                                        What type of studio?
-                                    </label>
-                                    <div className="grid grid-cols-2 gap-3">
-                                        {STUDIO_TYPES.map((type) => (
-                                            <button
-                                                key={type.value}
-                                                onClick={() => setStudioType(type.value as ClassCategory)}
-                                                className={`p-4 rounded-xl border text-left transition-all ${studioType === type.value
-                                                    ? 'border-primary bg-primary/10'
-                                                    : 'border-border bg-surface hover:border-primary/50'
-                                                    }`}
-                                            >
-                                                <span className="text-2xl mb-2 block">{type.icon}</span>
-                                                <span className="text-sm font-medium text-foreground">{type.label}</span>
-                                            </button>
-                                        ))}
-                                    </div>
+                            <div className="space-y-2">
+                                <label className="text-sm font-medium text-text-secondary">Studio Type</label>
+                                <div className="grid grid-cols-2 gap-3">
+                                    {STUDIO_TYPES.map((type) => (
+                                        <button
+                                            key={type.value}
+                                            onClick={() => setStudioType(type.value as ClassCategory)}
+                                            className={`flex items-center gap-3 p-4 rounded-xl border transition-all text-left ${studioType === type.value
+                                                    ? 'bg-primary/10 border-primary text-foreground'
+                                                    : 'bg-surface border-border text-text-secondary hover:border-primary/50'
+                                                }`}
+                                        >
+                                            <span className="text-2xl">{type.icon}</span>
+                                            <span className="font-medium">{type.label}</span>
+                                        </button>
+                                    ))}
                                 </div>
                             </div>
                         </div>
                     )}
 
-                    {/* Step 1: Style & Colors */}
+                    {/* Step 1: Themes (New) */}
                     {currentStep === 1 && (
-                        <div className="space-y-8 animate-fade-in">
-                            <div>
-                                <h1 className="text-3xl font-bold text-foreground mb-2">
-                                    Pick your style
-                                </h1>
-                                <p className="text-text-secondary">
-                                    Choose colors that match your brand.
-                                </p>
-                            </div>
+                        <div className="space-y-6">
+                            <h2 className="text-2xl font-bold">Choose a starting vibe.</h2>
+                            <p className="text-text-secondary">These presets set your colors and fonts. You can tweak them next.</p>
 
-                            <div className="space-y-6">
-                                <div>
-                                    <label className="block text-sm font-medium text-foreground mb-3">
-                                        Brand Color
-                                    </label>
-                                    <div className="grid grid-cols-5 gap-3">
-                                        {COLOR_PRESETS.map((preset) => (
-                                            <button
-                                                key={preset.name}
-                                                onClick={() => setBrandColor(preset.color)}
-                                                className={`p-2 rounded-xl border text-center transition-all ${brandColor === preset.color
-                                                    ? 'border-2 border-foreground'
-                                                    : 'border-border hover:border-foreground/50'
-                                                    }`}
-                                                style={{ backgroundColor: preset.color + '20' }}
-                                            >
-                                                <div
-                                                    className="w-6 h-6 rounded-full mx-auto mb-1"
-                                                    style={{ backgroundColor: preset.color }}
-                                                />
-                                            </button>
-                                        ))}
-                                    </div>
-                                </div>
-
-                                <div>
-                                    <label className="block text-sm font-medium text-foreground mb-3">
-                                        App Icon
-                                    </label>
-                                    <div className="flex gap-2 flex-wrap">
-                                        {['🧘', '🧘‍♀️', '🧘‍♂️', '🌿', '🌸', '🌊', '✨', '💫', '🌙', '☀️', '🦋', '🍃'].map((emoji) => (
-                                            <button
-                                                key={emoji}
-                                                onClick={() => setIcon(emoji)}
-                                                className={`w-12 h-12 rounded-xl text-2xl flex items-center justify-center transition-all ${icon === emoji
-                                                    ? 'bg-primary/20 border-2 border-primary'
-                                                    : 'bg-surface border border-border hover:border-primary/50'
-                                                    }`}
-                                            >
-                                                {emoji}
-                                            </button>
-                                        ))}
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    )}
-
-                    {/* Step 2: Classes */}
-                    {currentStep === 2 && (
-                        <div className="space-y-8 animate-fade-in">
-                            <div>
-                                <h1 className="text-3xl font-bold text-foreground mb-2">
-                                    Your classes
-                                </h1>
-                                <p className="text-text-secondary">
-                                    Set up your class schedule with pricing.
-                                </p>
-                            </div>
-
-                            <div className="space-y-4">
-                                {classes.map((cls, index) => (
-                                    <div
-                                        key={index}
-                                        className="p-4 rounded-xl bg-surface border border-border space-y-3"
-                                    >
-                                        <div className="grid grid-cols-3 gap-3">
-                                            <input
-                                                type="text"
-                                                value={cls.name}
-                                                onChange={(e) => updateClass(index, 'name', e.target.value)}
-                                                placeholder="Class name"
-                                                className="col-span-2 px-3 py-2 rounded-lg bg-background border border-border text-foreground text-sm"
-                                            />
-                                            <input
-                                                type="text"
-                                                value={cls.time}
-                                                onChange={(e) => updateClass(index, 'time', e.target.value)}
-                                                placeholder="Time"
-                                                className="px-3 py-2 rounded-lg bg-background border border-border text-foreground text-sm"
-                                            />
-                                        </div>
-                                        <div className="grid grid-cols-3 gap-3">
-                                            <div className="relative">
-                                                <DollarSign className="absolute left-3 top-1/2 -translate-y-1/2 w-3 h-3 text-text-muted" />
-                                                <input
-                                                    type="number"
-                                                    value={cls.price}
-                                                    onChange={(e) => updateClass(index, 'price', parseInt(e.target.value) || 0)}
-                                                    className="w-full pl-8 pr-2 py-2 rounded-lg bg-background border border-border text-foreground text-sm"
-                                                />
-                                            </div>
-                                            <div className="relative">
-                                                <Users className="absolute left-3 top-1/2 -translate-y-1/2 w-3 h-3 text-text-muted" />
-                                                <input
-                                                    type="number"
-                                                    value={cls.maxSpots}
-                                                    onChange={(e) => updateClass(index, 'maxSpots', parseInt(e.target.value) || 0)}
-                                                    className="w-full pl-8 pr-2 py-2 rounded-lg bg-background border border-border text-foreground text-sm"
-                                                />
-                                            </div>
-                                            <button
-                                                onClick={() => removeClass(index)}
-                                                className="text-destructive text-sm flex items-center justify-center hover:bg-destructive/10 rounded-lg"
-                                            >
-                                                <Trash2 className="w-4 h-4" />
-                                            </button>
-                                        </div>
-                                    </div>
-                                ))}
-
-                                <button
-                                    onClick={addClass}
-                                    className="w-full p-4 rounded-xl border-2 border-dashed border-border text-text-secondary hover:border-primary hover:text-primary transition-colors flex items-center justify-center gap-2"
-                                >
-                                    <Plus className="w-5 h-5" />
-                                    Add Class
-                                </button>
-                            </div>
-                        </div>
-                    )}
-
-                    {/* Step 3: Features */}
-                    {currentStep === 3 && (
-                        <div className="space-y-8 animate-fade-in">
-                            <div>
-                                <h1 className="text-3xl font-bold text-foreground mb-2">
-                                    Choose features
-                                </h1>
-                                <p className="text-text-secondary">
-                                    Turn on the tools you need for your studio.
-                                </p>
-                            </div>
-
-                            <div className="grid grid-cols-1 gap-3">
-                                {FEATURE_OPTIONS.map((feature) => (
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                {THEME_PRESETS.map((theme) => (
                                     <button
-                                        key={feature.id}
-                                        onClick={() => setFeatures(prev => ({ ...prev, [feature.id]: !prev[feature.id] }))}
-                                        className={`p-4 rounded-xl border text-left transition-all flex items-start gap-4 ${features[feature.id]
-                                            ? 'border-primary bg-primary/5'
-                                            : 'border-border bg-surface opacity-60 hover:opacity-100'
+                                        key={theme.id}
+                                        onClick={() => applyTheme(theme.id)}
+                                        className={`group relative p-6 rounded-2xl border text-left transition-all overflow-hidden ${themeId === theme.id
+                                                ? 'border-primary ring-1 ring-primary'
+                                                : 'bg-surface border-border hover:border-primary/50'
                                             }`}
                                     >
-                                        <div className={`w-8 h-8 rounded-lg flex items-center justify-center text-lg ${features[feature.id] ? 'bg-primary/20' : 'bg-background'}`}>
-                                            {feature.icon}
-                                        </div>
-                                        <div className="flex-1">
-                                            <div className="flex items-center justify-between mb-1">
-                                                <span className="font-semibold text-foreground text-sm">{feature.name}</span>
-                                                {features[feature.id] && <Check className="w-4 h-4 text-primary" />}
+                                        <div className={`absolute inset-0 bg-gradient-to-br ${theme.gradient} opacity-50`} />
+                                        <div className="relative z-10">
+                                            <div className="flex justify-between items-start mb-2">
+                                                <span className="text-lg font-bold text-white">{theme.name}</span>
+                                                {themeId === theme.id && <CheckCircle2 className="w-5 h-5 text-primary" />}
                                             </div>
-                                            <p className="text-xs text-text-secondary">{feature.desc}</p>
+                                            <p className="text-sm text-white/60 mb-3">{theme.description}</p>
+                                            <div className="flex items-center gap-2">
+                                                <div className="w-4 h-4 rounded-full" style={{ backgroundColor: theme.colors.primary }} />
+                                                <span className="text-xs text-white/40">{theme.vibe}</span>
+                                            </div>
                                         </div>
                                     </button>
                                 ))}
@@ -523,77 +540,198 @@ export default function BuilderFlow({ onPreviewUpdate }: { onPreviewUpdate?: (pr
                         </div>
                     )}
 
-                    {/* Step 4: Settings */}
-                    {currentStep === 4 && (
-                        <div className="space-y-8 animate-fade-in">
+                    {/* Step 2: Brand Identity (Refined) */}
+                    {currentStep === 2 && (
+                        <div className="space-y-8">
                             <div>
-                                <h1 className="text-3xl font-bold text-foreground mb-2">
-                                    Studio policies
-                                </h1>
-                                <p className="text-text-secondary">
-                                    Set your cancellation rules.
-                                </p>
-                            </div>
+                                <h2 className="text-2xl font-bold mb-6">Fine tune your brand.</h2>
 
-                            <div className="space-y-6">
-                                <div className="p-5 rounded-xl bg-surface border border-border">
-                                    <label className="block text-sm font-medium text-foreground mb-2">
-                                        Cancellation Window
-                                    </label>
-                                    <div className="flex items-center gap-3">
-                                        {[12, 24, 48].map((hours) => (
-                                            <button
-                                                key={hours}
-                                                onClick={() => setSettings({ ...settings, cancellationWindow: hours })}
-                                                className={`px-4 py-2 rounded-lg font-medium transition-all ${settings.cancellationWindow === hours
-                                                    ? 'bg-primary text-white'
-                                                    : 'bg-background border border-border text-foreground hover:border-primary'
-                                                    }`}
-                                            >
-                                                {hours}h
-                                            </button>
-                                        ))}
+                                <div className="space-y-6">
+                                    {/* Icon */}
+                                    <div className="space-y-3">
+                                        <label className="text-sm font-medium text-text-secondary">App Icon</label>
+                                        <div className="flex gap-4 overflow-x-auto pb-2 hide-scrollbar">
+                                            {['🧘', '🏃', '💪', '🤸', '🩰', '🏋️', '🥊', '🏊', '🚴'].map((emoji) => (
+                                                <button
+                                                    key={emoji}
+                                                    onClick={() => setIcon(emoji)}
+                                                    className={`w-12 h-12 rounded-xl flex items-center justify-center text-2xl border transition-all flex-shrink-0 ${icon === emoji
+                                                            ? 'bg-primary/20 border-primary'
+                                                            : 'bg-surface border-border hover:bg-surface-hover'
+                                                        }`}
+                                                >
+                                                    {emoji}
+                                                </button>
+                                            ))}
+                                        </div>
+                                    </div>
+
+                                    {/* Fonts */}
+                                    <div className="space-y-3">
+                                        <label className="text-sm font-medium text-text-secondary">Typography</label>
+                                        <div className="grid grid-cols-2 gap-3">
+                                            {FONT_OPTIONS.map((font) => (
+                                                <button
+                                                    key={font.id}
+                                                    onClick={() => setFontFamily(font.family)}
+                                                    className={`p-3 rounded-xl border text-left transition-all ${fontFamily === font.family
+                                                            ? 'bg-primary/10 border-primary'
+                                                            : 'bg-surface border-border hover:border-border-highlight'
+                                                        }`}
+                                                >
+                                                    <span className="block font-medium text-foreground mb-0.5" style={{ fontFamily: font.family }}>{font.name}</span>
+                                                    <span className="text-xs text-text-secondary">{font.desc}</span>
+                                                </button>
+                                            ))}
+                                        </div>
+                                    </div>
+
+                                    {/* Colors */}
+                                    <div className="space-y-3">
+                                        <label className="text-sm font-medium text-text-secondary">Brand Color</label>
+                                        <div className="grid grid-cols-5 md:grid-cols-8 gap-2">
+                                            {COLOR_PRESETS.map((preset) => (
+                                                <button
+                                                    key={preset.name}
+                                                    onClick={() => setBrandColor(preset.color)}
+                                                    className={`w-full aspect-square rounded-full flex items-center justify-center transition-transform hover:scale-110 ${brandColor === preset.color ? 'ring-2 ring-white ring-offset-2 ring-offset-background' : ''
+                                                        }`}
+                                                    style={{ backgroundColor: preset.color }}
+                                                    title={preset.name}
+                                                >
+                                                    {brandColor === preset.color && <Check className="w-4 h-4 text-white" />}
+                                                </button>
+                                            ))}
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     )}
 
-                    {/* Step 5: Launch */}
+                    {/* Step 3: Classes (Unchanged, just repositioned index) */}
+                    {currentStep === 3 && (
+                        <div className="space-y-6">
+                            <div className="flex items-center justify-between">
+                                <h2 className="text-2xl font-bold">Your Schedule</h2>
+                                <button onClick={addClass} className="text-primary text-sm font-medium flex items-center gap-1 hover:text-primary-hover">
+                                    <Plus className="w-4 h-4" /> Add Class
+                                </button>
+                            </div>
+
+                            <div className="space-y-4">
+                                {classes.map((cls, index) => (
+                                    <div key={index} className="bg-surface border border-border rounded-xl p-4 animate-in fade-in slide-in-from-bottom-4">
+                                        <div className="flex justify-between items-start mb-4">
+                                            <div className="space-y-3 flex-1 mr-4">
+                                                <input
+                                                    type="text"
+                                                    value={cls.name}
+                                                    onChange={(e) => updateClass(index, 'name', e.target.value)}
+                                                    placeholder="Class Name"
+                                                    className="w-full bg-transparent text-lg font-medium placeholder:text-text-muted focus:outline-none"
+                                                />
+                                                <div className="flex gap-3">
+                                                    <div className="flex items-center gap-2 bg-background rounded-lg px-2 py-1 border border-border">
+                                                        <Clock className="w-3 h-3 text-text-secondary" />
+                                                        <input
+                                                            type="text"
+                                                            value={cls.time}
+                                                            onChange={(e) => updateClass(index, 'time', e.target.value)}
+                                                            className="bg-transparent w-16 text-sm focus:outline-none"
+                                                        />
+                                                    </div>
+                                                    <div className="flex items-center gap-2 bg-background rounded-lg px-2 py-1 border border-border">
+                                                        <Users className="w-3 h-3 text-text-secondary" />
+                                                        <input
+                                                            type="text"
+                                                            value={cls.instructor}
+                                                            onChange={(e) => updateClass(index, 'instructor', e.target.value)}
+                                                            placeholder="Instructor"
+                                                            className="bg-transparent w-24 text-sm focus:outline-none"
+                                                        />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <button onClick={() => removeClass(index)} className="text-text-muted hover:text-red-500">
+                                                <Trash2 className="w-4 h-4" />
+                                            </button>
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    )}
+
+                    {/* Step 4: Features (New Categorized) */}
+                    {currentStep === 4 && (
+                        <div className="space-y-6">
+                            <h2 className="text-2xl font-bold">App Features</h2>
+
+                            <div className="space-y-6">
+                                {FEATURE_CATEGORIES.map((category) => (
+                                    <div key={category.id} className="space-y-3">
+                                        <h3 className="text-sm font-bold text-text-secondary uppercase tracking-wider flex items-center gap-2">
+                                            <span>{category.icon}</span> {category.name}
+                                        </h3>
+                                        <div className="bg-surface border border-border rounded-xl overflow-hidden divide-y divide-border">
+                                            {category.features.map((feature) => (
+                                                <div key={feature.id} className="p-4 flex items-center justify-between hover:bg-surface-hover/50 transition-colors">
+                                                    <div className="flex-1 mr-4">
+                                                        <div className="flex items-center gap-2">
+                                                            <h4 className="font-medium text-foreground">{feature.name}</h4>
+                                                            {feature.premium && (
+                                                                <span className="px-2 py-0.5 rounded-full bg-amber-500/10 text-amber-500 text-[10px] font-bold border border-amber-500/20">
+                                                                    PRO
+                                                                </span>
+                                                            )}
+                                                        </div>
+                                                        <p className="text-sm text-text-secondary">{feature.desc}</p>
+                                                    </div>
+                                                    <button
+                                                        onClick={() => setFeatures(prev => ({ ...prev, [feature.id]: !prev[feature.id] }))}
+                                                        className={`w-12 h-6 rounded-full transition-colors relative ${features[feature.id] ? 'bg-primary' : 'bg-border'
+                                                            }`}
+                                                    >
+                                                        <div className={`absolute top-1 left-1 w-4 h-4 rounded-full bg-white transition-transform ${features[feature.id] ? 'translate-x-6' : 'translate-x-0'
+                                                            }`} />
+                                                    </button>
+                                                </div>
+                                            ))}
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    )}
+
+                    {/* Step 5: Launch (Refined) */}
                     {currentStep === 5 && (
-                        <div className="space-y-8 animate-fade-in text-center pt-8">
-                            <div>
-                                <h1 className="text-4xl font-bold text-foreground mb-4">
-                                    You&apos;re ready! 🎉
-                                </h1>
-                                <p className="text-text-secondary text-lg">
-                                    Your branded app is fully configured.
+                        <div className="text-center space-y-8 py-8">
+                            <div className="w-20 h-20 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-6 animate-bounce-slow">
+                                <Sparkles className="w-10 h-10 text-primary" />
+                            </div>
+
+                            <div className="space-y-4">
+                                <h2 className="text-4xl font-bold">Ready to launch?</h2>
+                                <p className="text-xl text-text-secondary max-w-md mx-auto">
+                                    Your app is ready to be built. Create your account to go live on the App Store.
                                 </p>
                             </div>
 
-                            <div className="p-6 rounded-2xl bg-surface border border-border max-w-sm mx-auto">
-                                <div className="flex items-center gap-4 mb-6">
-                                    <div
-                                        className="w-16 h-16 rounded-2xl flex items-center justify-center text-3xl shadow-lg"
-                                        style={{ backgroundColor: brandColor }}
-                                    >
-                                        {icon}
-                                    </div>
-                                    <div className="text-left">
-                                        <h3 className="text-xl font-bold text-foreground">{studioName}</h3>
-                                        <p className="text-text-secondary capitalize">{studioType} Studio</p>
-                                    </div>
+                            <div className="bg-surface border border-border rounded-2xl p-6 max-w-sm mx-auto text-left space-y-4">
+                                <div className="flex justify-between items-center text-sm">
+                                    <span className="text-text-secondary">Monthly Plan</span>
+                                    <span className="font-bold">$49/mo</span>
                                 </div>
-
-                                <div className="grid grid-cols-2 gap-4 text-center">
-                                    <div className="p-3 rounded-xl bg-background">
-                                        <p className="text-2xl font-bold text-foreground">{classes.length}</p>
-                                        <p className="text-xs text-text-secondary">Classes</p>
-                                    </div>
-                                    <div className="p-3 rounded-xl bg-background">
-                                        <p className="text-2xl font-bold text-foreground">{Object.values(features).filter(Boolean).length}</p>
-                                        <p className="text-xs text-text-secondary">Features</p>
-                                    </div>
+                                <div className="flex justify-between items-center text-sm">
+                                    <span className="text-text-secondary">Setup Fee</span>
+                                    <span className="text-green-500 font-bold">Waived</span>
+                                </div>
+                                <div className="h-px bg-border" />
+                                <div className="flex justify-between items-center">
+                                    <span className="font-bold">Total due today</span>
+                                    <span className="font-bold text-xl">$49</span>
                                 </div>
                             </div>
                         </div>
