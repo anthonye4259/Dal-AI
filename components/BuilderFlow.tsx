@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { ArrowLeft, ArrowRight, Check, CheckCircle2, Sparkles, Plus, Trash2, Clock, DollarSign, Users, Home, Calendar, MessageCircle, ShoppingBag, User, PlayCircle, Settings, Palette, Smartphone } from 'lucide-react';
+import { ArrowLeft, ArrowRight, Check, CheckCircle2, Sparkles, Plus, Trash2, Clock, DollarSign, Users, Home, Calendar, MessageCircle, ShoppingBag, User, PlayCircle, Settings, Palette, Smartphone, Trophy, Utensils, TrendingUp, Bell, Gift, Star, Ticket } from 'lucide-react';
 import { ClassCategory } from '@/lib/types';
 
 // Theme Presets (Mobile Parity)
@@ -73,50 +73,21 @@ const FONT_OPTIONS = [
 ];
 
 // Feature Categories (Mobile Parity)
-const FEATURE_CATEGORIES = [
-    {
-        id: 'booking',
-        name: 'Booking & Scheduling',
-        icon: '📅',
-        features: [
-            { id: 'class_booking', name: 'Class Booking', desc: 'Clients can book classes', default: true, required: true },
-            { id: 'waitlist', name: 'Waitlist', desc: 'Auto-fill spots from waitlist', default: true },
-            { id: 'recurring', name: 'Recurring Bookings', desc: 'Book same time every week', default: false, premium: true },
-            { id: 'calendar', name: 'Calendar Sync', desc: 'Add to Google/Apple Calendar', default: true },
-        ]
-    },
-    {
-        id: 'payments',
-        name: 'Payments & Packages',
-        icon: '💳',
-        features: [
-            { id: 'payments', name: 'Credit Cards', desc: 'Accept payments via Stripe', default: true },
-            { id: 'memberships', name: 'Memberships', desc: 'Recurring subscriptions', default: true },
-            { id: 'packages', name: 'Class Packs', desc: 'Sell bundles (5-pack, 10-pack)', default: true },
-            { id: 'gift_cards', name: 'Gift Cards', desc: 'Digital gift cards', default: false, premium: true },
-        ]
-    },
-    {
-        id: 'engagement',
-        name: 'Engagement',
-        icon: '❤️',
-        features: [
-            { id: 'push', name: 'Push Notifications', desc: 'Send alerts to home screen', default: true },
-            { id: 'chat', name: 'In-App Chat', desc: 'Message clients directly', default: false },
-            { id: 'reviews', name: 'Class Reviews', desc: 'Collect client feedback', default: true },
-            { id: 'streaks', name: 'Streaks', desc: 'Gamify attendance', default: false },
-        ]
-    },
-    {
-        id: 'content',
-        name: 'Content & Media',
-        icon: '🎬',
-        features: [
-            { id: 'videos', name: 'Video Library', desc: 'On-demand workout videos', default: false, premium: true },
-            { id: 'live', name: 'Live Streaming', desc: 'Stream classes in-app', default: false, premium: true },
-            { id: 'blog', name: 'Studio Blog', desc: 'Share news and wellness tips', default: false },
-        ]
-    }
+// Mobile Parity Features List
+const FEATURES = [
+    { id: 'classes', label: 'Class Booking', icon: <Calendar className="w-5 h-5" />, desc: 'Book group classes' },
+    { id: 'video', label: 'Video Library', icon: <PlayCircle className="w-5 h-5" />, desc: 'On-demand workouts' },
+    { id: 'community', label: 'Community', icon: <Users className="w-5 h-5" />, desc: 'Member chat & feed' },
+    { id: 'shop', label: 'Merch Store', icon: <ShoppingBag className="w-5 h-5" />, desc: 'Sell merchandise' },
+    { id: 'appointments', label: '1:1 Sessions', icon: <Clock className="w-5 h-5" />, desc: 'Private bookings' },
+    { id: 'packs', label: 'Credit Packs', icon: <Ticket className="w-5 h-5" />, desc: 'Class pack sales' },
+    { id: 'challenges', label: 'Challenges', icon: <Trophy className="w-5 h-5" />, desc: '30-day programs' },
+    { id: 'nutrition', label: 'Nutrition', icon: <Utensils className="w-5 h-5" />, desc: 'Meal plans' },
+    { id: 'progress', label: 'Progress Tracking', icon: <TrendingUp className="w-5 h-5" />, desc: 'Member progress' },
+    { id: 'notifications', label: 'Push Notifications', icon: <Bell className="w-5 h-5" />, desc: 'Broadcasts' },
+    { id: 'referrals', label: 'Referral Program', icon: <Gift className="w-5 h-5" />, desc: 'Member rewards' },
+    { id: 'reviews', label: 'Reviews', icon: <Star className="w-5 h-5" />, desc: 'Class ratings' },
+    { id: 'ai_coach', label: 'AI Wellness Coach', icon: <Sparkles className="w-5 h-5" />, desc: '24/7 Member Assistant' },
 ];
 
 // Expanded 50+ Color Presets
@@ -291,15 +262,7 @@ export default function BuilderFlow({ onPreviewUpdate }: { onPreviewUpdate?: (pr
 
     // Classes & Features
     const [classes, setClasses] = useState<BuilderClass[]>([]);
-    const [features, setFeatures] = useState<Record<string, boolean>>({
-        class_booking: true,
-        waitlist: true,
-        payments: true,
-        memberships: true,
-        push: true,
-        reviews: true,
-        calendar: true
-    });
+    const [features, setFeatures] = useState<string[]>(['classes', 'packs', 'notifications']);
 
     // Settings
     const [settings, setSettings] = useState<StudioSettings>({
@@ -810,43 +773,43 @@ export default function BuilderFlow({ onPreviewUpdate }: { onPreviewUpdate?: (pr
                     )}
 
                     {/* Step 5: Features (New Categorized) */}
+                    {/* Step 5: Features (Grid Layout) */}
                     {currentStep === 5 && (
                         <div className="space-y-6">
                             <h2 className="text-2xl font-bold">App Features</h2>
+                            <p className="text-text-secondary">Toggle the features you want in your app.</p>
 
-                            <div className="space-y-6">
-                                {FEATURE_CATEGORIES.map((category) => (
-                                    <div key={category.id} className="space-y-3">
-                                        <h3 className="text-sm font-bold text-text-secondary uppercase tracking-wider flex items-center gap-2">
-                                            <span>{category.icon}</span> {category.name}
-                                        </h3>
-                                        <div className="bg-surface border border-border rounded-xl overflow-hidden divide-y divide-border">
-                                            {category.features.map((feature) => (
-                                                <div key={feature.id} className="p-4 flex items-center justify-between hover:bg-surface-hover/50 transition-colors">
-                                                    <div className="flex-1 mr-4">
-                                                        <div className="flex items-center gap-2">
-                                                            <h4 className="font-medium text-foreground">{feature.name}</h4>
-                                                            {feature.premium && (
-                                                                <span className="px-2 py-0.5 rounded-full bg-amber-500/10 text-amber-500 text-[10px] font-bold border border-amber-500/20">
-                                                                    PRO
-                                                                </span>
-                                                            )}
-                                                        </div>
-                                                        <p className="text-sm text-text-secondary">{feature.desc}</p>
-                                                    </div>
-                                                    <button
-                                                        onClick={() => setFeatures(prev => ({ ...prev, [feature.id]: !prev[feature.id] }))}
-                                                        className={`w-12 h-6 rounded-full transition-colors relative ${features[feature.id] ? 'bg-primary' : 'bg-border'
-                                                            }`}
-                                                    >
-                                                        <div className={`absolute top-1 left-1 w-4 h-4 rounded-full bg-white transition-transform ${features[feature.id] ? 'translate-x-6' : 'translate-x-0'
-                                                            }`} />
-                                                    </button>
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                                {FEATURES.map((feature) => {
+                                    const isSelected = features.includes(feature.id);
+                                    return (
+                                        <button
+                                            key={feature.id}
+                                            onClick={() => {
+                                                if (isSelected) {
+                                                    setFeatures(prev => prev.filter(f => f !== feature.id));
+                                                } else {
+                                                    setFeatures(prev => [...prev, feature.id]);
+                                                }
+                                            }}
+                                            className={`p-4 rounded-xl border text-left transition-all flex items-start gap-4 ${isSelected
+                                                ? 'border-primary bg-primary/5'
+                                                : 'border-border bg-surface hover:border-primary/50'
+                                                }`}
+                                        >
+                                            <div className={`p-2 rounded-lg ${isSelected ? 'bg-primary text-white' : 'bg-surface-hover text-text-secondary'}`}>
+                                                {feature.icon}
+                                            </div>
+                                            <div className="flex-1">
+                                                <div className="flex items-center justify-between">
+                                                    <h3 className={`font-semibold ${isSelected ? 'text-foreground' : 'text-text-secondary'}`}>{feature.label}</h3>
+                                                    {isSelected && <CheckCircle2 className="w-5 h-5 text-primary" />}
                                                 </div>
-                                            ))}
-                                        </div>
-                                    </div>
-                                ))}
+                                                <p className="text-xs text-text-muted mt-1">{feature.desc}</p>
+                                            </div>
+                                        </button>
+                                    );
+                                })}
                             </div>
                         </div>
                     )}
