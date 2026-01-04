@@ -35,15 +35,15 @@ export default function SplitLandingPage() {
         <div className="flex-1 flex flex-col justify-center px-12 relative z-10">
 
 
-          <h1 className="text-5xl md:text-6xl font-extrabold tracking-tight text-foreground mb-6 leading-[1.1]">
-            Launch your <br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent">
-              branded booking app
+          <h1 className="text-4xl lg:text-5xl font-bold mb-6 leading-tight">
+            Your own studio app. <br />
+            <span className="text-transparent bg-clip-text gradient-primary">
+              Built in seconds.
             </span>
           </h1>
 
           <p className="text-lg text-text-secondary mb-8 leading-relaxed max-w-md">
-            Your studio lives inside the Dal AI app—giving clients a personal, branded booking experience.
+            Complete booking system, payments, and client management. No code required.
           </p>
 
           {/* Feature Pills */}
@@ -71,10 +71,6 @@ export default function SplitLandingPage() {
                 <Zap className="w-4 h-4 text-primary" />
               </div>
               <div>
-                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-surface border border-border mb-6">
-                  <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
-                  <span className="text-xs font-medium text-text-secondary">Now available for all studios</span>
-                </div>
                 <p className="font-bold">Real-time Booking</p>
                 <p className="text-xs text-text-secondary">Waitlists, calendars, and instant notifications.</p>
               </div>
@@ -96,19 +92,14 @@ export default function SplitLandingPage() {
       {/* RIGHT SIDE: Builder (55%) */}
       <div className="flex-1 h-full bg-background flex flex-col">
         {/* Mobile Header */}
-        {/* Navbar */}
-        <nav className="flex items-center justify-between p-6">
+        <div className="md:hidden p-6 border-b border-border flex items-center justify-between bg-surface">
           <div className="flex items-center gap-2">
-            <Image src="/logo.png" alt="Dal AI Logo" width={32} height={32} className="" />
-            <span className="text-xl font-bold tracking-tight text-foreground">Dal AI</span>
+            <Image src="/logo.png" alt="Dal AI" width={24} height={24} className="rounded-md bg-white" />
+            <span className="font-bold text-lg">Dal AI</span>
           </div>
-          <button
-            onClick={() => router.push('/login')}
-            className="text-sm font-medium text-text-secondary hover:text-foreground transition-colors"
-          >
-            Sign In
-          </button>
-        </nav>
+          <button className="text-sm text-text-secondary">Login</button>
+        </div>
+
         <div className="flex-1 relative">
           <div className="absolute inset-0 p-8 md:p-12">
             <div className="max-w-xl mx-auto h-full flex flex-col justify-center">

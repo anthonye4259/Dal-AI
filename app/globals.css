@@ -2,37 +2,29 @@
 
 /* Dal AI Design System */
 :root {
-  /* Backgrounds - Clean Light */
-  --background: #FFFFFF;
-  --surface: #F8FAFC;
-  /* Slate 50 */
-  --surface-hover: #F1F5F9;
-  /* Slate 100 */
-  --elevated: #FFFFFF;
+  /* Backgrounds - Premium Dark */
+  --background: #0A0A0A;
+  --surface: #141414;
+  --surface-hover: #1A1A1A;
+  --elevated: #1F1F1F;
 
   /* Brand Colors */
   --primary: #00E5FF;
-  /* Cyan */
   --primary-hover: #00B8CC;
   --accent: #002B5B;
-  /* Navy */
-  --accent-hover: #1E3A8A;
-  --success: #10B981;
-  --warning: #F59E0B;
-  --error: #EF4444;
+  --accent-hover: #7C3AED;
+  --success: #6B9B5A;
+  --warning: #D99B3D;
+  --error: #DC4444;
 
   /* Text */
-  --foreground: #0F172A;
-  /* Slate 900 */
-  --text-secondary: #64748B;
-  /* Slate 500 */
-  --text-muted: #94A3B8;
-  /* Slate 400 */
+  --foreground: #F0F0F0;
+  --text-secondary: #8A8A8A;
+  --text-muted: #666666;
 
   /* Borders */
-  --border: #E2E8F0;
-  /* Slate 200 */
-  --border-highlight: #00E5FF;
+  --border: #1F1F1F;
+  --border-highlight: rgba(0, 229, 255, 0.3);
 }
 
 @theme inline {
