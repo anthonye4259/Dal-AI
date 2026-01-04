@@ -14,16 +14,16 @@ const config: Config = {
                 surface: "#1F1F1F",
                 border: "#2A2A2A",
                 primary: {
-                    DEFAULT: "#7ED957", // Mobile App Lime Green
-                    foreground: "#000000",
+                    DEFAULT: "#4A9FD4", // Dal AI Blue
+                    foreground: "#FAFAFA",
                 },
                 secondary: {
                     DEFAULT: "#1F1F1F",
                     foreground: "#FAFAFA",
                 },
                 accent: {
-                    DEFAULT: "#6DD5C3", // Mobile App Teal/Accent
-                    foreground: "#000000",
+                    DEFAULT: "#8B5CF6", // Dal AI Purple
+                    foreground: "#FAFAFA",
                 },
                 text: {
                     secondary: "#A1A1AA",
