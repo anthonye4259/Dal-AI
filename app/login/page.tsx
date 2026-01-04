@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import Image from 'next/image';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '@/lib/firebase';
 import { Sparkles, ArrowRight, Loader2, AlertCircle } from 'lucide-react';
@@ -44,8 +45,8 @@ export default function LoginPage() {
             >
                 {/* Header */}
                 <div className="text-center mb-8">
-                    <div className="w-12 h-12 rounded-xl gradient-primary flex items-center justify-center mx-auto mb-4">
-                        <Sparkles className="w-6 h-6 text-white" />
+                    <div className="mx-auto mb-4">
+                        <Image src="/logo.png" alt="Dal AI" width={48} height={48} className="rounded-xl" />
                     </div>
                     <h1 className="text-2xl font-bold text-foreground mb-2">Welcome back</h1>
                     <p className="text-text-secondary">

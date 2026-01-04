@@ -2,6 +2,7 @@
 
 import { useState, useEffect, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
+import Image from 'next/image';
 // import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowLeft, ArrowRight, Check, Sparkles, Plus, Trash2, Clock, DollarSign, Users } from 'lucide-react';
 import IPhoneMockup from '@/components/builder/IPhoneMockup';
@@ -185,9 +186,7 @@ function BuilderContent() {
                     </button>
 
                     <div className="flex items-center gap-2">
-                        <div className="w-8 h-8 rounded-lg gradient-primary flex items-center justify-center">
-                            <Sparkles className="w-5 h-5 text-white" />
-                        </div>
+                        <Image src="/logo.png" alt="Dal AI" width={32} height={32} className="rounded-lg" />
                         <span className="font-semibold text-foreground">Dal AI</span>
                     </div>
                 </div>

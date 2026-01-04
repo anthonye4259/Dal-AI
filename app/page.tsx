@@ -1,6 +1,7 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
+import Image from 'next/image';
 import {
   Sparkles,
   Zap,
@@ -21,9 +22,7 @@ export default function LandingPage() {
       <nav className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-lg border-b border-border">
         <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <div className="w-8 h-8 rounded-lg gradient-primary flex items-center justify-center">
-              <Sparkles className="w-5 h-5 text-white" />
-            </div>
+            <Image src="/logo.png" alt="Dal AI" width={32} height={32} className="rounded-lg" />
             <span className="font-bold text-xl tracking-tight">Dal AI</span>
           </div>
           <div className="hidden md:flex items-center gap-8 text-sm font-medium text-text-secondary">
