@@ -25,7 +25,7 @@ export const metadata: Metadata = {
   },
 };
 
-// import { AuthProvider } from "@/components/auth/AuthProvider";
+import { AuthProvider } from "@/components/auth/AuthProvider";
 
 // ... imports
 
@@ -37,9 +37,9 @@ export default function RootLayout({
   return (
     <html lang="en" className="dark">
       <body className={`${inter.variable} font-sans antialiased min-h-screen`}>
-        {/* <AuthProvider> */}
-        {children}
-        {/* </AuthProvider> */}
+        <AuthProvider>
+          {children}
+        </AuthProvider>
       </body>
     </html>
   );
