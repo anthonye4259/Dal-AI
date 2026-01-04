@@ -33,10 +33,7 @@ export default function SplitLandingPage() {
 
         {/* Main Content */}
         <div className="flex-1 flex flex-col justify-center px-12 relative z-10">
-          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-accent/10 border border-accent/20 text-accent text-xs font-bold mb-6 w-fit">
-            <Star className="w-3 h-3 fill-accent" />
-            <span>USED BY 500+ STUDIOS</span>
-          </div>
+
 
           <h1 className="text-4xl lg:text-5xl font-bold mb-6 leading-tight">
             Your own studio app. <br />
