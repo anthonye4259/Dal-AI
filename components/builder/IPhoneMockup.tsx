@@ -95,7 +95,7 @@ export default function IPhoneMockup({ studioName, brandColor, icon, classes }: 
                     <div className="px-5 py-3">
                         <h2 className="text-sm font-medium text-white/60 mb-3">Today's Classes</h2>
                         <div className="space-y-3">
-                            {classes.length > 0 ? (
+                            {classes && classes.length > 0 ? (
                                 classes.slice(0, 3).map((cls, index) => (
                                     <motion.div
                                         key={index}

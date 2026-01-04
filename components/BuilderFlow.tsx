@@ -323,11 +323,12 @@ export default function BuilderFlow({ onPreviewUpdate }: { onPreviewUpdate?: (pr
                 icon,
                 tagline,
                 fontFamily,
-                backgroundMode: backgroundMode, // Pass background mode
-                tabs: selectedTabs // Pass selected tabs
+                backgroundMode: backgroundMode,
+                tabs: selectedTabs,
+                classes: classes || []
             });
         }
-    }, [studioName, brandColor, customColor, useCustomColor, studioType, icon, themeId, tagline, fontFamily, backgroundMode, selectedTabs, onPreviewUpdate]); // Added dependencies
+    }, [studioName, brandColor, customColor, useCustomColor, studioType, icon, themeId, tagline, fontFamily, backgroundMode, selectedTabs, classes, onPreviewUpdate]);
 
     // Apply Theme Presets
     const applyTheme = (id: string) => {
@@ -679,8 +680,8 @@ export default function BuilderFlow({ onPreviewUpdate }: { onPreviewUpdate?: (pr
                                                     key={mode.id}
                                                     onClick={() => setBackgroundMode(mode.id as 'light' | 'dark' | 'black')}
                                                     className={`p-3 rounded-xl border transition-all flex items-center justify-center gap-2 ${backgroundMode === mode.id
-                                                            ? 'border-primary ring-1 ring-primary'
-                                                            : 'border-border opacity-70 hover:opacity-100'
+                                                        ? 'border-primary ring-1 ring-primary'
+                                                        : 'border-border opacity-70 hover:opacity-100'
                                                         }`}
                                                     style={{ backgroundColor: mode.bg }}
                                                 >
@@ -724,10 +725,10 @@ export default function BuilderFlow({ onPreviewUpdate }: { onPreviewUpdate?: (pr
                                                 }
                                             }}
                                             className={`p-4 rounded-xl border text-left transition-all flex items-center justify-between ${isSelected
-                                                    ? 'border-primary bg-primary/10'
-                                                    : isDisabled
-                                                        ? 'border-border bg-surface/50 opacity-50 cursor-not-allowed'
-                                                        : 'border-border bg-surface hover:border-primary/50'
+                                                ? 'border-primary bg-primary/10'
+                                                : isDisabled
+                                                    ? 'border-border bg-surface/50 opacity-50 cursor-not-allowed'
+                                                    : 'border-border bg-surface hover:border-primary/50'
                                                 }`}
                                         >
                                             <div className="flex items-center gap-4">
