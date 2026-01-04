@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, Suspense } from 'react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import { Sparkles, CheckCircle2, Play, Users, Star, Smartphone, Globe, Zap, CreditCard, ShieldCheck } from 'lucide-react';
@@ -106,7 +106,13 @@ export default function SplitLandingPage() {
         <div className="flex-1 relative">
           <div className="absolute inset-0 p-8 md:p-12">
             <div className="max-w-xl mx-auto h-full flex flex-col justify-center">
-              <BuilderFlow onPreviewUpdate={setPreviewProps} />
+              <Suspense fallback={
+                <div className="h-full w-full flex items-center justify-center">
+                  <div className="w-8 h-8 border-4 border-primary border-t-transparent rounded-full animate-spin" />
+                </div>
+              }>
+                <BuilderFlow onPreviewUpdate={setPreviewProps} />
+              </Suspense>
             </div>
           </div>
         </div>
