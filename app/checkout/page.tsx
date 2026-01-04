@@ -83,9 +83,11 @@ export default function CheckoutPage() {
 
                 try {
                     if (isLoginMode) {
+                        if (!auth) throw new Error("Authentication not initialized");
                         const credential = await signInWithEmailAndPassword(auth, email, password);
                         currentUser = credential.user;
                     } else {
+                        if (!auth) throw new Error("Authentication not initialized");
                         const credential = await createUserWithEmailAndPassword(auth, email, password);
                         currentUser = credential.user;
                     }

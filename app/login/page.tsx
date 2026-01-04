@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '@/lib/firebase';
 import { Sparkles, ArrowRight, Loader2, AlertCircle } from 'lucide-react';
-import { motion } from 'framer-motion';
+// import { motion } from 'framer-motion';
 
 export default function LoginPage() {
     const router = useRouter();
@@ -20,6 +20,7 @@ export default function LoginPage() {
         setError('');
 
         try {
+            if (!auth) throw new Error("Authentication not initialized");
             await signInWithEmailAndPassword(auth, email, password);
             router.push('/dashboard');
         } catch (err: any) {
@@ -38,9 +39,7 @@ export default function LoginPage() {
 
     return (
         <div className="min-h-screen flex flex-col items-center justify-center p-6 gradient-hero">
-            <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
+            <div
                 className="w-full max-w-md bg-surface border border-border rounded-2xl p-8 shadow-xl"
             >
                 {/* Header */}
@@ -117,7 +116,7 @@ export default function LoginPage() {
                         </button>
                     </p>
                 </div>
-            </motion.div>
+            </div>
         </div>
     );
 }

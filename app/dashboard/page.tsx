@@ -56,6 +56,7 @@ export default function DashboardPage() {
 
     const handleLogout = async () => {
         try {
+            if (!auth) throw new Error("Authentication not initialized");
             await signOut(auth);
             router.push('/login');
         } catch (error) {

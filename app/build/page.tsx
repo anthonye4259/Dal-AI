@@ -2,7 +2,7 @@
 
 import { useState, useEffect, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { motion, AnimatePresence } from 'framer-motion';
+// import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowLeft, ArrowRight, Check, Sparkles, Plus, Trash2, Clock, DollarSign, Users } from 'lucide-react';
 import IPhoneMockup from '@/components/builder/IPhoneMockup';
 import { ClassCategory } from '@/lib/types';
@@ -223,407 +223,400 @@ function BuilderContent() {
                 </div>
 
                 {/* Step Content */}
-                <AnimatePresence mode="wait">
-                    <motion.div
-                        key={currentStep}
-                        initial={{ opacity: 0, x: 20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        exit={{ opacity: 0, x: -20 }}
-                        transition={{ duration: 0.3 }}
-                    >
-                        {/* Step 0: Studio Name & Type */}
-                        {currentStep === 0 && (
-                            <div className="space-y-8">
+                <div key={currentStep}>
+                    {/* Step 0: Studio Name & Type */}
+                    {currentStep === 0 && (
+                        <div className="space-y-8">
+                            <div>
+                                <h1 className="text-3xl font-bold text-foreground mb-2">
+                                    Let&apos;s name your studio
+                                </h1>
+                                <p className="text-text-secondary">
+                                    This is how clients will see your app on their phone.
+                                </p>
+                            </div>
+
+                            <div className="space-y-6">
                                 <div>
-                                    <h1 className="text-3xl font-bold text-foreground mb-2">
-                                        Let&apos;s name your studio
-                                    </h1>
-                                    <p className="text-text-secondary">
-                                        This is how clients will see your app on their phone.
-                                    </p>
+                                    <label className="block text-sm font-medium text-foreground mb-2">
+                                        Studio Name
+                                    </label>
+                                    <input
+                                        type="text"
+                                        value={studioName}
+                                        onChange={(e) => setStudioName(e.target.value)}
+                                        placeholder="e.g., Zen Flow Yoga"
+                                        className="w-full px-4 py-3 rounded-xl bg-surface border border-border text-foreground placeholder:text-text-muted focus:border-primary focus:outline-none transition-colors"
+                                        autoFocus
+                                    />
                                 </div>
 
-                                <div className="space-y-6">
-                                    <div>
-                                        <label className="block text-sm font-medium text-foreground mb-2">
-                                            Studio Name
-                                        </label>
+                                <div>
+                                    <label className="block text-sm font-medium text-foreground mb-3">
+                                        What type of studio?
+                                    </label>
+                                    <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                                        {STUDIO_TYPES.map((type) => (
+                                            <button
+                                                key={type.value}
+                                                onClick={() => setStudioType(type.value)}
+                                                className={`p-4 rounded-xl border text-left transition-all ${studioType === type.value
+                                                    ? 'border-primary bg-primary/10'
+                                                    : 'border-border bg-surface hover:border-primary/50'
+                                                    }`}
+                                            >
+                                                <span className="text-2xl mb-2 block">{type.icon}</span>
+                                                <span className="text-sm font-medium text-foreground">{type.label}</span>
+                                            </button>
+                                        ))}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    )}
+
+                    {/* Step 1: Style & Colors */}
+                    {currentStep === 1 && (
+                        <div className="space-y-8">
+                            <div>
+                                <h1 className="text-3xl font-bold text-foreground mb-2">
+                                    Pick your style
+                                </h1>
+                                <p className="text-text-secondary">
+                                    Choose colors that match your brand.
+                                </p>
+                            </div>
+
+                            <div className="space-y-6">
+                                <div>
+                                    <label className="block text-sm font-medium text-foreground mb-3">
+                                        Brand Color
+                                    </label>
+                                    <div className="grid grid-cols-3 sm:grid-cols-6 gap-3">
+                                        {COLOR_PRESETS.map((preset) => (
+                                            <button
+                                                key={preset.color}
+                                                onClick={() => setBrandColor(preset.color)}
+                                                className={`p-4 rounded-xl border text-center transition-all ${brandColor === preset.color
+                                                    ? 'border-2 border-foreground'
+                                                    : 'border-border hover:border-foreground/50'
+                                                    }`}
+                                                style={{ backgroundColor: preset.color + '20' }}
+                                            >
+                                                <div
+                                                    className="w-8 h-8 rounded-full mx-auto mb-2"
+                                                    style={{ backgroundColor: preset.color }}
+                                                />
+                                                <span className="text-xs text-foreground">{preset.name}</span>
+                                            </button>
+                                        ))}
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <label className="block text-sm font-medium text-foreground mb-2">
+                                        Custom Color
+                                    </label>
+                                    <div className="flex items-center gap-3">
+                                        <input
+                                            type="color"
+                                            value={brandColor}
+                                            onChange={(e) => setBrandColor(e.target.value)}
+                                            className="w-12 h-12 rounded-lg cursor-pointer border-0"
+                                        />
                                         <input
                                             type="text"
-                                            value={studioName}
-                                            onChange={(e) => setStudioName(e.target.value)}
-                                            placeholder="e.g., Zen Flow Yoga"
-                                            className="w-full px-4 py-3 rounded-xl bg-surface border border-border text-foreground placeholder:text-text-muted focus:border-primary focus:outline-none transition-colors"
-                                            autoFocus
+                                            value={brandColor}
+                                            onChange={(e) => setBrandColor(e.target.value)}
+                                            className="px-4 py-3 rounded-xl bg-surface border border-border text-foreground font-mono text-sm w-32"
                                         />
                                     </div>
-
-                                    <div>
-                                        <label className="block text-sm font-medium text-foreground mb-3">
-                                            What type of studio?
-                                        </label>
-                                        <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
-                                            {STUDIO_TYPES.map((type) => (
-                                                <button
-                                                    key={type.value}
-                                                    onClick={() => setStudioType(type.value)}
-                                                    className={`p-4 rounded-xl border text-left transition-all ${studioType === type.value
-                                                        ? 'border-primary bg-primary/10'
-                                                        : 'border-border bg-surface hover:border-primary/50'
-                                                        }`}
-                                                >
-                                                    <span className="text-2xl mb-2 block">{type.icon}</span>
-                                                    <span className="text-sm font-medium text-foreground">{type.label}</span>
-                                                </button>
-                                            ))}
-                                        </div>
-                                    </div>
                                 </div>
-                            </div>
-                        )}
 
-                        {/* Step 1: Style & Colors */}
-                        {currentStep === 1 && (
-                            <div className="space-y-8">
                                 <div>
-                                    <h1 className="text-3xl font-bold text-foreground mb-2">
-                                        Pick your style
-                                    </h1>
-                                    <p className="text-text-secondary">
-                                        Choose colors that match your brand.
-                                    </p>
-                                </div>
-
-                                <div className="space-y-6">
-                                    <div>
-                                        <label className="block text-sm font-medium text-foreground mb-3">
-                                            Brand Color
-                                        </label>
-                                        <div className="grid grid-cols-3 sm:grid-cols-6 gap-3">
-                                            {COLOR_PRESETS.map((preset) => (
-                                                <button
-                                                    key={preset.color}
-                                                    onClick={() => setBrandColor(preset.color)}
-                                                    className={`p-4 rounded-xl border text-center transition-all ${brandColor === preset.color
-                                                        ? 'border-2 border-foreground'
-                                                        : 'border-border hover:border-foreground/50'
-                                                        }`}
-                                                    style={{ backgroundColor: preset.color + '20' }}
-                                                >
-                                                    <div
-                                                        className="w-8 h-8 rounded-full mx-auto mb-2"
-                                                        style={{ backgroundColor: preset.color }}
-                                                    />
-                                                    <span className="text-xs text-foreground">{preset.name}</span>
-                                                </button>
-                                            ))}
-                                        </div>
-                                    </div>
-
-                                    <div>
-                                        <label className="block text-sm font-medium text-foreground mb-2">
-                                            Custom Color
-                                        </label>
-                                        <div className="flex items-center gap-3">
-                                            <input
-                                                type="color"
-                                                value={brandColor}
-                                                onChange={(e) => setBrandColor(e.target.value)}
-                                                className="w-12 h-12 rounded-lg cursor-pointer border-0"
-                                            />
-                                            <input
-                                                type="text"
-                                                value={brandColor}
-                                                onChange={(e) => setBrandColor(e.target.value)}
-                                                className="px-4 py-3 rounded-xl bg-surface border border-border text-foreground font-mono text-sm w-32"
-                                            />
-                                        </div>
-                                    </div>
-
-                                    <div>
-                                        <label className="block text-sm font-medium text-foreground mb-3">
-                                            App Icon
-                                        </label>
-                                        <div className="flex gap-2 flex-wrap">
-                                            {['🧘', '🧘‍♀️', '🧘‍♂️', '🌿', '🌸', '🌊', '✨', '💫', '🌙', '☀️', '🦋', '🍃'].map((emoji) => (
-                                                <button
-                                                    key={emoji}
-                                                    onClick={() => setIcon(emoji)}
-                                                    className={`w-12 h-12 rounded-xl text-2xl flex items-center justify-center transition-all ${icon === emoji
-                                                        ? 'bg-primary/20 border-2 border-primary'
-                                                        : 'bg-surface border border-border hover:border-primary/50'
-                                                        }`}
-                                                >
-                                                    {emoji}
-                                                </button>
-                                            ))}
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        )}
-
-                        {/* Step 2: Classes - Enhanced with duration, price, spots */}
-                        {currentStep === 2 && (
-                            <div className="space-y-8">
-                                <div>
-                                    <h1 className="text-3xl font-bold text-foreground mb-2">
-                                        Your classes
-                                    </h1>
-                                    <p className="text-text-secondary">
-                                        Set up your class schedule with pricing and capacity.
-                                    </p>
-                                </div>
-
-                                <div className="space-y-4">
-                                    {classes.map((cls, index) => (
-                                        <div
-                                            key={index}
-                                            className="p-4 rounded-xl bg-surface border border-border space-y-3"
-                                        >
-                                            {/* Row 1: Name and Time */}
-                                            <div className="grid grid-cols-3 gap-3">
-                                                <input
-                                                    type="text"
-                                                    value={cls.name}
-                                                    onChange={(e) => updateClass(index, 'name', e.target.value)}
-                                                    placeholder="Class name"
-                                                    className="col-span-2 px-3 py-2 rounded-lg bg-background border border-border text-foreground text-sm"
-                                                />
-                                                <input
-                                                    type="text"
-                                                    value={cls.time}
-                                                    onChange={(e) => updateClass(index, 'time', e.target.value)}
-                                                    placeholder="Time"
-                                                    className="px-3 py-2 rounded-lg bg-background border border-border text-foreground text-sm"
-                                                />
-                                            </div>
-
-                                            {/* Row 2: Instructor */}
-                                            <input
-                                                type="text"
-                                                value={cls.instructor}
-                                                onChange={(e) => updateClass(index, 'instructor', e.target.value)}
-                                                placeholder="Instructor name"
-                                                className="w-full px-3 py-2 rounded-lg bg-background border border-border text-foreground text-sm"
-                                            />
-
-                                            {/* Row 3: Duration, Price, Max Spots */}
-                                            <div className="grid grid-cols-3 gap-3">
-                                                <div className="relative">
-                                                    <Clock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-text-muted" />
-                                                    <input
-                                                        type="number"
-                                                        value={cls.duration}
-                                                        onChange={(e) => updateClass(index, 'duration', parseInt(e.target.value) || 0)}
-                                                        placeholder="60"
-                                                        className="w-full pl-9 pr-3 py-2 rounded-lg bg-background border border-border text-foreground text-sm"
-                                                    />
-                                                    <span className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-text-muted">min</span>
-                                                </div>
-                                                <div className="relative">
-                                                    <DollarSign className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-text-muted" />
-                                                    <input
-                                                        type="number"
-                                                        value={cls.price}
-                                                        onChange={(e) => updateClass(index, 'price', parseInt(e.target.value) || 0)}
-                                                        placeholder="25"
-                                                        className="w-full pl-9 pr-3 py-2 rounded-lg bg-background border border-border text-foreground text-sm"
-                                                    />
-                                                </div>
-                                                <div className="relative">
-                                                    <Users className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-text-muted" />
-                                                    <input
-                                                        type="number"
-                                                        value={cls.maxSpots}
-                                                        onChange={(e) => updateClass(index, 'maxSpots', parseInt(e.target.value) || 0)}
-                                                        placeholder="15"
-                                                        className="w-full pl-9 pr-3 py-2 rounded-lg bg-background border border-border text-foreground text-sm"
-                                                    />
-                                                    <span className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-text-muted">spots</span>
-                                                </div>
-                                            </div>
-
-                                            {/* Delete Button */}
+                                    <label className="block text-sm font-medium text-foreground mb-3">
+                                        App Icon
+                                    </label>
+                                    <div className="flex gap-2 flex-wrap">
+                                        {['🧘', '🧘‍♀️', '🧘‍♂️', '🌿', '🌸', '🌊', '✨', '💫', '🌙', '☀️', '🦋', '🍃'].map((emoji) => (
                                             <button
-                                                onClick={() => removeClass(index)}
-                                                className="text-destructive text-sm flex items-center gap-1 hover:underline"
+                                                key={emoji}
+                                                onClick={() => setIcon(emoji)}
+                                                className={`w-12 h-12 rounded-xl text-2xl flex items-center justify-center transition-all ${icon === emoji
+                                                    ? 'bg-primary/20 border-2 border-primary'
+                                                    : 'bg-surface border border-border hover:border-primary/50'
+                                                    }`}
                                             >
-                                                <Trash2 className="w-3 h-3" />
-                                                Remove
+                                                {emoji}
                                             </button>
-                                        </div>
-                                    ))}
+                                        ))}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    )}
 
-                                    <button
-                                        onClick={addClass}
-                                        className="w-full p-4 rounded-xl border-2 border-dashed border-border text-text-secondary hover:border-primary hover:text-primary transition-colors flex items-center justify-center gap-2"
+                    {/* Step 2: Classes - Enhanced with duration, price, spots */}
+                    {currentStep === 2 && (
+                        <div className="space-y-8">
+                            <div>
+                                <h1 className="text-3xl font-bold text-foreground mb-2">
+                                    Your classes
+                                </h1>
+                                <p className="text-text-secondary">
+                                    Set up your class schedule with pricing and capacity.
+                                </p>
+                            </div>
+
+                            <div className="space-y-4">
+                                {classes.map((cls, index) => (
+                                    <div
+                                        key={index}
+                                        className="p-4 rounded-xl bg-surface border border-border space-y-3"
                                     >
-                                        <Plus className="w-5 h-5" />
-                                        Add Class
-                                    </button>
-                                </div>
-                            </div>
-                        )}
-
-                        {/* Step 3: Studio Settings */}
-                        {currentStep === 3 && (
-                            <div className="space-y-8">
-                                <div>
-                                    <h1 className="text-3xl font-bold text-foreground mb-2">
-                                        Studio policies
-                                    </h1>
-                                    <p className="text-text-secondary">
-                                        Set your cancellation and waitlist rules.
-                                    </p>
-                                </div>
-
-                                <div className="space-y-6">
-                                    {/* Cancellation Window */}
-                                    <div className="p-5 rounded-xl bg-surface border border-border">
-                                        <label className="block text-sm font-medium text-foreground mb-2">
-                                            Cancellation Window
-                                        </label>
-                                        <p className="text-sm text-text-secondary mb-3">
-                                            How many hours before class can clients cancel?
-                                        </p>
-                                        <div className="flex items-center gap-3">
-                                            {[12, 24, 48].map((hours) => (
-                                                <button
-                                                    key={hours}
-                                                    onClick={() => setSettings({ ...settings, cancellationWindow: hours })}
-                                                    className={`px-4 py-2 rounded-lg font-medium transition-all ${settings.cancellationWindow === hours
-                                                        ? 'bg-primary text-white'
-                                                        : 'bg-background border border-border text-foreground hover:border-primary'
-                                                        }`}
-                                                >
-                                                    {hours}h
-                                                </button>
-                                            ))}
+                                        {/* Row 1: Name and Time */}
+                                        <div className="grid grid-cols-3 gap-3">
                                             <input
-                                                type="number"
-                                                value={settings.cancellationWindow}
-                                                onChange={(e) => setSettings({ ...settings, cancellationWindow: parseInt(e.target.value) || 0 })}
-                                                className="w-20 px-3 py-2 rounded-lg bg-background border border-border text-foreground text-sm"
-                                                placeholder="Custom"
+                                                type="text"
+                                                value={cls.name}
+                                                onChange={(e) => updateClass(index, 'name', e.target.value)}
+                                                placeholder="Class name"
+                                                className="col-span-2 px-3 py-2 rounded-lg bg-background border border-border text-foreground text-sm"
                                             />
-                                            <span className="text-text-muted text-sm">hours</span>
-                                        </div>
-                                    </div>
-
-                                    {/* Late Cancellation Fee */}
-                                    <div className="p-5 rounded-xl bg-surface border border-border">
-                                        <label className="block text-sm font-medium text-foreground mb-2">
-                                            Late Cancellation Fee
-                                        </label>
-                                        <p className="text-sm text-text-secondary mb-3">
-                                            Fee charged if client cancels after the window.
-                                        </p>
-                                        <div className="flex items-center gap-3">
-                                            <DollarSign className="w-5 h-5 text-text-muted" />
                                             <input
-                                                type="number"
-                                                value={settings.lateFee}
-                                                onChange={(e) => setSettings({ ...settings, lateFee: parseInt(e.target.value) || 0 })}
-                                                className="w-24 px-3 py-2 rounded-lg bg-background border border-border text-foreground text-sm"
-                                            />
-                                            <span className="text-text-muted text-sm">or set to $0 for no fee</span>
-                                        </div>
-                                    </div>
-
-                                    {/* Waitlist Size */}
-                                    <div className="p-5 rounded-xl bg-surface border border-border">
-                                        <label className="block text-sm font-medium text-foreground mb-2">
-                                            Waitlist Size
-                                        </label>
-                                        <p className="text-sm text-text-secondary mb-3">
-                                            How many clients can join the waitlist per class?
-                                        </p>
-                                        <div className="flex items-center gap-3">
-                                            {[3, 5, 10].map((size) => (
-                                                <button
-                                                    key={size}
-                                                    onClick={() => setSettings({ ...settings, waitlistSize: size })}
-                                                    className={`px-4 py-2 rounded-lg font-medium transition-all ${settings.waitlistSize === size
-                                                        ? 'bg-primary text-white'
-                                                        : 'bg-background border border-border text-foreground hover:border-primary'
-                                                        }`}
-                                                >
-                                                    {size}
-                                                </button>
-                                            ))}
-                                            <input
-                                                type="number"
-                                                value={settings.waitlistSize}
-                                                onChange={(e) => setSettings({ ...settings, waitlistSize: parseInt(e.target.value) || 0 })}
-                                                className="w-20 px-3 py-2 rounded-lg bg-background border border-border text-foreground text-sm"
-                                                placeholder="Custom"
+                                                type="text"
+                                                value={cls.time}
+                                                onChange={(e) => updateClass(index, 'time', e.target.value)}
+                                                placeholder="Time"
+                                                className="px-3 py-2 rounded-lg bg-background border border-border text-foreground text-sm"
                                             />
                                         </div>
-                                    </div>
-                                </div>
-                            </div>
-                        )}
 
-                        {/* Step 4: Launch */}
-                        {currentStep === 4 && (
-                            <div className="space-y-8">
-                                <div className="text-center">
-                                    <h1 className="text-3xl font-bold text-foreground mb-2">
-                                        Your app is ready! 🎉
-                                    </h1>
-                                    <p className="text-text-secondary">
-                                        Just one more step — select your plan to go live.
-                                    </p>
-                                </div>
+                                        {/* Row 2: Instructor */}
+                                        <input
+                                            type="text"
+                                            value={cls.instructor}
+                                            onChange={(e) => updateClass(index, 'instructor', e.target.value)}
+                                            placeholder="Instructor name"
+                                            className="w-full px-3 py-2 rounded-lg bg-background border border-border text-foreground text-sm"
+                                        />
 
-                                {/* Summary Card */}
-                                <div className="p-6 rounded-2xl bg-surface border border-border">
-                                    <div className="flex items-center gap-4 mb-6">
-                                        <div
-                                            className="w-16 h-16 rounded-2xl flex items-center justify-center text-3xl"
-                                            style={{ backgroundColor: brandColor }}
+                                        {/* Row 3: Duration, Price, Max Spots */}
+                                        <div className="grid grid-cols-3 gap-3">
+                                            <div className="relative">
+                                                <Clock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-text-muted" />
+                                                <input
+                                                    type="number"
+                                                    value={cls.duration}
+                                                    onChange={(e) => updateClass(index, 'duration', parseInt(e.target.value) || 0)}
+                                                    placeholder="60"
+                                                    className="w-full pl-9 pr-3 py-2 rounded-lg bg-background border border-border text-foreground text-sm"
+                                                />
+                                                <span className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-text-muted">min</span>
+                                            </div>
+                                            <div className="relative">
+                                                <DollarSign className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-text-muted" />
+                                                <input
+                                                    type="number"
+                                                    value={cls.price}
+                                                    onChange={(e) => updateClass(index, 'price', parseInt(e.target.value) || 0)}
+                                                    placeholder="25"
+                                                    className="w-full pl-9 pr-3 py-2 rounded-lg bg-background border border-border text-foreground text-sm"
+                                                />
+                                            </div>
+                                            <div className="relative">
+                                                <Users className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-text-muted" />
+                                                <input
+                                                    type="number"
+                                                    value={cls.maxSpots}
+                                                    onChange={(e) => updateClass(index, 'maxSpots', parseInt(e.target.value) || 0)}
+                                                    placeholder="15"
+                                                    className="w-full pl-9 pr-3 py-2 rounded-lg bg-background border border-border text-foreground text-sm"
+                                                />
+                                                <span className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-text-muted">spots</span>
+                                            </div>
+                                        </div>
+
+                                        {/* Delete Button */}
+                                        <button
+                                            onClick={() => removeClass(index)}
+                                            className="text-destructive text-sm flex items-center gap-1 hover:underline"
                                         >
-                                            {icon}
-                                        </div>
-                                        <div>
-                                            <h3 className="text-xl font-semibold text-foreground">{studioName}</h3>
-                                            <p className="text-text-secondary capitalize">{studioType} Studio</p>
-                                        </div>
+                                            <Trash2 className="w-3 h-3" />
+                                            Remove
+                                        </button>
                                     </div>
+                                ))}
 
-                                    <div className="grid grid-cols-3 gap-4 text-center">
-                                        <div className="p-3 rounded-xl bg-background">
-                                            <p className="text-2xl font-bold text-foreground">{classes.length}</p>
-                                            <p className="text-sm text-text-secondary">Classes</p>
-                                        </div>
-                                        <div className="p-3 rounded-xl bg-background">
-                                            <p className="text-2xl font-bold text-foreground">{settings.cancellationWindow}h</p>
-                                            <p className="text-sm text-text-secondary">Cancel Window</p>
-                                        </div>
-                                        <div className="p-3 rounded-xl bg-background">
-                                            <p className="text-2xl font-bold text-foreground">${settings.lateFee}</p>
-                                            <p className="text-sm text-text-secondary">Late Fee</p>
-                                        </div>
+                                <button
+                                    onClick={addClass}
+                                    className="w-full p-4 rounded-xl border-2 border-dashed border-border text-text-secondary hover:border-primary hover:text-primary transition-colors flex items-center justify-center gap-2"
+                                >
+                                    <Plus className="w-5 h-5" />
+                                    Add Class
+                                </button>
+                            </div>
+                        </div>
+                    )}
+
+                    {/* Step 3: Studio Settings */}
+                    {currentStep === 3 && (
+                        <div className="space-y-8">
+                            <div>
+                                <h1 className="text-3xl font-bold text-foreground mb-2">
+                                    Studio policies
+                                </h1>
+                                <p className="text-text-secondary">
+                                    Set your cancellation and waitlist rules.
+                                </p>
+                            </div>
+
+                            <div className="space-y-6">
+                                {/* Cancellation Window */}
+                                <div className="p-5 rounded-xl bg-surface border border-border">
+                                    <label className="block text-sm font-medium text-foreground mb-2">
+                                        Cancellation Window
+                                    </label>
+                                    <p className="text-sm text-text-secondary mb-3">
+                                        How many hours before class can clients cancel?
+                                    </p>
+                                    <div className="flex items-center gap-3">
+                                        {[12, 24, 48].map((hours) => (
+                                            <button
+                                                key={hours}
+                                                onClick={() => setSettings({ ...settings, cancellationWindow: hours })}
+                                                className={`px-4 py-2 rounded-lg font-medium transition-all ${settings.cancellationWindow === hours
+                                                    ? 'bg-primary text-white'
+                                                    : 'bg-background border border-border text-foreground hover:border-primary'
+                                                    }`}
+                                            >
+                                                {hours}h
+                                            </button>
+                                        ))}
+                                        <input
+                                            type="number"
+                                            value={settings.cancellationWindow}
+                                            onChange={(e) => setSettings({ ...settings, cancellationWindow: parseInt(e.target.value) || 0 })}
+                                            className="w-20 px-3 py-2 rounded-lg bg-background border border-border text-foreground text-sm"
+                                            placeholder="Custom"
+                                        />
+                                        <span className="text-text-muted text-sm">hours</span>
                                     </div>
                                 </div>
 
-                                {/* Instant Activation Banner */}
-                                <div className="bg-accent/10 border border-accent/30 rounded-2xl p-6">
-                                    <div className="flex items-start gap-3">
-                                        <Sparkles className="w-6 h-6 text-accent flex-shrink-0" />
-                                        <div>
-                                            <h4 className="font-semibold text-foreground mb-1">Instant Activation</h4>
-                                            <p className="text-text-secondary text-sm">
-                                                Your app will be ready for clients as soon as you subscribe.
-                                            </p>
-                                        </div>
+                                {/* Late Cancellation Fee */}
+                                <div className="p-5 rounded-xl bg-surface border border-border">
+                                    <label className="block text-sm font-medium text-foreground mb-2">
+                                        Late Cancellation Fee
+                                    </label>
+                                    <p className="text-sm text-text-secondary mb-3">
+                                        Fee charged if client cancels after the window.
+                                    </p>
+                                    <div className="flex items-center gap-3">
+                                        <DollarSign className="w-5 h-5 text-text-muted" />
+                                        <input
+                                            type="number"
+                                            value={settings.lateFee}
+                                            onChange={(e) => setSettings({ ...settings, lateFee: parseInt(e.target.value) || 0 })}
+                                            className="w-24 px-3 py-2 rounded-lg bg-background border border-border text-foreground text-sm"
+                                        />
+                                        <span className="text-text-muted text-sm">or set to $0 for no fee</span>
+                                    </div>
+                                </div>
+
+                                {/* Waitlist Size */}
+                                <div className="p-5 rounded-xl bg-surface border border-border">
+                                    <label className="block text-sm font-medium text-foreground mb-2">
+                                        Waitlist Size
+                                    </label>
+                                    <p className="text-sm text-text-secondary mb-3">
+                                        How many clients can join the waitlist per class?
+                                    </p>
+                                    <div className="flex items-center gap-3">
+                                        {[3, 5, 10].map((size) => (
+                                            <button
+                                                key={size}
+                                                onClick={() => setSettings({ ...settings, waitlistSize: size })}
+                                                className={`px-4 py-2 rounded-lg font-medium transition-all ${settings.waitlistSize === size
+                                                    ? 'bg-primary text-white'
+                                                    : 'bg-background border border-border text-foreground hover:border-primary'
+                                                    }`}
+                                            >
+                                                {size}
+                                            </button>
+                                        ))}
+                                        <input
+                                            type="number"
+                                            value={settings.waitlistSize}
+                                            onChange={(e) => setSettings({ ...settings, waitlistSize: parseInt(e.target.value) || 0 })}
+                                            className="w-20 px-3 py-2 rounded-lg bg-background border border-border text-foreground text-sm"
+                                            placeholder="Custom"
+                                        />
                                     </div>
                                 </div>
                             </div>
-                        )}
-                    </motion.div>
-                </AnimatePresence>
+                        </div>
+                    )}
+
+                    {/* Step 4: Launch */}
+                    {currentStep === 4 && (
+                        <div className="space-y-8">
+                            <div className="text-center">
+                                <h1 className="text-3xl font-bold text-foreground mb-2">
+                                    Your app is ready! 🎉
+                                </h1>
+                                <p className="text-text-secondary">
+                                    Just one more step — select your plan to go live.
+                                </p>
+                            </div>
+
+                            {/* Summary Card */}
+                            <div className="p-6 rounded-2xl bg-surface border border-border">
+                                <div className="flex items-center gap-4 mb-6">
+                                    <div
+                                        className="w-16 h-16 rounded-2xl flex items-center justify-center text-3xl"
+                                        style={{ backgroundColor: brandColor }}
+                                    >
+                                        {icon}
+                                    </div>
+                                    <div>
+                                        <h3 className="text-xl font-semibold text-foreground">{studioName}</h3>
+                                        <p className="text-text-secondary capitalize">{studioType} Studio</p>
+                                    </div>
+                                </div>
+
+                                <div className="grid grid-cols-3 gap-4 text-center">
+                                    <div className="p-3 rounded-xl bg-background">
+                                        <p className="text-2xl font-bold text-foreground">{classes.length}</p>
+                                        <p className="text-sm text-text-secondary">Classes</p>
+                                    </div>
+                                    <div className="p-3 rounded-xl bg-background">
+                                        <p className="text-2xl font-bold text-foreground">{settings.cancellationWindow}h</p>
+                                        <p className="text-sm text-text-secondary">Cancel Window</p>
+                                    </div>
+                                    <div className="p-3 rounded-xl bg-background">
+                                        <p className="text-2xl font-bold text-foreground">${settings.lateFee}</p>
+                                        <p className="text-sm text-text-secondary">Late Fee</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            {/* Instant Activation Banner */}
+                            <div className="bg-accent/10 border border-accent/30 rounded-2xl p-6">
+                                <div className="flex items-start gap-3">
+                                    <Sparkles className="w-6 h-6 text-accent flex-shrink-0" />
+                                    <div>
+                                        <h4 className="font-semibold text-foreground mb-1">Instant Activation</h4>
+                                        <p className="text-text-secondary text-sm">
+                                            Your app will be ready for clients as soon as you subscribe.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    )}
+                    {/* </motion.div> */}
+                </div>
 
                 {/* Navigation Buttons */}
                 <div className="flex items-center justify-between mt-12 pt-6 border-t border-border">
@@ -662,7 +655,7 @@ function BuilderContent() {
                     classes={classes.map(c => ({ name: c.name, time: c.time, instructor: c.instructor }))}
                 />
             </div>
-        </div>
+        </div >
     );
 }
 
