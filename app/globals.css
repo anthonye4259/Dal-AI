@@ -9,9 +9,9 @@
   --elevated: #1F1F1F;
 
   /* Brand Colors */
-  --primary: #4A9FD4;
-  --primary-hover: #3A8FC4;
-  --accent: #8B5CF6;
+  --primary: #00E5FF;
+  --primary-hover: #00B8CC;
+  --accent: #002B5B;
   --accent-hover: #7C3AED;
   --success: #6B9B5A;
   --warning: #D99B3D;
@@ -24,7 +24,7 @@
 
   /* Borders */
   --border: #1F1F1F;
-  --border-highlight: rgba(74, 159, 212, 0.3);
+  --border-highlight: rgba(0, 229, 255, 0.3);
 }
 
 @theme inline {

@@ -46,7 +46,7 @@ export default function LoginPage() {
                 {/* Header */}
                 <div className="text-center mb-8">
                     <div className="mx-auto mb-4">
-                        <Image src="/logo.png" alt="Dal AI" width={48} height={48} className="rounded-xl" />
+                        <Image src="/logo.png" alt="Dal AI" width={48} height={48} className="rounded-xl bg-white" />
                     </div>
                     <h1 className="text-2xl font-bold text-foreground mb-2">Welcome back</h1>
                     <p className="text-text-secondary">

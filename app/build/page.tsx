@@ -186,7 +186,7 @@ function BuilderContent() {
                     </button>
 
                     <div className="flex items-center gap-2">
-                        <Image src="/logo.png" alt="Dal AI" width={32} height={32} className="rounded-lg" />
+                        <Image src="/logo.png" alt="Dal AI" width={32} height={32} className="rounded-lg bg-white" />
                         <span className="font-semibold text-foreground">Dal AI</span>
                     </div>
                 </div>
