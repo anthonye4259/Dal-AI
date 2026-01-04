@@ -9,25 +9,26 @@ const config: Config = {
     theme: {
         extend: {
             colors: {
-                background: "#0A0A0A",
-                foreground: "#FAFAFA",
-                surface: "#1F1F1F",
-                border: "#2A2A2A",
+                background: "var(--background)",
+                foreground: "var(--foreground)",
+                surface: "var(--surface)",
+                "surface-hover": "var(--surface-hover)",
+                border: "var(--border)",
                 primary: {
-                    DEFAULT: "#4A9FD4", // Dal AI Blue
-                    foreground: "#FAFAFA",
+                    DEFAULT: "var(--primary)",
+                    foreground: "#FFFFFF",
                 },
                 secondary: {
-                    DEFAULT: "#1F1F1F",
-                    foreground: "#FAFAFA",
+                    DEFAULT: "var(--surface)",
+                    foreground: "var(--foreground)",
                 },
                 accent: {
-                    DEFAULT: "#8B5CF6", // Dal AI Purple
-                    foreground: "#FAFAFA",
+                    DEFAULT: "var(--accent)",
+                    foreground: "#FFFFFF",
                 },
                 text: {
-                    secondary: "#A1A1AA",
-                    muted: "#71717A",
+                    secondary: "var(--text-secondary)",
+                    muted: "var(--text-muted)",
                 },
             },
             backgroundImage: {

@@ -654,12 +654,12 @@ export default function BuilderFlow({ onPreviewUpdate }: { onPreviewUpdate?: (pr
                                                     <button
                                                         key={preset.name}
                                                         onClick={() => setBrandColor(preset.color)}
-                                                        className={`w-full aspect-square rounded-full flex items-center justify-center transition-transform hover:scale-110 ${brandColor === preset.color ? 'ring-2 ring-white ring-offset-2 ring-offset-background' : ''
+                                                        className={`w-full aspect-square rounded-full flex items-center justify-center transition-transform hover:scale-110 ${brandColor === preset.color ? 'ring-2 ring-primary ring-offset-2 ring-offset-background' : ''
                                                             }`}
                                                         style={{ backgroundColor: preset.color }}
                                                         title={preset.name}
                                                     >
-                                                        {brandColor === preset.color && <Check className="w-4 h-4 text-white" />}
+                                                        {brandColor === preset.color && <Check className="w-4 h-4 text-white drop-shadow-md" />}
                                                     </button>
                                                 ))}
                                             </div>
@@ -679,8 +679,8 @@ export default function BuilderFlow({ onPreviewUpdate }: { onPreviewUpdate?: (pr
                                                     key={mode.id}
                                                     onClick={() => setBackgroundMode(mode.id as 'light' | 'dark' | 'black')}
                                                     className={`p-3 rounded-xl border transition-all flex items-center justify-center gap-2 ${backgroundMode === mode.id
-                                                            ? 'border-primary ring-1 ring-primary'
-                                                            : 'border-border opacity-70 hover:opacity-100'
+                                                        ? 'border-primary ring-1 ring-primary'
+                                                        : 'border-border opacity-70 hover:opacity-100'
                                                         }`}
                                                     style={{ backgroundColor: mode.bg }}
                                                 >
@@ -724,10 +724,10 @@ export default function BuilderFlow({ onPreviewUpdate }: { onPreviewUpdate?: (pr
                                                 }
                                             }}
                                             className={`p-4 rounded-xl border text-left transition-all flex items-center justify-between ${isSelected
-                                                    ? 'border-primary bg-primary/10'
-                                                    : isDisabled
-                                                        ? 'border-border bg-surface/50 opacity-50 cursor-not-allowed'
-                                                        : 'border-border bg-surface hover:border-primary/50'
+                                                ? 'border-primary bg-primary/10'
+                                                : isDisabled
+                                                    ? 'border-border bg-surface/50 opacity-50 cursor-not-allowed'
+                                                    : 'border-border bg-surface hover:border-primary/50'
                                                 }`}
                                         >
                                             <div className="flex items-center gap-4">
