@@ -27,7 +27,7 @@ export default function DashboardPage() {
     // Fetch Studio Data
     useEffect(() => {
         const fetchStudio = async () => {
-            if (!user) return;
+            if (!user || !db) return; // FIX: Ensure db is initialized 
             try {
                 const q = query(collection(db, COLLECTIONS.STUDIOS), where("ownerId", "==", user.uid));
                 const snapshot = await getDocs(q);
