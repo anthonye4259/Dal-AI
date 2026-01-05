@@ -92,12 +92,19 @@ export default function CheckoutPage() {
                         currentUser = credential.user;
                     }
                 } catch (err: any) {
-                    console.error(err);
+                    console.error("Auth Error Full Object:", err);
+                    console.error("Auth Error Code:", err.code);
+                    console.error("Auth Error Message:", err.message);
+
                     if (err.code === 'auth/email-already-in-use') {
                         setAuthError('Email already exists. Please log in.');
                         setIsLoginMode(true);
+                    } else if (err.code === 'auth/weak-password') {
+                        setAuthError('Password is too weak.');
+                    } else if (err.code === 'auth/operation-not-allowed') {
+                        setAuthError('Email/Password login is not enabled in Firebase Console.');
                     } else {
-                        setAuthError('Authentication failed. Please check credentials.');
+                        setAuthError(`Authentication failed: ${err.message}`);
                     }
                     setIsLoading(false);
                     return;
