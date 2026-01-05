@@ -10,6 +10,7 @@ import IPhoneMockup from './builder/IPhoneMockup';
 import { saveAppConfig } from '@/lib/firebase';
 import { ClassCategory } from '@/lib/types';
 import confetti from 'canvas-confetti';
+import { useTranslation } from '@/context/I18nContext';
 
 const STEPS = [
     { title: 'Studio Name', icon: Smartphone, description: 'Start with your brand identity' },
@@ -28,6 +29,7 @@ export default function BuilderFlow() {
     const [isLoading, setIsLoading] = useState(false);
     const [isSaving, setIsSaving] = useState(false);
     const [launchSuccess, setLaunchSuccess] = useState(false);
+    const { t } = useTranslation();
     // ... (PRESETS and CONSTANTS remain the same) ...
 
     const THEME_PRESETS = [
@@ -705,11 +707,11 @@ bg-gradient-to-br ${theme.gradient}
                     {/* Step 0: Studio Name */}
                     {currentStep === 0 && (
                         <div className="space-y-6">
-                            <h2 className="text-2xl font-bold">Let's build your app.</h2>
-                            <p className="text-text-secondary">For studios, trainers, coaches, and instructors of any kind.</p>
+                            <h2 className="text-2xl font-bold">{t('builder.step0.title')}</h2>
+                            <p className="text-text-secondary">{t('builder.step0.subtitle')}</p>
 
                             <div className="space-y-2">
-                                <label className="text-sm font-medium text-text-secondary">Business Name</label>
+                                <label className="text-sm font-medium text-text-secondary">{t('builder.step0.businessName')}</label>
                                 <input
                                     type="text"
                                     value={studioName}
@@ -720,7 +722,7 @@ bg-gradient-to-br ${theme.gradient}
                             </div>
 
                             <div className="space-y-2">
-                                <label className="text-sm font-medium text-text-secondary">Tagline</label>
+                                <label className="text-sm font-medium text-text-secondary">{t('builder.step0.tagline')}</label>
                                 <input
                                     type="text"
                                     value={tagline}
@@ -731,8 +733,8 @@ bg-gradient-to-br ${theme.gradient}
                             </div>
 
                             <div className="space-y-2">
-                                <label className="text-sm font-medium text-text-secondary">App Language</label>
-                                <p className="text-xs text-text-muted">Your clients will see your app in this language</p>
+                                <label className="text-sm font-medium text-text-secondary">{t('builder.step0.appLanguage')}</label>
+                                <p className="text-xs text-text-muted">{t('builder.step0.appLanguageDesc')}</p>
                                 <div className="grid grid-cols-2 gap-2">
                                     {LANGUAGE_OPTIONS.map((lang) => (
                                         <button
@@ -759,9 +761,9 @@ bg-gradient-to-br ${theme.gradient}
                                 <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center mb-4 shadow-lg shadow-indigo-500/20">
                                     <Sparkles className="w-8 h-8 text-white" />
                                 </div>
-                                <h2 className="text-3xl font-bold">Build your app with words.</h2>
+                                <h2 className="text-3xl font-bold">{t('builder.step1.title')}</h2>
                                 <p className="text-lg text-text-secondary">
-                                    Describe your vision, and our AI will generate a starting point for you.
+                                    {t('builder.step1.subtitle')}
                                 </p>
                             </div>
 
