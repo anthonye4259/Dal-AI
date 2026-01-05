@@ -12,12 +12,14 @@ import {
     Settings, LogOut, Plus, ChevronRight, Clock, Star,
     Smartphone, Loader2, Share2, QrCode, Copy
 } from 'lucide-react';
+import { useTranslation } from '@/context/I18nContext';
 
 type TabType = 'overview' | 'classes' | 'clients' | 'payments' | 'gia' | 'settings';
 
 export default function DashboardPage() {
     const router = useRouter();
     const { user, loading } = useAuth();
+    const { t } = useTranslation();
     const [activeTab, setActiveTab] = useState<TabType>('overview');
 
     // Real Data State
@@ -80,12 +82,12 @@ export default function DashboardPage() {
 
     // Tabs Config
     const tabs: { id: TabType; label: string; icon: React.ElementType }[] = [
-        { id: 'overview', label: 'Overview', icon: BarChart3 },
-        { id: 'classes', label: 'Classes', icon: Calendar },
-        { id: 'clients', label: 'Clients', icon: Users },
-        { id: 'payments', label: 'Payments', icon: DollarSign },
-        { id: 'gia', label: 'GIA', icon: Sparkles },
-        { id: 'settings', label: 'Settings', icon: Settings },
+        { id: 'overview', label: t('dashboard.tabs.overview'), icon: BarChart3 },
+        { id: 'classes', label: t('dashboard.tabs.classes'), icon: Calendar },
+        { id: 'clients', label: t('dashboard.tabs.clients'), icon: Users },
+        { id: 'payments', label: t('dashboard.tabs.payments'), icon: DollarSign },
+        { id: 'gia', label: t('dashboard.tabs.gia'), icon: Sparkles },
+        { id: 'settings', label: t('dashboard.tabs.settings'), icon: Settings },
     ];
 
     return (
@@ -102,7 +104,7 @@ export default function DashboardPage() {
                     </div>
                     <div className="overflow-hidden">
                         <h1 className="font-semibold text-foreground truncate">{studio.name}</h1>
-                        <p className="text-xs text-text-secondary">Studio Dashboard</p>
+                        <p className="text-xs text-text-secondary">{t('dashboard.title')}</p>
                     </div>
                 </div>
 
@@ -135,14 +137,14 @@ export default function DashboardPage() {
                         className="w-full flex items-center gap-3 px-4 py-3 rounded-xl bg-primary/10 text-primary hover:bg-primary/20 transition-all"
                     >
                         <Settings className="w-5 h-5" />
-                        <span className="font-medium">Edit App</span>
+                        <span className="font-medium">{t('dashboard.editApp')}</span>
                     </button>
                     <button
                         onClick={handleLogout}
                         className="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-text-secondary hover:bg-surface-hover hover:text-foreground transition-all"
                     >
                         <LogOut className="w-5 h-5" />
-                        <span>Log out</span>
+                        <span>{t('common.logout')}</span>
                     </button>
                 </div>
             </aside>

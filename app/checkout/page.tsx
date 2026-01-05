@@ -7,6 +7,7 @@ import { Check, Sparkles, ArrowLeft, Shield, Zap, Users, Loader2 } from 'lucide-
 import { useAuth } from '@/components/auth/AuthProvider';
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '@/lib/firebase';
+import { useTranslation } from '@/context/I18nContext';
 
 interface BuilderState {
     studioName: string;
@@ -19,6 +20,7 @@ interface BuilderState {
 export default function CheckoutPage() {
     const router = useRouter();
     const { user, loading: authLoading } = useAuth();
+    const { t } = useTranslation();
     const [builderState, setBuilderState] = useState<BuilderState | null>(null);
     const [billingPeriod, setBillingPeriod] = useState<'monthly' | 'annual'>('monthly');
     const [includeGiaPro, setIncludeGiaPro] = useState(true);
@@ -217,13 +219,13 @@ export default function CheckoutPage() {
                 {/* Pricing Header */}
                 <div className="text-center mb-8">
                     <div className="inline-block px-3 py-1 rounded-full bg-primary/10 text-primary text-sm font-semibold mb-3">
-                        Founding Member Offer
+                        {t('checkout.header.badge')}
                     </div>
                     <h1 className="text-3xl font-bold text-foreground mb-2">
-                        Secure your spot today
+                        {t('checkout.header.title')}
                     </h1>
                     <p className="text-text-secondary max-w-md mx-auto">
-                        Build your studio now. Your app goes live to the public in January 2026.
+                        {t('checkout.header.subtitle')}
                     </p>
                 </div>
 
@@ -236,7 +238,7 @@ export default function CheckoutPage() {
                             : 'bg-surface text-text-secondary hover:text-foreground'
                             }`}
                     >
-                        Monthly
+                        {t('checkout.billing.monthly')}
                     </button>
                     <button
                         onClick={() => setBillingPeriod('annual')}
@@ -245,9 +247,9 @@ export default function CheckoutPage() {
                             : 'bg-surface text-text-secondary hover:text-foreground'
                             }`}
                     >
-                        Annual
+                        {t('checkout.billing.annual')}
                         <span className="absolute -top-2 -right-2 px-2 py-0.5 bg-success text-white text-xs rounded-full">
-                            2 mo free
+                            {t('checkout.billing.freeMonths')}
                         </span>
                     </button>
                 </div>
@@ -261,8 +263,8 @@ export default function CheckoutPage() {
                                 <Zap className="w-5 h-5 text-primary" />
                             </div>
                             <div>
-                                <h3 className="font-semibold text-foreground">Dal AI</h3>
-                                <p className="text-sm text-text-secondary">Core Platform</p>
+                                <h3 className="font-semibold text-foreground">{t('checkout.dalAi.name')}</h3>
+                                <p className="text-sm text-text-secondary">{t('checkout.dalAi.desc')}</p>
                             </div>
                         </div>
 
@@ -346,11 +348,11 @@ export default function CheckoutPage() {
                     {!user && (
                         <div className="mb-8 p-6 bg-background rounded-xl border border-border">
                             <h3 className="text-lg font-semibold text-foreground mb-4">
-                                Create your admin account
+                                {t('checkout.account.title')}
                             </h3>
                             <div className="space-y-4">
                                 <div>
-                                    <label className="block text-sm font-medium text-text-secondary mb-1">Email</label>
+                                    <label className="block text-sm font-medium text-text-secondary mb-1">{t('checkout.account.email')}</label>
                                     <input
                                         type="email"
                                         value={email}
@@ -360,7 +362,7 @@ export default function CheckoutPage() {
                                     />
                                 </div>
                                 <div>
-                                    <label className="block text-sm font-medium text-text-secondary mb-1">Password</label>
+                                    <label className="block text-sm font-medium text-text-secondary mb-1">{t('checkout.account.password')}</label>
                                     <input
                                         type="password"
                                         value={password}
