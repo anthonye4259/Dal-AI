@@ -2,7 +2,7 @@
 
 import { motion, AnimatePresence } from 'framer-motion';
 import { useBuilder } from '@/context/BuilderContext';
-import { Home, Calendar, ShoppingBag, User, MessageCircle, PlayCircle, MapPin, ChevronRight, Bell, Search, Star } from 'lucide-react';
+import { Home, Calendar, ShoppingBag, User, MessageCircle, PlayCircle, MapPin, ChevronRight, Bell, Search, Star, Sun, Moon } from 'lucide-react';
 import { useEffect, useState } from 'react';
 
 // Map tab IDs to Lucide Icons
@@ -25,6 +25,7 @@ export default function IPhoneMockup() {
         themeId,
         fontFamily,
         backgroundMode,
+        setBackgroundMode,
         activeTab: contextActiveTab,
         setStep
     } = useBuilder();
@@ -32,6 +33,12 @@ export default function IPhoneMockup() {
     // Local state for "fake" interactions within the phone (like scrolling/tabs)
     // But tabs are also controlled by context for the Tour
     const activeTab = contextActiveTab;
+
+    // Toggle Logic
+    const toggleTheme = () => {
+        const next = backgroundMode === 'light' ? 'black' : 'light';
+        setBackgroundMode(next);
+    };
 
     // Derived styles based on background mode
     const isDark = backgroundMode !== 'light';
@@ -51,6 +58,19 @@ export default function IPhoneMockup() {
             transition={{ duration: 0.5 }}
             className="relative"
         >
+            {/* Theme Toggle Control - Floating outside top right */}
+            <button
+                onClick={(e) => {
+                    e.stopPropagation();
+                    toggleTheme();
+                }}
+                className="absolute -right-16 top-10 w-12 h-12 rounded-full bg-surface border border-border shadow-md flex items-center justify-center hover:scale-110 transition-transform z-50 bg-white dark:bg-black text-black dark:text-white"
+                title="Toggle Light/Dark Mode"
+                style={{ backgroundColor: isDark ? '#1C1C1E' : '#FFFFFF', color: isDark ? '#FFFFFF' : '#000000', borderColor: isDark ? '#333' : '#E5E5E5' }}
+            >
+                {backgroundMode === 'light' ? <Moon size={20} /> : <Sun size={20} />}
+            </button>
+
             {/* iPhone Frame */}
             <div className="relative w-[300px] h-[620px] bg-[#1C1C1E] rounded-[48px] p-[10px] shadow-2xl border-[6px] border-[#2C2C2E] ring-1 ring-white/10">
                 {/* Dynamic Island */}
