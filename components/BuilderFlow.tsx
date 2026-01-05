@@ -42,7 +42,6 @@ export default function BuilderFlow() {
             gradient: 'from-[#0A0A0A] to-[#1a1f1a]',
             font: 'Sans-Serif'
         },
-        // ... (Use existing presets) ...
         {
             id: 'energy',
             name: 'High Energy',
@@ -87,6 +86,60 @@ export default function BuilderFlow() {
             colors: { primary: '#8B7355', background: '#0A0A0A', accent: '#BFA98A', text: '#FFFFFF' },
             gradient: 'from-[#0A0A0A] to-[#1a1510]',
             font: 'Merriweather'
+        },
+        {
+            id: 'sunrise',
+            name: 'Sunrise',
+            description: 'Warm, optimistic, energizing',
+            vibe: 'Morning Classes • Barre • Stretch',
+            colors: { primary: '#F97316', background: '#0A0A0A', accent: '#FDBA74', text: '#FFFFFF' },
+            gradient: 'from-[#0A0A0A] to-[#1a0f0a]',
+            font: 'Poppins'
+        },
+        {
+            id: 'neon',
+            name: 'Neon Nights',
+            description: 'Electric, vibrant, bold',
+            vibe: 'Dance • Cycle • Club Vibes',
+            colors: { primary: '#22D3EE', background: '#0A0A0A', accent: '#F0ABFC', text: '#FFFFFF' },
+            gradient: 'from-[#0A0A0A] to-[#0a1a1a]',
+            font: 'Space Grotesk'
+        },
+        {
+            id: 'minimal',
+            name: 'Pure Minimal',
+            description: 'Clean, simple, focused',
+            vibe: 'Personal Training • Private • Exclusive',
+            colors: { primary: '#18181B', background: '#FFFFFF', accent: '#71717A', text: '#18181B' },
+            gradient: 'from-[#FFFFFF] to-[#F4F4F5]',
+            font: 'Inter'
+        },
+        {
+            id: 'wellness',
+            name: 'Wellness Retreat',
+            description: 'Soothing, healing, balanced',
+            vibe: 'Spa • Massage • Recovery',
+            colors: { primary: '#84CC16', background: '#0A0A0A', accent: '#A3E635', text: '#FFFFFF' },
+            gradient: 'from-[#0A0A0A] to-[#0f1a0a]',
+            font: 'Poppins'
+        },
+        {
+            id: 'dance',
+            name: 'Dance Studio',
+            description: 'Fun, expressive, dynamic',
+            vibe: 'Dance • Zumba • Hip Hop',
+            colors: { primary: '#EC4899', background: '#0A0A0A', accent: '#F472B6', text: '#FFFFFF' },
+            gradient: 'from-[#0A0A0A] to-[#1a0a14]',
+            font: 'Poppins'
+        },
+        {
+            id: 'martial',
+            name: 'Martial Arts',
+            description: 'Disciplined, strong, focused',
+            vibe: 'MMA • Karate • Brazilian Jiu-Jitsu',
+            colors: { primary: '#DC2626', background: '#0A0A0A', accent: '#991B1B', text: '#FFFFFF' },
+            gradient: 'from-[#0A0A0A] to-[#1a0a0a]',
+            font: 'Oswald'
         }
     ];
 
@@ -900,6 +953,29 @@ bg-gradient-to-br ${theme.gradient}
                                                 <p className="text-xs text-text-muted mt-2">Recommended: 512x512px PNG (Transparent)</p>
                                             </div>
                                         </div>
+                                    </div>
+
+                                    {/* Quick Icon Selector - For studios without logos */}
+                                    <div className="space-y-3">
+                                        <div className="flex items-center justify-between">
+                                            <label className="text-sm font-medium text-text-secondary">No logo? Choose an icon</label>
+                                            <span className="text-xs text-text-muted">Click to select</span>
+                                        </div>
+                                        <div className="grid grid-cols-8 gap-2">
+                                            {['🧘', '💪', '🏋️', '🤸', '🩰', '🥊', '🏃', '🚴', '🧗', '🏊', '🎾', '⚽', '🏀', '🎯', '🔥', '⭐', '✨', '🌟', '💫', '🌈', '🌿', '🍃', '🌸', '🦋'].map((emoji) => (
+                                                <button
+                                                    key={emoji}
+                                                    onClick={() => { setIcon(emoji); setLogo(null); }}
+                                                    className={`w-10 h-10 rounded-xl flex items-center justify-center text-xl transition-all ${icon === emoji && !logo
+                                                            ? 'bg-primary/20 border-2 border-primary scale-110'
+                                                            : 'bg-surface border border-border hover:border-primary/50 hover:scale-105'
+                                                        }`}
+                                                >
+                                                    {emoji}
+                                                </button>
+                                            ))}
+                                        </div>
+                                        <p className="text-xs text-text-muted">These icons will appear in your app's header and splash screen</p>
                                     </div>
 
                                     {/* Advanced Colors */}
