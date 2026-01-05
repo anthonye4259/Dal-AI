@@ -1,0 +1,128 @@
+{
+    "common": {
+        "login": "Connexion",
+        "signup": "S'inscrire",
+        "logout": "Déconnexion",
+        "next": "Suivant",
+        "back": "Retour",
+        "save": "Enregistrer",
+        "cancel": "Annuler",
+        "loading": "Chargement...",
+        "error": "Une erreur s'est produite"
+    },
+    "home": {
+        "hero": {
+            "title": "Créez votre application studio en 60 secondes",
+            "subtitle": "La plateforme alimentée par l'IA pour les instructeurs de fitness pour lancer leur propre application mobile de marque",
+            "cta": "Commencer à Construire",
+            "secondary": "Voir la Démo"
+        },
+        "features": {
+            "title": "Tout ce dont vous avez besoin pour gérer votre studio",
+            "booking": "Réservation de Cours",
+            "bookingDesc": "Permettez aux clients de réserver et payer les cours instantanément",
+            "payments": "Paiements",
+            "paymentsDesc": "Acceptez les paiements et vendez des forfaits de cours",
+            "branding": "Votre Marque",
+            "brandingDesc": "Votre logo, vos couleurs, votre application"
+        }
+    },
+    "builder": {
+        "step0": {
+            "title": "Construisons votre application.",
+            "subtitle": "Pour les studios, entraîneurs, coachs et instructeurs de tout type.",
+            "businessName": "Nom de l'Entreprise",
+            "tagline": "Slogan",
+            "appLanguage": "Langue de l'Application",
+            "appLanguageDesc": "Vos clients verront votre application dans cette langue"
+        },
+        "step1": {
+            "title": "Construisez votre application avec des mots.",
+            "subtitle": "Décrivez votre vision et notre IA générera un point de départ pour vous.",
+            "placeholder": "ex. Une salle de boxe haute énergie à New York avec un focus sur les défis communautaires.",
+            "generate": "Générer avec l'IA",
+            "skip": "Passer au manuel"
+        },
+        "step9": {
+            "title": "Prêt à lancer?",
+            "updateAnytime": "Mettez à Jour à Tout Moment.",
+            "updateDesc": "Vous pouvez modifier votre contenu, couleurs et horaire même après publication. Aucune mise à jour de l'App Store requise.",
+            "previewTitle": "Votre Studio dans Dal AI",
+            "monthlyPlan": "Plan Mensuel",
+            "setupFee": "Frais d'Installation",
+            "waived": "Exonéré",
+            "totalDue": "Total dû aujourd'hui",
+            "launchButton": "Mettre en Ligne"
+        }
+    },
+    "checkout": {
+        "header": {
+            "badge": "Offre Membre Fondateur",
+            "title": "Réservez votre place aujourd'hui",
+            "subtitle": "Construisez votre studio maintenant. Votre application sera disponible au public en janvier 2026."
+        },
+        "billing": {
+            "monthly": "Mensuel",
+            "annual": "Annuel",
+            "freeMonths": "2 mois gratuits"
+        },
+        "dalAi": {
+            "name": "Dal AI",
+            "desc": "Plateforme Principale",
+            "included": "Inclus dans votre plan"
+        },
+        "giaPro": {
+            "name": "GIA Pro",
+            "desc": "Module IA",
+            "tagline": "Laissez GIA gérer votre entreprise pour vous"
+        },
+        "account": {
+            "title": "Créez votre compte administrateur",
+            "email": "Email",
+            "password": "Mot de passe"
+        },
+        "total": {
+            "title": "Résumé de la Commande",
+            "savings": "Vous économisez",
+            "button": "Finaliser l'Achat"
+        }
+    },
+    "dashboard": {
+        "title": "Tableau de Bord du Studio",
+        "tabs": {
+            "overview": "Aperçu",
+            "classes": "Cours",
+            "clients": "Clients",
+            "payments": "Paiements",
+            "gia": "GIA",
+            "settings": "Paramètres"
+        },
+        "editApp": "Modifier l'App"
+    },
+    "success": {
+        "title": "Votre application est en ligne!",
+        "subtitle": "est prêt pour votre première réservation.",
+        "readyToLaunch": "Prêt à lancer",
+        "nextSteps": {
+            "title": "Prochaines étapes?",
+            "step1": "Téléchargez l'application",
+            "step1Desc": "Gérez votre studio en déplacement",
+            "step2": "Ajoutez vos cours",
+            "step2Desc": "Configurez votre horaire et vos tarifs",
+            "step3": "Partagez avec les clients",
+            "step3Desc": "Ils téléchargent VOTRE app et commencent à réserver"
+        },
+        "downloadApp": "Télécharger l'App Dal AI",
+        "goToDashboard": "Aller au Tableau de Bord",
+        "support": "Besoin d'aide?"
+    },
+    "login": {
+        "title": "Bon retour",
+        "subtitle": "Connectez-vous pour gérer votre studio",
+        "email": "Email",
+        "password": "Mot de passe",
+        "button": "Se Connecter",
+        "noAccount": "Pas de compte?",
+        "createOne": "Créez-en un"
+    }
+}

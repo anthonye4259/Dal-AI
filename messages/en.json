@@ -1,0 +1,128 @@
+{
+    "common": {
+        "login": "Login",
+        "signup": "Sign Up",
+        "logout": "Log out",
+        "next": "Next",
+        "back": "Back",
+        "save": "Save",
+        "cancel": "Cancel",
+        "loading": "Loading...",
+        "error": "An error occurred"
+    },
+    "home": {
+        "hero": {
+            "title": "Build your studio app in 60 seconds",
+            "subtitle": "The AI-powered platform for fitness instructors to launch their own branded mobile app",
+            "cta": "Start Building",
+            "secondary": "Watch Demo"
+        },
+        "features": {
+            "title": "Everything you need to run your studio",
+            "booking": "Class Booking",
+            "bookingDesc": "Let clients book and pay for classes instantly",
+            "payments": "Payments",
+            "paymentsDesc": "Accept payments and sell class packs",
+            "branding": "Your Brand",
+            "brandingDesc": "Your logo, your colors, your app"
+        }
+    },
+    "builder": {
+        "step0": {
+            "title": "Let's build your app.",
+            "subtitle": "For studios, trainers, coaches, and instructors of any kind.",
+            "businessName": "Business Name",
+            "tagline": "Tagline",
+            "appLanguage": "App Language",
+            "appLanguageDesc": "Your clients will see your app in this language"
+        },
+        "step1": {
+            "title": "Build your app with words.",
+            "subtitle": "Describe your vision, and our AI will generate a starting point for you.",
+            "placeholder": "e.g. A high-energy boxing gym in New York with a focus on community challenges.",
+            "generate": "Generate with AI",
+            "skip": "Skip to manual"
+        },
+        "step9": {
+            "title": "Ready to launch?",
+            "updateAnytime": "Update Anytime, Instantly.",
+            "updateDesc": "You can edit your content, colors, and schedule even after going live. No app store updates required.",
+            "previewTitle": "Your Studio in Dal AI",
+            "monthlyPlan": "Monthly Plan",
+            "setupFee": "Setup Fee",
+            "waived": "Waived",
+            "totalDue": "Total due today",
+            "launchButton": "Go Live Now"
+        }
+    },
+    "checkout": {
+        "header": {
+            "badge": "Founding Member Offer",
+            "title": "Secure your spot today",
+            "subtitle": "Build your studio now. Your app goes live to the public in January 2026."
+        },
+        "billing": {
+            "monthly": "Monthly",
+            "annual": "Annual",
+            "freeMonths": "2 mo free"
+        },
+        "dalAi": {
+            "name": "Dal AI",
+            "desc": "Core Platform",
+            "included": "Included in your plan"
+        },
+        "giaPro": {
+            "name": "GIA Pro",
+            "desc": "AI Add-on",
+            "tagline": "Let GIA run your business for you"
+        },
+        "account": {
+            "title": "Create your admin account",
+            "email": "Email",
+            "password": "Password"
+        },
+        "total": {
+            "title": "Order Summary",
+            "savings": "You're saving",
+            "button": "Complete Purchase"
+        }
+    },
+    "dashboard": {
+        "title": "Studio Dashboard",
+        "tabs": {
+            "overview": "Overview",
+            "classes": "Classes",
+            "clients": "Clients",
+            "payments": "Payments",
+            "gia": "GIA",
+            "settings": "Settings"
+        },
+        "editApp": "Edit App"
+    },
+    "success": {
+        "title": "Your app is live!",
+        "subtitle": "is ready for your first booking.",
+        "readyToLaunch": "Ready to launch",
+        "nextSteps": {
+            "title": "What's next?",
+            "step1": "Download the app",
+            "step1Desc": "Manage your studio on the go",
+            "step2": "Add your classes",
+            "step2Desc": "Set your schedule and pricing",
+            "step3": "Share with clients",
+            "step3Desc": "They download YOUR app and start booking"
+        },
+        "downloadApp": "Download Dal AI App",
+        "goToDashboard": "Go to Dashboard",
+        "support": "Need help?"
+    },
+    "login": {
+        "title": "Welcome back",
+        "subtitle": "Sign in to manage your studio",
+        "email": "Email",
+        "password": "Password",
+        "button": "Sign In",
+        "noAccount": "Don't have an account?",
+        "createOne": "Create one"
+    }
+}

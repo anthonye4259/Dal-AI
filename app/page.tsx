@@ -7,6 +7,7 @@ import { Sparkles, CheckCircle2, Play, Users, Star, Smartphone, Globe, Zap, Cred
 import BuilderFlow from '@/components/BuilderFlow';
 import IPhoneMockup from '@/components/builder/IPhoneMockup';
 import { BuilderProvider, useBuilder } from '@/context/BuilderContext';
+import LanguageSwitcher from '@/components/LanguageSwitcher';
 
 export default function SplitLandingPage() {
   return (
@@ -36,12 +37,15 @@ function SplitLandingPageContent() {
             <Image src="/logo.png" alt="Dal AI" width={32} height={32} className="rounded-lg bg-white" />
             <span className="font-bold text-xl tracking-tight">Dal AI</span>
           </div>
-          <button
-            onClick={() => router.push('/login')}
-            className="text-sm text-primary font-medium hover:underline"
-          >
-            Login
-          </button>
+          <div className="flex items-center gap-4">
+            <LanguageSwitcher />
+            <button
+              onClick={() => router.push('/login')}
+              className="text-sm text-primary font-medium hover:underline"
+            >
+              Login
+            </button>
+          </div>
         </div>
 
         {/* Main Content - Only visible on Step 0 */}
