@@ -213,7 +213,7 @@ export default function DashboardPage() {
                             <div className="relative z-10 flex flex-col md:flex-row items-center gap-8">
                                 <div className="bg-white p-2 rounded-xl border border-white/10 shadow-lg shrink-0">
                                     <img
-                                        src={`https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://dal.ai/app/${studio.code}&color=000000`}
+                                        src={`https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://dal.ai/s/${studio.id}&color=000000`}
                                         alt="Scan to preview"
                                         className="w-32 h-32 rounded-lg"
                                     />
@@ -233,14 +233,128 @@ export default function DashboardPage() {
                                     </div>
 
                                     <div className="flex flex-col sm:flex-row gap-3">
-                                        <button className="px-5 py-3 rounded-xl bg-white text-black font-bold flex items-center justify-center gap-2 hover:bg-gray-100 transition-colors">
+                                        <button
+                                            onClick={() => {
+                                                navigator.clipboard.writeText(`https://dal.ai/s/${studio.id}`);
+                                                alert('Link copied!');
+                                            }}
+                                            className="px-5 py-3 rounded-xl bg-white text-black font-bold flex items-center justify-center gap-2 hover:bg-gray-100 transition-colors"
+                                        >
                                             <Share2 className="w-4 h-4" />
-                                            Share Link
+                                            Copy Studio Link
                                         </button>
-                                        <button className="px-5 py-3 rounded-xl bg-white/10 text-white font-medium flex items-center justify-center gap-2 hover:bg-white/20 transition-colors border border-white/10">
+                                        <button
+                                            onClick={() => {
+                                                navigator.clipboard.writeText(studio.code || studio.id);
+                                                alert('Code copied!');
+                                            }}
+                                            className="px-5 py-3 rounded-xl bg-white/10 text-white font-medium flex items-center justify-center gap-2 hover:bg-white/20 transition-colors border border-white/10"
+                                        >
                                             <Copy className="w-4 h-4" />
-                                            Copy Code: {studio.code}
+                                            Copy Code: {studio.code || studio.id?.substring(0, 6).toUpperCase()}
                                         </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* REFERRAL PROGRAM */}
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            {/* Referral Card */}
+                            <div className="p-6 rounded-2xl bg-gradient-to-br from-purple-500/10 to-pink-500/10 border border-purple-500/20 relative overflow-hidden">
+                                <div className="absolute top-0 right-0 w-32 h-32 bg-purple-500/10 blur-2xl rounded-full -mr-16 -mt-16"></div>
+
+                                <div className="relative z-10">
+                                    <div className="flex items-center gap-3 mb-4">
+                                        <div className="w-12 h-12 rounded-xl bg-purple-500/20 flex items-center justify-center">
+                                            <Users className="w-6 h-6 text-purple-400" />
+                                        </div>
+                                        <div>
+                                            <h3 className="font-bold text-foreground">Referral Program</h3>
+                                            <p className="text-sm text-text-secondary">Earn $10 for each referral</p>
+                                        </div>
+                                    </div>
+
+                                    <div className="mb-4">
+                                        <p className="text-xs text-text-muted uppercase font-bold mb-2">Your Referral Link</p>
+                                        <div className="flex items-center gap-2">
+                                            <input
+                                                type="text"
+                                                readOnly
+                                                value={`dal.ai/ref/${studio.id?.substring(0, 6).toUpperCase()}`}
+                                                className="flex-1 px-4 py-2.5 bg-surface border border-border rounded-lg text-sm font-mono"
+                                            />
+                                            <button
+                                                onClick={() => {
+                                                    navigator.clipboard.writeText(`https://dal.ai/ref/${studio.id?.substring(0, 6).toUpperCase()}`);
+                                                    alert('Referral link copied!');
+                                                }}
+                                                className="px-4 py-2.5 bg-purple-500 text-white rounded-lg font-medium hover:bg-purple-600 transition-colors"
+                                            >
+                                                Copy
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                    <div className="grid grid-cols-3 gap-3">
+                                        <div className="text-center p-3 bg-surface/50 rounded-lg">
+                                            <p className="text-xl font-bold text-foreground">0</p>
+                                            <p className="text-xs text-text-muted">Invited</p>
+                                        </div>
+                                        <div className="text-center p-3 bg-surface/50 rounded-lg">
+                                            <p className="text-xl font-bold text-foreground">0</p>
+                                            <p className="text-xs text-text-muted">Signed Up</p>
+                                        </div>
+                                        <div className="text-center p-3 bg-surface/50 rounded-lg">
+                                            <p className="text-xl font-bold text-purple-400">$0</p>
+                                            <p className="text-xs text-text-muted">Earned</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            {/* Share Class Links Card */}
+                            <div className="p-6 rounded-2xl bg-gradient-to-br from-blue-500/10 to-cyan-500/10 border border-blue-500/20 relative overflow-hidden">
+                                <div className="absolute top-0 right-0 w-32 h-32 bg-blue-500/10 blur-2xl rounded-full -mr-16 -mt-16"></div>
+
+                                <div className="relative z-10">
+                                    <div className="flex items-center gap-3 mb-4">
+                                        <div className="w-12 h-12 rounded-xl bg-blue-500/20 flex items-center justify-center">
+                                            <Share2 className="w-6 h-6 text-blue-400" />
+                                        </div>
+                                        <div>
+                                            <h3 className="font-bold text-foreground">Shareable Class Links</h3>
+                                            <p className="text-sm text-text-secondary">Direct book links for Instagram</p>
+                                        </div>
+                                    </div>
+
+                                    <p className="text-sm text-text-muted mb-4">
+                                        Generate beautiful share links for each class. Perfect for Instagram stories and posts!
+                                    </p>
+
+                                    <div className="space-y-2">
+                                        {studio.classes?.slice(0, 2).map((cls: any, idx: number) => (
+                                            <div key={idx} className="flex items-center justify-between p-3 bg-surface/50 rounded-lg">
+                                                <div>
+                                                    <p className="font-medium text-foreground text-sm">{cls.name}</p>
+                                                    <p className="text-xs text-text-muted">{cls.time}</p>
+                                                </div>
+                                                <button
+                                                    onClick={() => {
+                                                        navigator.clipboard.writeText(`https://dal.ai/s/${studio.id}/class/${idx}`);
+                                                        alert('Class link copied!');
+                                                    }}
+                                                    className="px-3 py-1.5 bg-blue-500 text-white rounded-lg text-xs font-medium hover:bg-blue-600 transition-colors"
+                                                >
+                                                    Copy Link
+                                                </button>
+                                            </div>
+                                        ))}
+                                        {(!studio.classes || studio.classes.length === 0) && (
+                                            <p className="text-sm text-text-muted text-center py-4">
+                                                Add classes to generate share links
+                                            </p>
+                                        )}
                                     </div>
                                 </div>
                             </div>
