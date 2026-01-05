@@ -3,12 +3,31 @@
 import { useState, Suspense } from 'react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
-import { Sparkles, CheckCircle2, Play, Users, Star, Smartphone, Globe, Zap, CreditCard, ShieldCheck } from 'lucide-react';
+import { Sparkles, CheckCircle2, Play, Users, Star, Smartphone, Globe, Zap, CreditCard, ShieldCheck, Home, Calendar, User } from 'lucide-react';
 import BuilderFlow from '@/components/BuilderFlow';
 import IPhoneMockup from '@/components/builder/IPhoneMockup';
 import { BuilderProvider, useBuilder } from '@/context/BuilderContext';
 import LanguageSwitcher from '@/components/LanguageSwitcher';
 import { useTranslation } from '@/context/I18nContext';
+
+// Screen Toggle Button Component
+function ScreenToggleButton({ icon: Icon, label, tabId }: { icon: any; label: string; tabId: string }) {
+  const { activeTab, setActiveTab } = useBuilder();
+  const isActive = activeTab === tabId;
+
+  return (
+    <button
+      onClick={() => setActiveTab(tabId)}
+      className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium transition-all ${isActive
+          ? 'bg-primary text-white'
+          : 'text-text-secondary hover:text-foreground hover:bg-surface-hover'
+        }`}
+    >
+      <Icon className="w-3.5 h-3.5" />
+      {label}
+    </button>
+  );
+}
 
 export default function SplitLandingPage() {
   return (
@@ -111,11 +130,36 @@ function SplitLandingPageContent() {
         </div>
 
         {/* Phone Preview (Animated Position) */}
-        <div className={`transition-all duration-700 ease-in-out flex justify-center ${step > 0
-          ? 'absolute inset-0 items-center scale-100 z-20 top-0 pt-0'
+        <div className={`transition-all duration-700 ease-in-out flex flex-col items-center ${step > 0
+          ? 'absolute inset-0 justify-center scale-100 z-20 top-0 pt-8'
           : 'mt-auto scale-90 origin-bottom opacity-80 hover:opacity-100 pb-8 relative z-10'
           }`}>
+
+          {/* Live Preview Badge */}
+          {step > 0 && (
+            <div className="mb-4 flex items-center gap-2 px-3 py-1.5 bg-primary/10 border border-primary/20 rounded-full">
+              <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
+              <span className="text-xs font-medium text-primary">Live Preview</span>
+            </div>
+          )}
+
           <IPhoneMockup />
+
+          {/* Screen Toggle Buttons - Only show when building */}
+          {step > 0 && (
+            <div className="mt-6 flex items-center gap-2 bg-surface border border-border rounded-full p-1">
+              <ScreenToggleButton icon={Home} label="Home" tabId="home" />
+              <ScreenToggleButton icon={Calendar} label="Schedule" tabId="schedule" />
+              <ScreenToggleButton icon={User} label="Profile" tabId="profile" />
+            </div>
+          )}
+
+          {/* Step hint */}
+          {step > 0 && (
+            <p className="mt-4 text-xs text-text-muted text-center max-w-[200px]">
+              Changes you make will appear here in real-time
+            </p>
+          )}
         </div>
       </div>
 
