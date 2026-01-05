@@ -6,15 +6,18 @@ import Image from 'next/image';
 import { Sparkles, CheckCircle2, Play, Users, Star, Smartphone, Globe, Zap, CreditCard, ShieldCheck } from 'lucide-react';
 import BuilderFlow from '@/components/BuilderFlow';
 import IPhoneMockup from '@/components/builder/IPhoneMockup';
+import { BuilderProvider } from '@/context/BuilderContext';
 
 export default function SplitLandingPage() {
+  return (
+    <BuilderProvider>
+      <SplitLandingPageContent />
+    </BuilderProvider>
+  );
+}
+
+function SplitLandingPageContent() {
   const router = useRouter();
-  const [previewProps, setPreviewProps] = useState<any>({
-    studioName: '',
-    brandColor: '#4A9FD4',
-    icon: '🧘',
-    classes: []
-  });
 
   return (
     <div className="h-screen bg-background overflow-hidden flex flex-col md:flex-row">
@@ -92,14 +95,9 @@ export default function SplitLandingPage() {
           </div>
 
           {/* Phone Preview (Small) */}
-          <div className="mt-auto flex justify-center scale-90 origin-bottom opacity-80 hover:opacity-100 transition-opacity duration-500">
-            <IPhoneMockup
-              studioName={previewProps.studioName || 'Your Studio'}
-              brandColor={previewProps.brandColor}
-              icon={previewProps.icon}
-              classes={previewProps.classes}
-              activeTab={previewProps.activeTabOverride}
-            />
+          <div className="mt-auto flex justify-center scale-90 origin-bottom opacity-80 hover:opacity-100 transition-opacity duration-500 pb-8">
+            {/* @ts-ignore - Mockup will be updated to fetch from context soon */}
+            <IPhoneMockup />
           </div>
         </div>
       </div>
@@ -123,7 +121,7 @@ export default function SplitLandingPage() {
                   <div className="w-8 h-8 border-4 border-primary border-t-transparent rounded-full animate-spin" />
                 </div>
               }>
-                <BuilderFlow onPreviewUpdate={setPreviewProps} />
+                <BuilderFlow />
               </Suspense>
             </div>
           </div>

@@ -4,6 +4,8 @@ import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
 import { Sparkles, ArrowRight, Share2, MessageCircle } from 'lucide-react';
 import IPhoneMockup from '@/components/builder/IPhoneMockup';
+import { BuilderProvider, useBuilder } from '@/context/BuilderContext';
+import { useEffect } from 'react';
 
 interface StudioData {
     id: string;
@@ -16,7 +18,34 @@ interface StudioData {
 }
 
 export default function PreviewClient({ studio }: { studio: StudioData }) {
+    return (
+        <BuilderProvider>
+            <PreviewContent studio={studio} />
+        </BuilderProvider>
+    );
+}
+
+function PreviewContent({ studio }: { studio: StudioData }) {
     const router = useRouter();
+    const { setStudioName, setBrandColor, setIcon, setClasses, setStudioType } = useBuilder();
+
+    // Hydrate Context with Studio Data
+    useEffect(() => {
+        if (studio) {
+            setStudioName(studio.name);
+            setBrandColor(studio.brandColor);
+            setIcon(studio.icon);
+            setStudioType(studio.category as any);
+            // Map simple classes to builder classes format
+            setClasses(studio.classes.map(c => ({
+                ...c,
+                category: studio.category,
+                duration: 60,
+                price: 25,
+                maxSpots: 20
+            })) as any);
+        }
+    }, [studio, setStudioName, setBrandColor, setIcon, setClasses, setStudioType]);
 
     const handleShare = async () => {
         const url = window.location.href;
@@ -136,12 +165,8 @@ export default function PreviewClient({ studio }: { studio: StudioData }) {
                             className="flex justify-center"
                         >
                             <div className="relative">
-                                <IPhoneMockup
-                                    studioName={studio.name}
-                                    brandColor={studio.brandColor}
-                                    icon={studio.icon}
-                                    classes={studio.classes.map(c => ({ ...c, category: studio.category as 'yoga' | 'pilates' | 'barre' | 'meditation' | 'other' }))}
-                                />
+                                {/* Now consuming context, no props details needed */}
+                                <IPhoneMockup />
 
                                 {/* Powered by Badge */}
                                 <div className="absolute -bottom-4 left-1/2 -translate-x-1/2 px-4 py-2 rounded-full bg-surface border border-border flex items-center gap-2">

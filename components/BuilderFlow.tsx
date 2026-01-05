@@ -4,8 +4,10 @@ import { useState, useEffect } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { ArrowLeft, ArrowRight, Check, CheckCircle2, Sparkles, Plus, Trash2, Clock, DollarSign, Users, Home, Calendar, MessageCircle, ShoppingBag, User, PlayCircle, Settings, Palette, Smartphone, Trophy, Utensils, TrendingUp, Bell, Gift, Star, Ticket, Play, Globe } from 'lucide-react';
 import { ClassCategory } from '@/lib/types';
+import { useBuilder } from '@/context/BuilderContext';
 
-// Theme Presets (Mobile Parity)
+// ... (PRESETS and CONSTANTS remain the same) ...
+
 const THEME_PRESETS = [
     {
         id: 'zen',
@@ -16,6 +18,7 @@ const THEME_PRESETS = [
         gradient: 'from-[#0A0A0A] to-[#1a1f1a]',
         font: 'Sans-Serif'
     },
+    // ... (Use existing presets) ...
     {
         id: 'energy',
         name: 'High Energy',
@@ -73,7 +76,6 @@ const FONT_OPTIONS = [
 ];
 
 // Feature Categories (Mobile Parity)
-// Mobile Parity Features List
 const FEATURES = [
     { id: 'classes', label: 'Class Booking', icon: <Calendar className="w-5 h-5" />, desc: 'Book group classes' },
     { id: 'video', label: 'Video Library', icon: <PlayCircle className="w-5 h-5" />, desc: 'On-demand workouts' },
@@ -234,41 +236,36 @@ const AVAILABLE_TABS = [
 const STEPS = ['Studio', 'Magic Build', 'Theme', 'Brand', 'Navigation', 'Classes', 'Features', 'Preview', 'Launch'];
 
 
-export default function BuilderFlow({ onPreviewUpdate }: { onPreviewUpdate?: (props: any) => void }) {
+export default function BuilderFlow() {
     const router = useRouter();
     const searchParams = useSearchParams();
 
-    const [currentStep, setCurrentStep] = useState(0);
+    // consume Context
+    const {
+        step: currentStep, setStep: setCurrentStep,
+        studioName, setStudioName,
+        tagline, setTagline,
+        studioType, setStudioType,
+        brandColor, setBrandColor,
+        themeId, setThemeId,
+        fontFamily, setFontFamily,
+        icon, setIcon,
+        classes, setClasses,
+        features, setFeatures,
+        selectedTabs, setSelectedTabs,
+        backgroundMode, setBackgroundMode,
+        activeTab: tourTabOverride, setActiveTab: setTourTabOverride
+    } = useBuilder();
 
-    // Core Identity
-    const [studioName, setStudioName] = useState('');
-    const [tagline, setTagline] = useState('');
-    const [studioType, setStudioType] = useState<ClassCategory>('yoga');
-
-    // Magic Build State
+    // Magic Build State (Local is fine for input text)
     const [magicPrompt, setMagicPrompt] = useState('');
     const [isGenerating, setIsGenerating] = useState(false);
 
-    // Visual Brand
-    const [brandColor, setBrandColor] = useState('#4A9FD4');
-    const [themeId, setThemeId] = useState('zen');
-    const [fontFamily, setFontFamily] = useState('Inter');
-
-    // Advanced Customization State
+    // Advanced Customization State (Local state for toggles is fine)
     const [useCustomColor, setUseCustomColor] = useState(false);
     const [customColor, setCustomColor] = useState('#00E5FF');
-    const [backgroundMode, setBackgroundMode] = useState<'light' | 'dark' | 'black'>('black');
 
-    // Navigation State
-    const [selectedTabs, setSelectedTabs] = useState<string[]>(['home', 'schedule', 'profile']);
-
-    const [icon, setIcon] = useState('🧘');
-
-    // Classes & Features
-    const [classes, setClasses] = useState<BuilderClass[]>([]);
-    const [features, setFeatures] = useState<string[]>(['classes', 'packs', 'notifications']);
-
-    // Settings
+    // Settings (Can stay local or move to context if needed, for now local is okay as it's just passed to checkout)
     const [settings, setSettings] = useState<StudioSettings>({
         cancellationWindow: 24,
         lateFee: 10,
@@ -280,28 +277,8 @@ export default function BuilderFlow({ onPreviewUpdate }: { onPreviewUpdate?: (pr
     // Tour State
     const [isTourActive, setIsTourActive] = useState(false);
     const [tourStep, setTourStep] = useState(0);
-    const [tourTabOverride, setTourTabOverride] = useState<string | null>(null);
 
-    // Update preview
-    useEffect(() => {
-        if (onPreviewUpdate) {
-            const currentBrandColor = useCustomColor ? customColor : brandColor;
-
-            onPreviewUpdate({
-                studioName: studioName || 'Your Studio',
-                brandColor: currentBrandColor,
-                theme: themeId,
-                studioType,
-                icon,
-                tagline,
-                fontFamily,
-                backgroundMode: backgroundMode,
-                tabs: selectedTabs,
-                classes: classes || [],
-                activeTabOverride: tourTabOverride // Pass the override for the tour
-            });
-        }
-    }, [studioName, brandColor, customColor, useCustomColor, studioType, icon, themeId, tagline, fontFamily, backgroundMode, selectedTabs, classes, onPreviewUpdate, tourTabOverride]);
+    // REMOVED: useEffect for onPreviewUpdate (Context handles this auto-magically)
 
     // Apply Theme Presets
     const applyTheme = (id: string) => {
@@ -336,7 +313,7 @@ export default function BuilderFlow({ onPreviewUpdate }: { onPreviewUpdate?: (pr
 
         if (tourStep >= tourSequence.length - 1) {
             setIsTourActive(false);
-            setTourTabOverride(null);
+            setTourTabOverride('home');
             setCurrentStep(8); // Go to Launch
             return;
         }
@@ -592,7 +569,7 @@ export default function BuilderFlow({ onPreviewUpdate }: { onPreviewUpdate?: (pr
                             <button
                                 onClick={() => {
                                     setIsTourActive(false);
-                                    setTourTabOverride(null);
+                                    setTourTabOverride('home');
                                     setCurrentStep(8);
                                 }}
                                 className="text-sm text-text-muted hover:text-foreground mt-4"
@@ -887,11 +864,11 @@ export default function BuilderFlow({ onPreviewUpdate }: { onPreviewUpdate?: (pr
                                             onClick={() => {
                                                 if (isSelected) {
                                                     if (selectedTabs.length > 3) {
-                                                        setSelectedTabs(prev => prev.filter(t => t !== tab.id));
+                                                        setSelectedTabs(selectedTabs.filter(t => t !== tab.id));
                                                     }
                                                 } else {
                                                     if (selectedTabs.length < 5) {
-                                                        setSelectedTabs(prev => [...prev, tab.id]);
+                                                        setSelectedTabs([...selectedTabs, tab.id]);
                                                     }
                                                 }
                                             }}
@@ -994,9 +971,9 @@ export default function BuilderFlow({ onPreviewUpdate }: { onPreviewUpdate?: (pr
                                             key={feature.id}
                                             onClick={() => {
                                                 if (isSelected) {
-                                                    setFeatures(prev => prev.filter(f => f !== feature.id));
+                                                    setFeatures(features.filter(f => f !== feature.id));
                                                 } else {
-                                                    setFeatures(prev => [...prev, feature.id]);
+                                                    setFeatures([...features, feature.id]);
                                                 }
                                             }}
                                             className={`p-4 rounded-xl border text-left transition-all flex items-start gap-4 ${isSelected
