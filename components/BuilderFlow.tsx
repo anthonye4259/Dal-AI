@@ -698,7 +698,7 @@ bg-gradient-to-br ${theme.gradient}
                                     type="text"
                                     value={studioName}
                                     onChange={(e) => setStudioName(e.target.value)}
-                                    placeholder="e.g. Elite Boxing, Zen Yoga, Peak Performance Training"
+                                    placeholder=""
                                     className="w-full bg-surface border border-border rounded-xl px-4 py-3 text-lg font-medium placeholder:text-text-muted focus:outline-none focus:border-primary transition-colors"
                                 />
                             </div>
@@ -709,7 +709,7 @@ bg-gradient-to-br ${theme.gradient}
                                     type="text"
                                     value={tagline}
                                     onChange={(e) => setTagline(e.target.value)}
-                                    placeholder="e.g. Find your flow. Train like a champion."
+                                    placeholder=""
                                     className="w-full bg-surface border border-border rounded-xl px-4 py-3 text-foreground focus:outline-none focus:border-primary transition-colors"
                                 />
                             </div>
