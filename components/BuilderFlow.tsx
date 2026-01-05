@@ -785,12 +785,12 @@ bg-gradient-to-br ${theme.gradient}
                                         {isGenerating ? (
                                             <>
                                                 <Sparkles className="w-5 h-5 animate-spin" />
-                                                Generating...
+                                                {t('common.loading')}
                                             </>
                                         ) : (
                                             <>
                                                 <Sparkles className="w-5 h-5" />
-                                                Generate Base
+                                                {t('builder.step1.generate')}
                                             </>
                                         )}
                                     </button>
@@ -798,7 +798,7 @@ bg-gradient-to-br ${theme.gradient}
                                         onClick={() => setCurrentStep(2)}
                                         className="px-6 rounded-xl font-medium text-text-secondary hover:text-foreground hover:bg-surface border border-transparent hover:border-border transition-all"
                                     >
-                                        Skip
+                                        {t('common.skip')}
                                     </button>
                                 </div>
                             </div>
@@ -812,8 +812,8 @@ bg-gradient-to-br ${theme.gradient}
                     {/* Step 2: Themes (Shifted from 1) */}
                     {currentStep === 2 && (
                         <div className="space-y-6">
-                            <h2 className="text-2xl font-bold">Choose a starting vibe.</h2>
-                            <p className="text-text-secondary">These presets set your colors and fonts. You can tweak them next.</p>
+                            <h2 className="text-2xl font-bold">{t('builder.step3.title')}</h2>
+                            <p className="text-text-secondary">{t('builder.step3.subtitle')}</p>
 
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                 {THEME_PRESETS.map((theme) => (
@@ -847,8 +847,8 @@ bg-gradient-to-br ${theme.gradient}
                     {currentStep === 3 && (
                         <div className="space-y-8">
                             <div>
-                                <h2 className="text-2xl font-bold mb-2">Fine tune your brand.</h2>
-                                <p className="text-text-secondary mb-6">Upload your logo and perfect your color palette.</p>
+                                <h2 className="text-2xl font-bold mb-2">{t('builder.step2.title')}</h2>
+                                <p className="text-text-secondary mb-6">{t('builder.step2.subtitle')}</p>
 
                                 <div className="space-y-8">
 
@@ -1005,8 +1005,8 @@ bg-gradient-to-br ${theme.gradient}
                     {currentStep === 4 && (
                         <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4">
                             <div>
-                                <h2 className="text-2xl font-bold mb-2">Build your Home Screen.</h2>
-                                <p className="text-text-secondary mb-6">Customize what your members see first.</p>
+                                <h2 className="text-2xl font-bold mb-2">{t('builder.step5.title')}</h2>
+                                <p className="text-text-secondary mb-6">{t('builder.step5.subtitle')}</p>
 
                                 {/* Hero Image Upload */}
                                 <div className="space-y-4 mb-8">
@@ -1103,8 +1103,8 @@ bg-gradient-to-br ${theme.gradient}
                     {currentStep === 5 && (
                         <div className="space-y-6">
                             <div className="space-y-2">
-                                <h2 className="text-2xl font-bold">Build your bottom bar.</h2>
-                                <p className="text-text-secondary">Select 3 to 5 tabs for your app's main navigation.</p>
+                                <h2 className="text-2xl font-bold">{t('builder.step6.title')}</h2>
+                                <p className="text-text-secondary">{t('builder.step6.subtitle')}</p>
                             </div>
 
                             {/* Tab Amount Selector */}
@@ -1187,9 +1187,9 @@ bg-gradient-to-br ${theme.gradient}
                     {currentStep === 6 && (
                         <div className="space-y-6">
                             <div className="flex items-center justify-between">
-                                <h2 className="text-2xl font-bold">Your Schedule</h2>
+                                <h2 className="text-2xl font-bold">{t('builder.step7.title')}</h2>
                                 <button onClick={addClass} className="text-primary text-sm font-medium flex items-center gap-1 hover:text-primary-hover">
-                                    <Plus className="w-4 h-4" /> Add Class
+                                    <Plus className="w-4 h-4" /> {t('builder.step7.addClass')}
                                 </button>
                             </div>
 
@@ -1240,8 +1240,8 @@ bg-gradient-to-br ${theme.gradient}
                     {/* Step 7: Features (Shifted to 7) */}
                     {currentStep === 7 && (
                         <div className="space-y-6">
-                            <h2 className="text-2xl font-bold">App Features</h2>
-                            <p className="text-text-secondary">Toggle the features you want in your app.</p>
+                            <h2 className="text-2xl font-bold">{t('builder.step8.title')}</h2>
+                            <p className="text-text-secondary">{t('builder.step8.subtitle')}</p>
 
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                                 {FEATURES.map((feature) => {
@@ -1384,16 +1384,16 @@ bg-gradient-to-br ${theme.gradient}
 
                                 <div className="bg-surface border border-border rounded-2xl p-6 max-w-sm mx-auto text-left space-y-4">
                                     <div className="flex justify-between items-center text-sm">
-                                        <span className="text-text-secondary">Monthly Plan</span>
+                                        <span className="text-text-secondary">{t('builder.step9.monthlyPlan')}</span>
                                         <span className="font-bold">$49 USD/mo</span>
                                     </div>
                                     <div className="flex justify-between items-center text-sm">
-                                        <span className="text-text-secondary">Setup Fee</span>
-                                        <span className="text-green-500 font-bold">Waived</span>
+                                        <span className="text-text-secondary">{t('builder.step9.setupFee')}</span>
+                                        <span className="text-green-500 font-bold">{t('builder.step9.waived')}</span>
                                     </div>
                                     <div className="h-px bg-border" />
                                     <div className="flex justify-between items-center">
-                                        <span className="font-bold">Total due today</span>
+                                        <span className="font-bold">{t('builder.step9.totalDue')}</span>
                                         <span className="font-bold text-xl">$49 USD</span>
                                     </div>
                                 </div>
@@ -1413,7 +1413,7 @@ bg-gradient-to-br ${theme.gradient}
                             }`}
                     >
                         <ArrowLeft className="w-5 h-5" />
-                        Back
+                        {t('common.back')}
                     </button>
 
                     <button
@@ -1424,7 +1424,7 @@ bg-gradient-to-br ${theme.gradient}
                             : 'bg-surface text-text-muted cursor-not-allowed'
                             }`}
                     >
-                        {currentStep === STEPS.length - 1 ? (isLoading ? 'Launching...' : 'Go Live Now ($49)') : 'Next'}
+                        {currentStep === STEPS.length - 1 ? (isLoading ? t('common.loading') : t('builder.step9.launchButton')) : t('common.next')}
                         <ArrowRight className="w-5 h-5" />
                     </button>
                 </div>
