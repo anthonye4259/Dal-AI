@@ -1347,7 +1347,7 @@ bg-gradient-to-br ${theme.gradient}
                                 <div className="bg-surface border border-border rounded-2xl p-6 max-w-sm mx-auto text-left space-y-4">
                                     <div className="flex justify-between items-center text-sm">
                                         <span className="text-text-secondary">Monthly Plan</span>
-                                        <span className="font-bold">$49/mo</span>
+                                        <span className="font-bold">$49 USD/mo</span>
                                     </div>
                                     <div className="flex justify-between items-center text-sm">
                                         <span className="text-text-secondary">Setup Fee</span>
@@ -1356,7 +1356,7 @@ bg-gradient-to-br ${theme.gradient}
                                     <div className="h-px bg-border" />
                                     <div className="flex justify-between items-center">
                                         <span className="font-bold">Total due today</span>
-                                        <span className="font-bold text-xl">$49</span>
+                                        <span className="font-bold text-xl">$49 USD</span>
                                     </div>
                                 </div>
                             </div>

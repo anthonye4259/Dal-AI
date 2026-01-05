@@ -216,11 +216,14 @@ export default function CheckoutPage() {
 
                 {/* Pricing Header */}
                 <div className="text-center mb-8">
+                    <div className="inline-block px-3 py-1 rounded-full bg-primary/10 text-primary text-sm font-semibold mb-3">
+                        Founding Member Offer
+                    </div>
                     <h1 className="text-3xl font-bold text-foreground mb-2">
-                        Launch your app today
+                        Secure your spot today
                     </h1>
-                    <p className="text-text-secondary">
-                        Simple pricing. Cancel anytime.
+                    <p className="text-text-secondary max-w-md mx-auto">
+                        Build your studio now. Your app goes live to the public in January 2026.
                     </p>
                 </div>
 
@@ -268,7 +271,7 @@ export default function CheckoutPage() {
                                 ${billingPeriod === 'monthly' ? pricing.dalAi.monthly : pricing.dalAi.annual}
                             </span>
                             <span className="text-text-secondary">
-                                /{billingPeriod === 'monthly' ? 'mo' : 'yr'}
+                                USD/{billingPeriod === 'monthly' ? 'mo' : 'yr'}
                             </span>
                         </div>
 
@@ -319,7 +322,7 @@ export default function CheckoutPage() {
                                 +${billingPeriod === 'monthly' ? pricing.giaPro.monthly : pricing.giaPro.annual}
                             </span>
                             <span className="text-text-secondary">
-                                /{billingPeriod === 'monthly' ? 'mo' : 'yr'}
+                                USD/{billingPeriod === 'monthly' ? 'mo' : 'yr'}
                             </span>
                         </div>
                         <p className="text-sm text-accent mb-4">Let GIA run your business for you</p>
