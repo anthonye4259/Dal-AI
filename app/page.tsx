@@ -6,7 +6,7 @@ import Image from 'next/image';
 import { Sparkles, CheckCircle2, Play, Users, Star, Smartphone, Globe, Zap, CreditCard, ShieldCheck } from 'lucide-react';
 import BuilderFlow from '@/components/BuilderFlow';
 import IPhoneMockup from '@/components/builder/IPhoneMockup';
-import { BuilderProvider } from '@/context/BuilderContext';
+import { BuilderProvider, useBuilder } from '@/context/BuilderContext';
 
 export default function SplitLandingPage() {
   return (
@@ -18,25 +18,26 @@ export default function SplitLandingPage() {
 
 function SplitLandingPageContent() {
   const router = useRouter();
+  const { step } = useBuilder();
 
   return (
     <div className="h-screen bg-background overflow-hidden flex flex-col md:flex-row">
 
       {/* LEFT SIDE: Marketing Pitch (45%) */}
-      <div className="hidden md:flex flex-col w-[45%] h-full bg-surface border-r border-border relative overflow-hidden">
+      <div className="hidden md:flex flex-col w-[45%] h-full bg-surface border-r border-border relative overflow-hidden transition-all duration-700">
+
         {/* Background Effects */}
         <div className="absolute top-0 left-0 w-full h-full bg-grid-pattern opacity-5 pointer-events-none" />
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-primary/5 rounded-full blur-3xl pointer-events-none" />
 
-        {/* Header */}
-        <div className="p-8 pb-4 flex items-center gap-2 relative z-10">
+        {/* Header - Only visible on Step 0 */}
+        <div className={`p-8 pb-4 flex items-center gap-2 relative z-10 transition-all duration-500 ${step > 0 ? 'opacity-0 -translate-y-4 font-bold scale-90 pointer-events-none absolute' : 'opacity-100 translate-y-0'}`}>
           <Image src="/logo.png" alt="Dal AI" width={32} height={32} className="rounded-lg bg-white" />
           <span className="font-bold text-xl tracking-tight">Dal AI</span>
         </div>
 
-        {/* Main Content */}
-        <div className="flex-1 flex flex-col justify-center px-12 relative z-10">
-
+        {/* Main Content - Only visible on Step 0 */}
+        <div className={`flex-1 flex flex-col justify-center px-12 relative z-10 transition-all duration-500 ${step > 0 ? 'opacity-0 translate-x-[-20px] absolute pointer-events-none' : 'opacity-100 translate-x-0'}`}>
 
           <h1 className="text-4xl lg:text-5xl font-bold mb-6 leading-tight">
             Your own studio app. <br />
@@ -93,12 +94,14 @@ function SplitLandingPageContent() {
               </div>
             </div>
           </div>
+        </div>
 
-          {/* Phone Preview (Small) */}
-          <div className="mt-auto flex justify-center scale-90 origin-bottom opacity-80 hover:opacity-100 transition-opacity duration-500 pb-8">
-            {/* @ts-ignore - Mockup will be updated to fetch from context soon */}
-            <IPhoneMockup />
-          </div>
+        {/* Phone Preview (Animated Position) */}
+        <div className={`transition-all duration-700 ease-in-out flex justify-center ${step > 0
+            ? 'absolute inset-0 items-center scale-100 z-20 top-0 pt-0'
+            : 'mt-auto scale-90 origin-bottom opacity-80 hover:opacity-100 pb-8 relative z-10'
+          }`}>
+          <IPhoneMockup />
         </div>
       </div>
 
