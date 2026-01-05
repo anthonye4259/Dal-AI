@@ -287,6 +287,21 @@ export default function BuilderFlow() {
     const [magicPrompt, setMagicPrompt] = useState('');
     const [isGenerating, setIsGenerating] = useState(false);
 
+    // App Language Options (Global Support)
+    const LANGUAGE_OPTIONS = [
+        { code: 'en', name: 'English', flag: '🇺🇸' },
+        { code: 'es', name: 'Español', flag: '🇪🇸' },
+        { code: 'fr', name: 'Français', flag: '🇫🇷' },
+        { code: 'hi', name: 'हिन्दी', flag: '🇮🇳' },
+        { code: 'zh', name: '中文', flag: '🇨🇳' },
+        { code: 'ar', name: 'العربية', flag: '🇸🇦' },
+        { code: 'pt', name: 'Português', flag: '🇧🇷' },
+        { code: 'de', name: 'Deutsch', flag: '🇩🇪' },
+        { code: 'ja', name: '日本語', flag: '🇯🇵' },
+        { code: 'ko', name: '한국어', flag: '🇰🇷' },
+    ];
+    const [appLanguage, setAppLanguage] = useState('en');
+
     // Advanced Customization State (Local state for toggles is fine)
     const [useCustomColor, setUseCustomColor] = useState(false);
     const [customColor, setCustomColor] = useState('#00E5FF');
@@ -533,6 +548,7 @@ bg-gradient-to-br ${theme.gradient}
                 studioName,
                 tagline,
                 studioType,
+                appLanguage,
                 brandColor: useCustomColor ? customColor : brandColor,
                 themeId,
                 fontFamily,
@@ -712,6 +728,26 @@ bg-gradient-to-br ${theme.gradient}
                                     placeholder=""
                                     className="w-full bg-surface border border-border rounded-xl px-4 py-3 text-foreground focus:outline-none focus:border-primary transition-colors"
                                 />
+                            </div>
+
+                            <div className="space-y-2">
+                                <label className="text-sm font-medium text-text-secondary">App Language</label>
+                                <p className="text-xs text-text-muted">Your clients will see your app in this language</p>
+                                <div className="grid grid-cols-2 gap-2">
+                                    {LANGUAGE_OPTIONS.map((lang) => (
+                                        <button
+                                            key={lang.code}
+                                            onClick={() => setAppLanguage(lang.code)}
+                                            className={`flex items-center gap-3 p-3 rounded-xl border transition-all text-left ${appLanguage === lang.code
+                                                ? 'bg-primary/10 border-primary text-foreground'
+                                                : 'bg-surface border-border text-text-secondary hover:border-primary/50'
+                                                }`}
+                                        >
+                                            <span className="text-xl">{lang.flag}</span>
+                                            <span className="font-medium text-sm">{lang.name}</span>
+                                        </button>
+                                    ))}
+                                </div>
                             </div>
                         </div>
                     )}
