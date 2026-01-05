@@ -343,7 +343,7 @@ export default function CheckoutPage() {
                     {!user && (
                         <div className="mb-8 p-6 bg-background rounded-xl border border-border">
                             <h3 className="text-lg font-semibold text-foreground mb-4">
-                                {isLoginMode ? 'Log in to your account' : 'Create your admin account'}
+                                Create your admin account
                             </h3>
                             <div className="space-y-4">
                                 <div>
@@ -369,12 +369,7 @@ export default function CheckoutPage() {
                                 {authError && (
                                     <p className="text-destructive text-sm">{authError}</p>
                                 )}
-                                <button
-                                    onClick={() => setIsLoginMode(!isLoginMode)}
-                                    className="text-sm text-primary hover:underline"
-                                >
-                                    {isLoginMode ? "Don't have an account? Sign up" : "Already have an account? Log in"}
-                                </button>
+
                             </div>
                         </div>
                     )}

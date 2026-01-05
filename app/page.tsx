@@ -31,9 +31,17 @@ function SplitLandingPageContent() {
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-primary/5 rounded-full blur-3xl pointer-events-none" />
 
         {/* Header - Only visible on Step 0 */}
-        <div className={`p-8 pb-4 flex items-center gap-2 relative z-10 transition-all duration-500 ${step > 0 ? 'opacity-0 -translate-y-4 font-bold scale-90 pointer-events-none absolute' : 'opacity-100 translate-y-0'}`}>
-          <Image src="/logo.png" alt="Dal AI" width={32} height={32} className="rounded-lg bg-white" />
-          <span className="font-bold text-xl tracking-tight">Dal AI</span>
+        <div className={`p-8 pb-4 flex items-center justify-between relative z-10 transition-all duration-500 ${step > 0 ? 'opacity-0 -translate-y-4 font-bold scale-90 pointer-events-none absolute' : 'opacity-100 translate-y-0'}`}>
+          <div className="flex items-center gap-2">
+            <Image src="/logo.png" alt="Dal AI" width={32} height={32} className="rounded-lg bg-white" />
+            <span className="font-bold text-xl tracking-tight">Dal AI</span>
+          </div>
+          <button
+            onClick={() => router.push('/login')}
+            className="text-sm text-primary font-medium hover:underline"
+          >
+            Login
+          </button>
         </div>
 
         {/* Main Content - Only visible on Step 0 */}
@@ -98,8 +106,8 @@ function SplitLandingPageContent() {
 
         {/* Phone Preview (Animated Position) */}
         <div className={`transition-all duration-700 ease-in-out flex justify-center ${step > 0
-            ? 'absolute inset-0 items-center scale-100 z-20 top-0 pt-0'
-            : 'mt-auto scale-90 origin-bottom opacity-80 hover:opacity-100 pb-8 relative z-10'
+          ? 'absolute inset-0 items-center scale-100 z-20 top-0 pt-0'
+          : 'mt-auto scale-90 origin-bottom opacity-80 hover:opacity-100 pb-8 relative z-10'
           }`}>
           <IPhoneMockup />
         </div>
@@ -113,7 +121,12 @@ function SplitLandingPageContent() {
             <Image src="/logo.png" alt="Dal AI" width={24} height={24} className="rounded-md bg-white" />
             <span className="font-bold text-lg">Dal AI</span>
           </div>
-          <button className="text-sm text-text-secondary">Login</button>
+          <button
+            onClick={() => router.push('/login')}
+            className="text-sm text-primary font-medium hover:underline"
+          >
+            Login
+          </button>
         </div>
 
         <div className="flex-1 relative">
