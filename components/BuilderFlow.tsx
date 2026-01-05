@@ -254,7 +254,13 @@ export default function BuilderFlow() {
         features, setFeatures,
         selectedTabs, setSelectedTabs,
         backgroundMode, setBackgroundMode,
-        activeTab: tourTabOverride, setActiveTab: setTourTabOverride
+        activeTab: tourTabOverride, setActiveTab: setTourTabOverride,
+        logo, setLogo,
+        accentColor, setAccentColor,
+        surfaceColor, setSurfaceColor,
+        heroImage, setHeroImage,
+        widgets, setWidgets,
+        splashSettings, setSplashSettings
     } = useBuilder();
 
     // Magic Build State (Local is fine for input text)
@@ -286,11 +292,70 @@ export default function BuilderFlow() {
         if (theme) {
             setThemeId(id);
             setBrandColor(theme.colors.primary);
+            setAccentColor(theme.colors.accent);
+            // Default background logic if needed, but we keep it user-controlled or simple for now
             setFontFamily(theme.font);
         }
     };
 
-    // Pre-fill studio name from URL
+    // ... (useEffect hooks remain same)
+
+    // ... (rest of logic)
+
+    {/* Step 2: Theme / Layout (Visual Picker) */ }
+    {
+        currentStep === 2 && (
+            <div className="space-y-6">
+                <h2 className="text-2xl font-bold">Choose your layout</h2>
+                <p className="text-text-secondary">Pick a prebuilt screen template to start with.</p>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    {THEME_PRESETS.map((theme) => {
+                        const isSelected = themeId === theme.id;
+                        return (
+                            <div
+                                key={theme.id}
+                                onClick={() => applyTheme(theme.id)}
+                                className={`
+                                                relative p-4 rounded-xl cursor-pointer border-2 transition-all group overflow-hidden
+                                                ${isSelected ? 'border-primary bg-primary/5 ring-1 ring-primary' : 'border-border bg-surface hover:border-primary/50'}
+                                            `}
+                            >
+                                {/* Visual Header Mockup */}
+                                <div className={`h-24 w-full rounded-lg mb-4 p-3 relative overflow-hidden flex flex-col justify-end shadow-sm
+                                                bg-gradient-to-br ${theme.gradient}
+                                            `}>
+                                    {/* Mini bars representing text */}
+                                    <div className="w-1/2 h-2 bg-white/20 rounded-full mb-2" />
+                                    <div className="w-1/3 h-2 bg-white/20 rounded-full" />
+
+                                    {/* Selected Checkmark */}
+                                    {isSelected && (
+                                        <div className="absolute top-2 right-2 w-6 h-6 bg-white rounded-full flex items-center justify-center shadow-md animate-in zoom-in">
+                                            <Check className="w-4 h-4 text-primary" />
+                                        </div>
+                                    )}
+                                </div>
+
+                                <h3 className="font-bold text-lg mb-1">{theme.name}</h3>
+                                <p className="text-xs text-text-muted mb-3">{theme.description}</p>
+
+                                <div className="flex items-center gap-2">
+                                    <p className="text-[10px] uppercase font-bold text-text-muted tracking-wider">{theme.font}</p>
+                                    <div className="w-1 h-1 rounded-full bg-border" />
+                                    <div className="flex gap-1">
+                                        <div className="w-3 h-3 rounded-full" style={{ background: theme.colors.primary }} />
+                                        <div className="w-3 h-3 rounded-full" style={{ background: theme.colors.accent }} />
+                                        <div className="w-3 h-3 rounded-full" style={{ background: theme.colors.background }} />
+                                    </div>
+                                </div>
+                            </div>
+                        );
+                    })}
+                </div>
+            </div>
+        )
+    }
     useEffect(() => {
         const name = searchParams.get('name');
         if (name) {
@@ -727,29 +792,121 @@ export default function BuilderFlow() {
                     {currentStep === 3 && (
                         <div className="space-y-8">
                             <div>
-                                <h2 className="text-2xl font-bold mb-6">Fine tune your brand.</h2>
+                                <h2 className="text-2xl font-bold mb-2">Fine tune your brand.</h2>
+                                <p className="text-text-secondary mb-6">Upload your logo and perfect your color palette.</p>
 
-                                <div className="space-y-6">
-                                    {/* Icon */}
+                                <div className="space-y-8">
+
+                                    {/* Logo Upload (New) */}
                                     <div className="space-y-3">
-                                        <label className="text-sm font-medium text-text-secondary">App Icon</label>
-                                        <div className="flex gap-4 overflow-x-auto pb-2 hide-scrollbar">
-                                            {['🧘', '🏃', '💪', '🤸', '🩰', '🏋️', '🥊', '🏊', '🚴'].map((emoji) => (
-                                                <button
-                                                    key={emoji}
-                                                    onClick={() => setIcon(emoji)}
-                                                    className={`w-12 h-12 rounded-xl flex items-center justify-center text-2xl border transition-all flex-shrink-0 ${icon === emoji
-                                                        ? 'bg-primary/20 border-primary'
-                                                        : 'bg-surface border-border hover:bg-surface-hover'
-                                                        }`}
-                                                >
-                                                    {emoji}
-                                                </button>
-                                            ))}
+                                        <label className="text-sm font-medium text-text-secondary">Studio Logo</label>
+                                        <div className="flex items-center gap-4">
+                                            <div
+                                                className={`w-20 h-20 rounded-2xl border-2 border-dashed flex items-center justify-center overflow-hidden bg-surface relative group ${logo ? 'border-primary' : 'border-border'}`}
+                                            >
+                                                {logo ? (
+                                                    <img src={logo} alt="Logo" className="w-full h-full object-cover" />
+                                                ) : (
+                                                    <span className="text-2xl">{icon}</span>
+                                                )}
+
+                                                {/* Hover Overlay */}
+                                                <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                                                    <button
+                                                        onClick={() => setLogo(null)}
+                                                        className="p-1 bg-white rounded-full text-black hover:scale-110 transition-transform"
+                                                    >
+                                                        <Trash2 className="w-4 h-4" />
+                                                    </button>
+                                                </div>
+                                            </div>
+
+                                            <div className="flex-1">
+                                                <div className="relative">
+                                                    <input
+                                                        type="file"
+                                                        accept="image/*"
+                                                        onChange={(e) => {
+                                                            const file = e.target.files?.[0];
+                                                            if (file) {
+                                                                const reader = new FileReader();
+                                                                reader.onload = (e) => setLogo(e.target?.result as string);
+                                                                reader.readAsDataURL(file);
+                                                            }
+                                                        }}
+                                                        className="absolute inset-0 opacity-0 cursor-pointer z-10"
+                                                    />
+                                                    <button className="px-4 py-2 bg-surface border border-border rounded-lg text-sm font-medium hover:bg-surface-hover transition-colors w-full text-left">
+                                                        Upload Image...
+                                                    </button>
+                                                </div>
+                                                <p className="text-xs text-text-muted mt-2">Recommended: 512x512px PNG (Transparent)</p>
+                                            </div>
                                         </div>
                                     </div>
 
-                                    {/* Fonts */}
+                                    {/* Advanced Colors */}
+                                    <div className="space-y-4">
+                                        <div className="flex justify-between items-center">
+                                            <label className="text-sm font-medium text-text-secondary">Color Palette</label>
+                                            <button
+                                                onClick={() => {
+                                                    // "Cream/Luxe" Preset Handler
+                                                    setBrandColor('#D4AF37'); // Gold
+                                                    setAccentColor('#F5E6CC'); // Cream Accent
+                                                    setSurfaceColor('#FAF9F6'); // Off-white/Cream
+                                                    setBackgroundMode('light');
+                                                }}
+                                                className="text-xs px-2 py-1 bg-amber-100 text-amber-800 rounded-md font-bold hover:scale-105 transition-transform"
+                                            >
+                                                Apply "Luxe Cream" Preset ✨
+                                            </button>
+                                        </div>
+
+                                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                            {/* Primary Color */}
+                                            <div className="bg-surface border border-border rounded-xl p-4 space-y-3">
+                                                <div className="flex items-center justify-between">
+                                                    <label className="text-xs font-bold uppercase text-text-muted">Primary Brand</label>
+                                                    <div className="w-6 h-6 rounded-full shadow-sm" style={{ backgroundColor: brandColor }} />
+                                                </div>
+                                                <input
+                                                    type="color"
+                                                    value={brandColor}
+                                                    onChange={(e) => setBrandColor(e.target.value)}
+                                                    className="w-full h-8 cursor-pointer rounded-md overflow-hidden bg-transparent"
+                                                />
+                                                <input
+                                                    type="text"
+                                                    value={brandColor}
+                                                    onChange={(e) => setBrandColor(e.target.value)}
+                                                    className="w-full bg-background border border-border rounded-lg px-3 py-1.5 text-sm uppercase font-mono"
+                                                />
+                                            </div>
+
+                                            {/* Accent Color */}
+                                            <div className="bg-surface border border-border rounded-xl p-4 space-y-3">
+                                                <div className="flex items-center justify-between">
+                                                    <label className="text-xs font-bold uppercase text-text-muted">Accent / Secondary</label>
+                                                    <div className="w-6 h-6 rounded-full shadow-sm" style={{ backgroundColor: accentColor }} />
+                                                </div>
+                                                <input
+                                                    type="color"
+                                                    value={accentColor}
+                                                    onChange={(e) => setAccentColor(e.target.value)}
+                                                    className="w-full h-8 cursor-pointer rounded-md overflow-hidden bg-transparent"
+                                                />
+                                                <input
+                                                    type="text"
+                                                    value={accentColor}
+                                                    onChange={(e) => setAccentColor(e.target.value)}
+                                                    className="w-full bg-background border border-border rounded-lg px-3 py-1.5 text-sm uppercase font-mono"
+                                                />
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    {/* Typography */}
                                     <div className="space-y-3">
                                         <label className="text-sm font-medium text-text-secondary">Typography</label>
                                         <div className="grid grid-cols-2 gap-3">
@@ -769,83 +926,121 @@ export default function BuilderFlow() {
                                         </div>
                                     </div>
 
-                                    {/* Colors */}
-                                    <div className="space-y-4">
-                                        <div className="flex justify-between items-center">
-                                            <label className="text-sm font-medium text-text-secondary">Brand Color</label>
+                                    {/* Background Mode Toggle (Simpler version here as preset handles it mostly) */}
+                                    <div className="flex items-center gap-4 p-4 bg-surface border border-border rounded-xl">
+                                        <span className="text-sm font-medium text-text-secondary">App Background</span>
+                                        <div className="flex gap-2">
                                             <button
-                                                onClick={() => setUseCustomColor(!useCustomColor)}
-                                                className="text-xs text-primary hover:text-primary-hover flex items-center gap-1"
-                                            >
-                                                <Palette className="w-3 h-3" />
-                                                {useCustomColor ? 'Use Presets' : 'Custom Hex'}
-                                            </button>
-                                        </div>
-
-                                        {useCustomColor ? (
-                                            <div className="flex gap-4 items-center animate-fade-in">
-                                                <div
-                                                    className="w-12 h-12 rounded-xl border border-border shadow-inner"
-                                                    style={{ backgroundColor: customColor }}
-                                                />
-                                                <input
-                                                    type="text"
-                                                    value={customColor}
-                                                    onChange={(e) => setCustomColor(e.target.value)}
-                                                    placeholder="#000000"
-                                                    className="flex-1 bg-surface border border-border rounded-xl px-4 py-3 font-mono uppercase focus:border-primary focus:outline-none"
-                                                    maxLength={7}
-                                                />
-                                            </div>
-                                        ) : (
-                                            <div className="grid grid-cols-5 md:grid-cols-8 gap-2 animate-fade-in">
-                                                {COLOR_PRESETS.map((preset) => (
-                                                    <button
-                                                        key={preset.name}
-                                                        onClick={() => setBrandColor(preset.color)}
-                                                        className={`w-full aspect-square rounded-full flex items-center justify-center transition-transform hover:scale-110 ${brandColor === preset.color ? 'ring-2 ring-white ring-offset-2 ring-offset-background' : ''
-                                                            }`}
-                                                        style={{ backgroundColor: preset.color }}
-                                                        title={preset.name}
-                                                    >
-                                                        {brandColor === preset.color && <Check className="w-4 h-4 text-white" />}
-                                                    </button>
-                                                ))}
-                                            </div>
-                                        )}
-                                    </div>
-
-                                    {/* Background Mode */}
-                                    <div className="space-y-3">
-                                        <label className="text-sm font-medium text-text-secondary">App Theme</label>
-                                        <div className="grid grid-cols-3 gap-3">
-                                            {[
-                                                { id: 'light', label: 'Light', bg: '#ffffff', text: '#000000' },
-                                                { id: 'dark', label: 'Dark', bg: '#1a1a1a', text: '#ffffff' },
-                                                { id: 'black', label: 'OLED Black', bg: '#000000', text: '#ffffff' },
-                                            ].map((mode) => (
-                                                <button
-                                                    key={mode.id}
-                                                    onClick={() => setBackgroundMode(mode.id as 'light' | 'dark' | 'black')}
-                                                    className={`p-3 rounded-xl border transition-all flex items-center justify-center gap-2 ${backgroundMode === mode.id
-                                                        ? 'border-primary ring-1 ring-primary'
-                                                        : 'border-border opacity-70 hover:opacity-100'
-                                                        }`}
-                                                    style={{ backgroundColor: mode.bg }}
-                                                >
-                                                    <span className="text-sm font-medium" style={{ color: mode.text }}>{mode.label}</span>
-                                                    {backgroundMode === mode.id && <CheckCircle2 className="w-4 h-4 text-primary" />}
-                                                </button>
-                                            ))}
+                                                onClick={() => setBackgroundMode('light')}
+                                                className={`w-8 h-8 rounded-full border bg-white ${backgroundMode === 'light' ? 'ring-2 ring-primary ring-offset-2' : ''}`}
+                                            />
+                                            <button
+                                                onClick={() => setBackgroundMode('black')}
+                                                className={`w-8 h-8 rounded-full border bg-black ${backgroundMode === 'black' ? 'ring-2 ring-primary ring-offset-2' : ''}`}
+                                            />
                                         </div>
                                     </div>
+
                                 </div>
                             </div>
                         </div>
                     )}
 
-                    {/* Step 4: Navigation (Shifted from 3) */}
+                    {/* Step 4: Home Screen Customization (New) */}
                     {currentStep === 4 && (
+                        <div className="space-y-8">
+                            <div>
+                                <h2 className="text-2xl font-bold mb-2">Build your Home Screen.</h2>
+                                <p className="text-text-secondary mb-6">Customize what your members see first.</p>
+
+                                {/* Hero Image Upload */}
+                                <div className="space-y-4 mb-8">
+                                    <label className="text-sm font-medium text-text-secondary">Hero Banner</label>
+                                    <div className="bg-surface border border-border rounded-xl p-4">
+                                        <div className="relative aspect-video rounded-lg overflow-hidden bg-black/5 mb-4 group">
+                                            {heroImage ? (
+                                                <img src={heroImage} alt="Hero" className="w-full h-full object-cover" />
+                                            ) : (
+                                                <div className="w-full h-full flex items-center justify-center text-text-muted">
+                                                    <span className="text-sm">Default Theme Image</span>
+                                                </div>
+                                            )}
+
+                                            {/* Hover Overlay */}
+                                            <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2">
+                                                <label className="cursor-pointer px-3 py-1.5 bg-white text-black text-xs font-bold rounded-lg hover:scale-105 transition-transform">
+                                                    Change
+                                                    <input
+                                                        type="file"
+                                                        accept="image/*"
+                                                        className="hidden"
+                                                        onChange={(e) => {
+                                                            const file = e.target.files?.[0];
+                                                            if (file) {
+                                                                const reader = new FileReader();
+                                                                reader.onload = (e) => setHeroImage(e.target?.result as string);
+                                                                reader.readAsDataURL(file);
+                                                            }
+                                                        }}
+                                                    />
+                                                </label>
+                                                {heroImage && (
+                                                    <button
+                                                        onClick={() => setHeroImage(null)}
+                                                        className="px-3 py-1.5 bg-red-500 text-white text-xs font-bold rounded-lg hover:scale-105 transition-transform"
+                                                    >
+                                                        Reset
+                                                    </button>
+                                                )}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                {/* Widget Manager */}
+                                <div className="space-y-4">
+                                    <label className="text-sm font-medium text-text-secondary">Home Screen Widgets</label>
+                                    <div className="space-y-2">
+                                        {widgets.sort((a, b) => a.order - b.order).map((widget, index) => (
+                                            <div
+                                                key={widget.id}
+                                                className={`flex items-center gap-3 p-3 rounded-xl border transition-all ${widget.enabled ? 'bg-surface border-border' : 'bg-surface/50 border-border/50 opacity-60'
+                                                    }`}
+                                            >
+                                                <div className="flex flex-col gap-1 text-text-muted cursor-move">
+                                                    <div className="w-4 h-1 bg-current rounded-full opacity-20" />
+                                                    <div className="w-4 h-1 bg-current rounded-full opacity-20" />
+                                                </div>
+
+                                                <div className="flex-1">
+                                                    <p className="font-semibold text-sm text-foreground">{widget.label}</p>
+                                                </div>
+
+                                                <button
+                                                    onClick={() => {
+                                                        const newWidgets = widgets.map(w =>
+                                                            w.id === widget.id ? { ...w, enabled: !w.enabled } : w
+                                                        );
+                                                        setWidgets(newWidgets);
+                                                    }}
+                                                    className={`w-10 h-6 rounded-full transition-colors relative ${widget.enabled ? 'bg-primary' : 'bg-border'
+                                                        }`}
+                                                >
+                                                    <div className={`absolute top-1 w-4 h-4 bg-white rounded-full transition-all ${widget.enabled ? 'left-5' : 'left-1'
+                                                        }`} />
+                                                </button>
+                                            </div>
+                                        ))}
+                                    </div>
+                                    <p className="text-xs text-text-muted text-center pt-2">Drag handles coming soon (uses simple order for now)</p>
+                                </div>
+                            </div>
+                        </div>
+                    )}
+
+
+                    {/* Step 5: Navigation (Shifted from 4) */}
+                    {currentStep === 5 && (
                         <div className="space-y-6">
                             <div className="space-y-2">
                                 <h2 className="text-2xl font-bold">Build your bottom bar.</h2>
@@ -903,8 +1098,8 @@ export default function BuilderFlow() {
                         </div>
                     )}
 
-                    {/* Step 5: Classes (Shifted from 4) */}
-                    {currentStep === 5 && (
+                    {/* Step 6: Classes (Shifted from 5) */}
+                    {currentStep === 6 && (
                         <div className="space-y-6">
                             <div className="flex items-center justify-between">
                                 <h2 className="text-2xl font-bold">Your Schedule</h2>
@@ -957,8 +1152,8 @@ export default function BuilderFlow() {
                         </div>
                     )}
 
-                    {/* Step 6: Features (Shifted from 5) */}
-                    {currentStep === 6 && (
+                    {/* Step 7: Features (Shifted from 6) */}
+                    {currentStep === 7 && (
                         <div className="space-y-6">
                             <h2 className="text-2xl font-bold">App Features</h2>
                             <p className="text-text-secondary">Toggle the features you want in your app.</p>
@@ -998,8 +1193,8 @@ export default function BuilderFlow() {
                         </div>
                     )}
 
-                    {/* Step 7: Preview (New) */}
-                    {currentStep === 7 && (
+                    {/* Step 8: Preview (Shifted from 7) */}
+                    {currentStep === 8 && (
                         <div className="space-y-8 py-8 text-center">
                             <div className="space-y-4">
                                 <h2 className="text-3xl font-bold">Let's review your app.</h2>
@@ -1064,8 +1259,8 @@ export default function BuilderFlow() {
                         </div>
                     )}
 
-                    {/* Step 8: Launch (Shifted from 7) */}
-                    {currentStep === 8 && (
+                    {/* Step 9: Launch (Shifted from 8) */}
+                    {currentStep === 9 && (
                         <div className="text-center space-y-8 py-8">
                             <div className="w-20 h-20 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-6 animate-bounce-slow">
                                 <Sparkles className="w-10 h-10 text-primary" />

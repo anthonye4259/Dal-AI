@@ -18,6 +18,16 @@ export interface BuilderState {
     selectedTabs: string[];
     backgroundMode: 'light' | 'dark' | 'black';
 
+    // Advanced Branding
+    logo: string | null;
+    accentColor: string;
+    surfaceColor: string;
+
+    // Ultimate Customization (Phase 11)
+    heroImage: string | null;
+    widgets: Array<{ id: string; label: string; enabled: boolean; order: number }>;
+    splashSettings: { tagline: string; animation: 'fade' | 'slide' | 'zoom' };
+
     // Actions
     setStep: (step: number) => void;
     setStudioName: (name: string) => void;
@@ -31,6 +41,14 @@ export interface BuilderState {
     setFeatures: (features: string[]) => void;
     setSelectedTabs: (tabs: string[]) => void;
     setBackgroundMode: (mode: 'light' | 'dark' | 'black') => void;
+
+    setLogo: (logo: string | null) => void;
+    setAccentColor: (color: string) => void;
+    setSurfaceColor: (color: string) => void;
+
+    setHeroImage: (image: string | null) => void;
+    setWidgets: (widgets: Array<{ id: string; label: string; enabled: boolean; order: number }>) => void;
+    setSplashSettings: (settings: { tagline: string; animation: 'fade' | 'slide' | 'zoom' }) => void;
 
     activeTab: string;
     setActiveTab: (tab: string) => void;
@@ -54,6 +72,24 @@ export function BuilderProvider({ children }: { children: ReactNode }) {
     const [backgroundMode, setBackgroundMode] = useState<'light' | 'dark' | 'black'>('black');
     const [activeTab, setActiveTab] = useState('home');
 
+    // Advanced Branding Defaults
+    const [logo, setLogo] = useState<string | null>(null);
+    const [accentColor, setAccentColor] = useState('#4A9FD4'); // Default matches brand
+    const [surfaceColor, setSurfaceColor] = useState('#ffffff');
+
+    // Ultimate Customization Defaults
+    const [heroImage, setHeroImage] = useState<string | null>(null);
+    const [widgets, setWidgets] = useState([
+        { id: 'stats', label: 'Stats & Streak', enabled: true, order: 0 },
+        { id: 'featured', label: 'Featured Challenge', enabled: false, order: 1 },
+        { id: 'trainers', label: 'Meet the Team', enabled: true, order: 2 },
+        { id: 'classes', label: "Today's Classes", enabled: true, order: 3 }
+    ]);
+    const [splashSettings, setSplashSettings] = useState<{ tagline: string; animation: 'fade' | 'slide' | 'zoom' }>({
+        tagline: 'Find your flow',
+        animation: 'fade'
+    });
+
     return (
         <BuilderContext.Provider value={{
             step, setStep,
@@ -68,7 +104,13 @@ export function BuilderProvider({ children }: { children: ReactNode }) {
             features, setFeatures,
             selectedTabs, setSelectedTabs,
             backgroundMode, setBackgroundMode,
-            activeTab, setActiveTab
+            activeTab, setActiveTab,
+            logo, setLogo,
+            accentColor, setAccentColor,
+            surfaceColor, setSurfaceColor,
+            heroImage, setHeroImage,
+            widgets, setWidgets,
+            splashSettings, setSplashSettings
         }}>
             {children}
         </BuilderContext.Provider>
