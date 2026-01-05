@@ -32,4 +32,9 @@ export const saveAppConfig = async (config: any) => {
     }
 };
 
+export const COLLECTIONS = {
+    STUDIOS: "studios",
+    BUILDER_LEADS: "builder_leads"
+};
+
 export { db, auth };
