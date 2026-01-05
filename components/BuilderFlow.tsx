@@ -686,19 +686,19 @@ bg-gradient-to-br ${theme.gradient}
 
                     {/* Content for steps (Same as before) */}
 
-                    {/* Step 0: Studio Name & Type */}
-                    {/* Step 0: Studio Name & Type */}
+                    {/* Step 0: Studio Name */}
                     {currentStep === 0 && (
                         <div className="space-y-6">
-                            <h2 className="text-2xl font-bold">First, tell us about your studio.</h2>
+                            <h2 className="text-2xl font-bold">Let's build your app.</h2>
+                            <p className="text-text-secondary">For studios, trainers, coaches, and instructors of any kind.</p>
 
                             <div className="space-y-2">
-                                <label className="text-sm font-medium text-text-secondary">Studio Name</label>
+                                <label className="text-sm font-medium text-text-secondary">Business Name</label>
                                 <input
                                     type="text"
                                     value={studioName}
                                     onChange={(e) => setStudioName(e.target.value)}
-                                    placeholder="e.g. Zen Yoga Studio"
+                                    placeholder="e.g. Elite Boxing, Zen Yoga, Peak Performance Training"
                                     className="w-full bg-surface border border-border rounded-xl px-4 py-3 text-lg font-medium placeholder:text-text-muted focus:outline-none focus:border-primary transition-colors"
                                 />
                             </div>
@@ -709,28 +709,9 @@ bg-gradient-to-br ${theme.gradient}
                                     type="text"
                                     value={tagline}
                                     onChange={(e) => setTagline(e.target.value)}
-                                    placeholder="e.g. Find your flow."
+                                    placeholder="e.g. Find your flow. Train like a champion."
                                     className="w-full bg-surface border border-border rounded-xl px-4 py-3 text-foreground focus:outline-none focus:border-primary transition-colors"
                                 />
-                            </div>
-
-                            <div className="space-y-2">
-                                <label className="text-sm font-medium text-text-secondary">Studio Type</label>
-                                <div className="grid grid-cols-2 gap-3">
-                                    {STUDIO_TYPES.map((type) => (
-                                        <button
-                                            key={type.value}
-                                            onClick={() => setStudioType(type.value as ClassCategory)}
-                                            className={`flex items-center gap-3 p-4 rounded-xl border transition-all text-left ${studioType === type.value
-                                                ? 'bg-primary/10 border-primary text-foreground'
-                                                : 'bg-surface border-border text-text-secondary hover:border-primary/50'
-                                                } `}
-                                        >
-                                            <span className="text-2xl">{type.icon}</span>
-                                            <span className="font-medium">{type.label}</span>
-                                        </button>
-                                    ))}
-                                </div>
                             </div>
                         </div>
                     )}
