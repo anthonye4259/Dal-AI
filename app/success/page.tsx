@@ -43,23 +43,84 @@ function SuccessContent() {
                 const querySnapshot = await getDocs(q);
 
                 if (querySnapshot.empty) {
+                    // BRIDGE: Map Web Builder data to Mobile App "Studio" Schema
+
+                    // 1. Map Studio Type -> Modalities
+                    const modalityMap: Record<string, string[]> = {
+                        'yoga': ['yoga'],
+                        'pilates': ['pilates_reformer', 'pilates_mat'],
+                        'barre': ['barre'],
+                        'meditation': ['meditation', 'breathwork'],
+                        'other': ['hiit', 'strength']
+                    };
+
+                    // 2. Map Theme -> Vibe/Music/Ambiance
+                    const themeMap: Record<string, any> = {
+                        'zen': { vibe: 'calm_meditative', music: ['lo_fi_chill', 'classical_instrumental'], ambiance: 'natural_light' },
+                        'energy': { vibe: 'energetic_upbeat', music: ['pop_top40', 'edm_house'], ambiance: 'bright_energizing' },
+                        'luxe': { vibe: 'boutique_luxe', music: ['indie_alternative'], ambiance: 'dim_candlelit' },
+                        'night': { vibe: 'intense_challenging', music: ['hip_hop_rnb', 'edm_house'], ambiance: 'club_vibes' },
+                        'earth': { vibe: 'calm_meditative', music: ['indie_alternative'], ambiance: 'natural_light' },
+                        'ocean': { vibe: 'calm_meditative', music: ['lo_fi_chill'], ambiance: 'natural_light' }
+                    };
+
+                    const selectedTheme = themeMap[data.themeId] || themeMap['zen'];
+
+                    // 3. Default Hours (9AM - 8PM Daily)
+                    const mkHours = (isOpen: boolean) => ({ isOpen, openTime: isOpen ? "09:00" : undefined, closeTime: isOpen ? "20:00" : undefined });
+                    const defaultHours = {
+                        monday: mkHours(true), tuesday: mkHours(true), wednesday: mkHours(true),
+                        thursday: mkHours(true), friday: mkHours(true), saturday: mkHours(true), sunday: mkHours(false)
+                    };
+
                     await addDoc(studiosRef, {
                         ownerId: user.uid,
                         name: data.studioName,
-                        fullName: data.studioName,
+                        fullName: data.studioName, // Mobile expects fullName
+                        description: data.tagline || 'Welcome to our studio.',
+
+                        // Critical Mobile Fields
+                        vibe: selectedTheme.vibe,
+                        musicStyle: selectedTheme.music,
+                        ambiance: selectedTheme.ambiance,
+                        modalities: modalityMap[data.studioType] || ['yoga'],
+                        amenities: ['water_station', 'lockers', ...(data.features?.includes('shop') ? ['retail_shop'] : [])],
+
+                        // Branding (Even if mobile ignores it for now, save it)
                         brandColor: data.brandColor,
                         icon: data.icon,
-                        type: data.studioType,
-                        classes: data.classes,
+                        logoUrl: `https://ui-avatars.com/api/?name=${encodeURIComponent(data.studioName)}&background=${data.brandColor.replace('#', '')}&color=fff`,
+                        coverPhotoUrl: 'https://images.unsplash.com/photo-1518611012118-696072aa579a?auto=format&fit=crop&q=80',
+
+                        // Location Defaults (Required by Mobile Maps)
+                        address: 'Digital Studio',
+                        city: 'New York',
+                        state: 'NY',
+                        zipCode: '10001',
+                        lat: 40.7128,
+                        lon: -74.0060,
+
+                        // Operational
+                        hours: defaultHours,
+                        rating: 5.0,
+                        reviewCount: 0,
+                        dropInPrice: 2500, // $25.00
+                        membershipStartsAt: 9900,
+
+                        // Settings & Type
+                        type: data.studioType, // Keep original web type too
                         settings: data.settings || {
                             cancellationWindow: 24,
                             lateFee: 10,
                             waitlistSize: 5,
                         },
+
+                        // Meta
                         createdAt: serverTimestamp(),
+                        updatedAt: serverTimestamp(),
                         subscriptionStatus: 'active',
                         stripeSessionId: searchParams.get('session_id'),
-                        code: data.studioName.replace(/\s+/g, '').toUpperCase().slice(0, 8),
+                        code: data.studioName.replace(/[^a-zA-Z0-9]/g, '').toUpperCase().slice(0, 8),
                     });
                     // Clear builder state after successful save
                     sessionStorage.removeItem('builderState');
