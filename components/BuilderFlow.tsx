@@ -1084,10 +1084,22 @@ bg-gradient-to-br ${theme.gradient}
                                         </div>
                                     </div>
 
-                                    {/* Visual Customization Section (NEW) */}
-                                    <div className="space-y-4 pt-4 border-t border-border">
+                                    {/* ADVANCED OPTIONS DIVIDER */}
+                                    <div className="pt-6 border-t border-border">
+                                        <div className="flex items-center gap-3 mb-4">
+                                            <div className="h-px flex-1 bg-gradient-to-r from-transparent via-border to-transparent" />
+                                            <span className="text-xs font-bold uppercase text-text-muted tracking-widest flex items-center gap-2">
+                                                ✨ Advanced Options
+                                                <span className="text-[10px] font-normal text-text-muted/60">(optional)</span>
+                                            </span>
+                                            <div className="h-px flex-1 bg-gradient-to-r from-transparent via-border to-transparent" />
+                                        </div>
+                                    </div>
+
+                                    {/* Visual Customization Section */}
+                                    <div className="space-y-4">
                                         <h3 className="font-bold text-foreground flex items-center gap-2">
-                                            <Palette className="w-4 h-4" />
+                                            <Palette className="w-4 h-4 text-primary" />
                                             Visual Style
                                         </h3>
 
@@ -1296,10 +1308,22 @@ bg-gradient-to-br ${theme.gradient}
                                     <p className="text-xs text-text-muted text-center pt-2">Drag handles coming soon</p>
                                 </div>
 
-                                {/* Screen Layout Options (NEW) */}
-                                <div className="space-y-6 pt-6 border-t border-border">
+                                {/* ADVANCED OPTIONS DIVIDER */}
+                                <div className="pt-6">
+                                    <div className="flex items-center gap-3 mb-4">
+                                        <div className="h-px flex-1 bg-gradient-to-r from-transparent via-border to-transparent" />
+                                        <span className="text-xs font-bold uppercase text-text-muted tracking-widest flex items-center gap-2">
+                                            ✨ Advanced Options
+                                            <span className="text-[10px] font-normal text-text-muted/60">(optional)</span>
+                                        </span>
+                                        <div className="h-px flex-1 bg-gradient-to-r from-transparent via-border to-transparent" />
+                                    </div>
+                                </div>
+
+                                {/* Screen Layout Options */}
+                                <div className="space-y-6">
                                     <h3 className="font-bold text-foreground flex items-center gap-2">
-                                        <Layout className="w-4 h-4" />
+                                        <Layout className="w-4 h-4 text-primary" />
                                         Screen Layouts
                                     </h3>
 
@@ -1317,8 +1341,8 @@ bg-gradient-to-br ${theme.gradient}
                                                     key={layout.id}
                                                     onClick={() => setHomeLayout(layout.id as any)}
                                                     className={`p-4 rounded-xl border text-left transition-all ${homeLayout === layout.id
-                                                            ? 'bg-primary/10 border-primary'
-                                                            : 'bg-surface border-border hover:border-primary/50'
+                                                        ? 'bg-primary/10 border-primary'
+                                                        : 'bg-surface border-border hover:border-primary/50'
                                                         }`}
                                                 >
                                                     <span className="text-2xl mb-2 block">{layout.icon}</span>
@@ -1342,8 +1366,8 @@ bg-gradient-to-br ${theme.gradient}
                                                     key={view.id}
                                                     onClick={() => setScheduleView(view.id as any)}
                                                     className={`p-3 rounded-xl border text-center transition-all ${scheduleView === view.id
-                                                            ? 'bg-primary/10 border-primary'
-                                                            : 'bg-surface border-border hover:border-primary/50'
+                                                        ? 'bg-primary/10 border-primary'
+                                                        : 'bg-surface border-border hover:border-primary/50'
                                                         }`}
                                                 >
                                                     <span className="text-xl block mb-1">{view.icon}</span>
@@ -1366,8 +1390,8 @@ bg-gradient-to-br ${theme.gradient}
                                                     key={layout.id}
                                                     onClick={() => setProfileLayout(layout.id as any)}
                                                     className={`p-3 rounded-xl border text-center transition-all ${profileLayout === layout.id
-                                                            ? 'bg-primary/10 border-primary'
-                                                            : 'bg-surface border-border hover:border-primary/50'
+                                                        ? 'bg-primary/10 border-primary'
+                                                        : 'bg-surface border-border hover:border-primary/50'
                                                         }`}
                                                 >
                                                     <span className="block font-medium text-sm">{layout.label}</span>
