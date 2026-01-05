@@ -123,6 +123,23 @@ function SuccessContent() {
                         stripeSessionId: searchParams.get('session_id'),
                         code: data.studioName.replace(/[^a-zA-Z0-9]/g, '').toUpperCase().slice(0, 8),
                     });
+
+                    // Send welcome email
+                    try {
+                        await fetch('/api/email/welcome', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({
+                                email: user.email,
+                                studioName: data.studioName,
+                                userName: user.displayName || data.studioName,
+                            }),
+                        });
+                        console.log('Welcome email sent');
+                    } catch (emailError) {
+                        console.error('Failed to send welcome email:', emailError);
+                    }
+
                     // Clear builder state after successful save
                     sessionStorage.removeItem('builderState');
                 }
