@@ -129,7 +129,14 @@ export default function DashboardPage() {
                 </nav>
 
                 {/* Bottom Actions */}
-                <div className="mt-auto pt-8 border-t border-border mt-8">
+                <div className="mt-auto pt-8 border-t border-border mt-8 space-y-2">
+                    <button
+                        onClick={() => router.push('/build')}
+                        className="w-full flex items-center gap-3 px-4 py-3 rounded-xl bg-primary/10 text-primary hover:bg-primary/20 transition-all"
+                    >
+                        <Settings className="w-5 h-5" />
+                        <span className="font-medium">Edit App</span>
+                    </button>
                     <button
                         onClick={handleLogout}
                         className="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-text-secondary hover:bg-surface-hover hover:text-foreground transition-all"
