@@ -337,7 +337,17 @@ export default function BuilderFlow() {
         surfaceColor, setSurfaceColor,
         heroImage, setHeroImage,
         widgets, setWidgets,
-        splashSettings, setSplashSettings
+        splashSettings, setSplashSettings,
+        // Visual Customization (NEW)
+        buttonStyle, setButtonStyle,
+        cornerRadius, setCornerRadius,
+        cardStyle, setCardStyle,
+        spacing, setSpacing,
+        // Screen Customization (NEW)
+        homeLayout, setHomeLayout,
+        scheduleView, setScheduleView,
+        profileLayout, setProfileLayout,
+        customLinks, setCustomLinks
     } = useBuilder();
 
     // Magic Build State (Local is fine for input text)
@@ -967,8 +977,8 @@ bg-gradient-to-br ${theme.gradient}
                                                     key={emoji}
                                                     onClick={() => { setIcon(emoji); setLogo(null); }}
                                                     className={`w-10 h-10 rounded-xl flex items-center justify-center text-xl transition-all ${icon === emoji && !logo
-                                                            ? 'bg-primary/20 border-2 border-primary scale-110'
-                                                            : 'bg-surface border border-border hover:border-primary/50 hover:scale-105'
+                                                        ? 'bg-primary/20 border-2 border-primary scale-110'
+                                                        : 'bg-surface border border-border hover:border-primary/50 hover:scale-105'
                                                         }`}
                                                 >
                                                     {emoji}
@@ -1074,6 +1084,119 @@ bg-gradient-to-br ${theme.gradient}
                                         </div>
                                     </div>
 
+                                    {/* Visual Customization Section (NEW) */}
+                                    <div className="space-y-4 pt-4 border-t border-border">
+                                        <h3 className="font-bold text-foreground flex items-center gap-2">
+                                            <Palette className="w-4 h-4" />
+                                            Visual Style
+                                        </h3>
+
+                                        {/* Button Style */}
+                                        <div className="space-y-2">
+                                            <label className="text-xs font-bold uppercase text-text-muted">Button Style</label>
+                                            <div className="grid grid-cols-3 gap-2">
+                                                {[
+                                                    { id: 'pill', label: 'Pill', preview: 'rounded-full' },
+                                                    { id: 'rounded', label: 'Rounded', preview: 'rounded-lg' },
+                                                    { id: 'square', label: 'Square', preview: 'rounded-none' },
+                                                ].map((style) => (
+                                                    <button
+                                                        key={style.id}
+                                                        onClick={() => setButtonStyle(style.id as any)}
+                                                        className={`p-3 rounded-xl border text-center transition-all ${buttonStyle === style.id
+                                                            ? 'bg-primary/10 border-primary'
+                                                            : 'bg-surface border-border hover:border-primary/50'
+                                                            }`}
+                                                    >
+                                                        <div
+                                                            className={`w-full h-8 ${style.preview} mb-2 flex items-center justify-center text-xs font-bold text-white`}
+                                                            style={{ backgroundColor: brandColor }}
+                                                        >
+                                                            Book
+                                                        </div>
+                                                        <span className="text-xs font-medium">{style.label}</span>
+                                                    </button>
+                                                ))}
+                                            </div>
+                                        </div>
+
+                                        {/* Card Style */}
+                                        <div className="space-y-2">
+                                            <label className="text-xs font-bold uppercase text-text-muted">Card Style</label>
+                                            <div className="grid grid-cols-2 gap-2">
+                                                {[
+                                                    { id: 'shadow', label: 'Shadow', desc: 'Soft shadow' },
+                                                    { id: 'flat', label: 'Flat', desc: 'No shadow' },
+                                                    { id: 'glass', label: 'Glass', desc: 'Blur effect' },
+                                                    { id: 'gradient', label: 'Gradient', desc: 'Color fade' },
+                                                ].map((style) => (
+                                                    <button
+                                                        key={style.id}
+                                                        onClick={() => setCardStyle(style.id as any)}
+                                                        className={`p-3 rounded-xl border text-left transition-all ${cardStyle === style.id
+                                                            ? 'bg-primary/10 border-primary'
+                                                            : 'bg-surface border-border hover:border-primary/50'
+                                                            }`}
+                                                    >
+                                                        <span className="block font-medium text-sm">{style.label}</span>
+                                                        <span className="text-xs text-text-muted">{style.desc}</span>
+                                                    </button>
+                                                ))}
+                                            </div>
+                                        </div>
+
+                                        {/* Corner Radius */}
+                                        <div className="space-y-2">
+                                            <label className="text-xs font-bold uppercase text-text-muted">Corner Radius</label>
+                                            <div className="grid grid-cols-3 gap-2">
+                                                {[
+                                                    { id: 'sharp', label: 'Sharp', radius: '4px' },
+                                                    { id: 'soft', label: 'Soft', radius: '12px' },
+                                                    { id: 'rounded', label: 'Rounded', radius: '20px' },
+                                                ].map((option) => (
+                                                    <button
+                                                        key={option.id}
+                                                        onClick={() => setCornerRadius(option.id as any)}
+                                                        className={`p-3 border text-center transition-all ${cornerRadius === option.id
+                                                            ? 'bg-primary/10 border-primary'
+                                                            : 'bg-surface border-border hover:border-primary/50'
+                                                            }`}
+                                                        style={{ borderRadius: option.radius }}
+                                                    >
+                                                        <div
+                                                            className="w-full h-8 mb-2 bg-text-muted/20"
+                                                            style={{ borderRadius: option.radius }}
+                                                        />
+                                                        <span className="text-xs font-medium">{option.label}</span>
+                                                    </button>
+                                                ))}
+                                            </div>
+                                        </div>
+
+                                        {/* Spacing */}
+                                        <div className="space-y-2">
+                                            <label className="text-xs font-bold uppercase text-text-muted">Layout Spacing</label>
+                                            <div className="grid grid-cols-3 gap-2">
+                                                {[
+                                                    { id: 'compact', label: 'Compact', desc: 'Dense layout' },
+                                                    { id: 'comfortable', label: 'Comfortable', desc: 'Balanced' },
+                                                    { id: 'spacious', label: 'Spacious', desc: 'More breathing room' },
+                                                ].map((option) => (
+                                                    <button
+                                                        key={option.id}
+                                                        onClick={() => setSpacing(option.id as any)}
+                                                        className={`p-3 rounded-xl border text-center transition-all ${spacing === option.id
+                                                            ? 'bg-primary/10 border-primary'
+                                                            : 'bg-surface border-border hover:border-primary/50'
+                                                            }`}
+                                                    >
+                                                        <span className="block font-medium text-sm">{option.label}</span>
+                                                    </button>
+                                                ))}
+                                            </div>
+                                        </div>
+                                    </div>
+
                                 </div>
                             </div>
                         </div>
@@ -1171,6 +1294,155 @@ bg-gradient-to-br ${theme.gradient}
                                         ))}
                                     </div>
                                     <p className="text-xs text-text-muted text-center pt-2">Drag handles coming soon</p>
+                                </div>
+
+                                {/* Screen Layout Options (NEW) */}
+                                <div className="space-y-6 pt-6 border-t border-border">
+                                    <h3 className="font-bold text-foreground flex items-center gap-2">
+                                        <Layout className="w-4 h-4" />
+                                        Screen Layouts
+                                    </h3>
+
+                                    {/* Home Layout */}
+                                    <div className="space-y-3">
+                                        <label className="text-sm font-medium text-text-secondary">Home Screen Layout</label>
+                                        <div className="grid grid-cols-2 gap-3">
+                                            {[
+                                                { id: 'default', label: 'Default', desc: 'Standard layout', icon: '📱' },
+                                                { id: 'grid', label: 'Grid', desc: 'Icon-focused grid', icon: '🔲' },
+                                                { id: 'cardStack', label: 'Card Stack', desc: 'Stacked cards', icon: '📚' },
+                                                { id: 'heroFocus', label: 'Hero Focus', desc: 'Large hero image', icon: '🖼️' },
+                                            ].map((layout) => (
+                                                <button
+                                                    key={layout.id}
+                                                    onClick={() => setHomeLayout(layout.id as any)}
+                                                    className={`p-4 rounded-xl border text-left transition-all ${homeLayout === layout.id
+                                                            ? 'bg-primary/10 border-primary'
+                                                            : 'bg-surface border-border hover:border-primary/50'
+                                                        }`}
+                                                >
+                                                    <span className="text-2xl mb-2 block">{layout.icon}</span>
+                                                    <span className="block font-medium text-sm">{layout.label}</span>
+                                                    <span className="text-xs text-text-muted">{layout.desc}</span>
+                                                </button>
+                                            ))}
+                                        </div>
+                                    </div>
+
+                                    {/* Schedule View */}
+                                    <div className="space-y-3">
+                                        <label className="text-sm font-medium text-text-secondary">Schedule View</label>
+                                        <div className="grid grid-cols-3 gap-2">
+                                            {[
+                                                { id: 'list', label: 'List', icon: '📋' },
+                                                { id: 'calendar', label: 'Calendar', icon: '📅' },
+                                                { id: 'week', label: 'Week', icon: '📊' },
+                                            ].map((view) => (
+                                                <button
+                                                    key={view.id}
+                                                    onClick={() => setScheduleView(view.id as any)}
+                                                    className={`p-3 rounded-xl border text-center transition-all ${scheduleView === view.id
+                                                            ? 'bg-primary/10 border-primary'
+                                                            : 'bg-surface border-border hover:border-primary/50'
+                                                        }`}
+                                                >
+                                                    <span className="text-xl block mb-1">{view.icon}</span>
+                                                    <span className="text-xs font-medium">{view.label}</span>
+                                                </button>
+                                            ))}
+                                        </div>
+                                    </div>
+
+                                    {/* Profile Layout */}
+                                    <div className="space-y-3">
+                                        <label className="text-sm font-medium text-text-secondary">Profile Layout</label>
+                                        <div className="grid grid-cols-3 gap-2">
+                                            {[
+                                                { id: 'stats', label: 'Stats Focus', desc: 'Metrics & progress' },
+                                                { id: 'social', label: 'Social', desc: 'Community style' },
+                                                { id: 'minimal', label: 'Minimal', desc: 'Clean & simple' },
+                                            ].map((layout) => (
+                                                <button
+                                                    key={layout.id}
+                                                    onClick={() => setProfileLayout(layout.id as any)}
+                                                    className={`p-3 rounded-xl border text-center transition-all ${profileLayout === layout.id
+                                                            ? 'bg-primary/10 border-primary'
+                                                            : 'bg-surface border-border hover:border-primary/50'
+                                                        }`}
+                                                >
+                                                    <span className="block font-medium text-sm">{layout.label}</span>
+                                                    <span className="text-xs text-text-muted">{layout.desc}</span>
+                                                </button>
+                                            ))}
+                                        </div>
+                                    </div>
+
+                                    {/* Custom Links / Social Links */}
+                                    <div className="space-y-3">
+                                        <div className="flex items-center justify-between">
+                                            <label className="text-sm font-medium text-text-secondary">Custom Menu Links</label>
+                                            <button
+                                                onClick={() => setCustomLinks([...customLinks, { label: '', url: '', icon: '🔗' }])}
+                                                className="text-xs text-primary font-medium flex items-center gap-1 hover:underline"
+                                            >
+                                                <Plus className="w-3 h-3" /> Add Link
+                                            </button>
+                                        </div>
+
+                                        {customLinks.length > 0 ? (
+                                            <div className="space-y-2">
+                                                {customLinks.map((link, idx) => (
+                                                    <div key={idx} className="flex items-center gap-2 p-3 bg-surface border border-border rounded-lg">
+                                                        <select
+                                                            value={link.icon}
+                                                            onChange={(e) => {
+                                                                const newLinks = [...customLinks];
+                                                                newLinks[idx].icon = e.target.value;
+                                                                setCustomLinks(newLinks);
+                                                            }}
+                                                            className="bg-transparent text-xl w-12"
+                                                        >
+                                                            {['🔗', '📸', '🐦', '📘', '🎵', '🌐', '📧', '📞'].map(emoji => (
+                                                                <option key={emoji} value={emoji}>{emoji}</option>
+                                                            ))}
+                                                        </select>
+                                                        <input
+                                                            type="text"
+                                                            placeholder="Label"
+                                                            value={link.label}
+                                                            onChange={(e) => {
+                                                                const newLinks = [...customLinks];
+                                                                newLinks[idx].label = e.target.value;
+                                                                setCustomLinks(newLinks);
+                                                            }}
+                                                            className="flex-1 bg-background border border-border rounded px-2 py-1 text-sm"
+                                                        />
+                                                        <input
+                                                            type="text"
+                                                            placeholder="URL"
+                                                            value={link.url}
+                                                            onChange={(e) => {
+                                                                const newLinks = [...customLinks];
+                                                                newLinks[idx].url = e.target.value;
+                                                                setCustomLinks(newLinks);
+                                                            }}
+                                                            className="flex-1 bg-background border border-border rounded px-2 py-1 text-sm"
+                                                        />
+                                                        <button
+                                                            onClick={() => setCustomLinks(customLinks.filter((_, i) => i !== idx))}
+                                                            className="text-red-500 hover:text-red-600"
+                                                        >
+                                                            <Trash2 className="w-4 h-4" />
+                                                        </button>
+                                                    </div>
+                                                ))}
+                                            </div>
+                                        ) : (
+                                            <p className="text-sm text-text-muted text-center py-4 bg-surface/50 rounded-lg border border-border/50">
+                                                Add links to Instagram, YouTube, website, etc.
+                                            </p>
+                                        )}
+                                    </div>
                                 </div>
                             </div>
                         </div>

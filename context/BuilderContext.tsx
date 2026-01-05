@@ -28,6 +28,18 @@ export interface BuilderState {
     widgets: Array<{ id: string; label: string; enabled: boolean; order: number }>;
     splashSettings: { tagline: string; animation: 'fade' | 'slide' | 'zoom' };
 
+    // Visual Customization (NEW)
+    buttonStyle: 'pill' | 'rounded' | 'square';
+    cornerRadius: 'sharp' | 'soft' | 'rounded';
+    cardStyle: 'shadow' | 'flat' | 'glass' | 'gradient';
+    spacing: 'compact' | 'comfortable' | 'spacious';
+
+    // Screen Customization (NEW)
+    homeLayout: 'default' | 'grid' | 'cardStack' | 'heroFocus';
+    scheduleView: 'list' | 'calendar' | 'week';
+    profileLayout: 'stats' | 'social' | 'minimal';
+    customLinks: Array<{ label: string; url: string; icon: string }>;
+
     // Actions
     setStep: (step: number) => void;
     setStudioName: (name: string) => void;
@@ -49,6 +61,18 @@ export interface BuilderState {
     setHeroImage: (image: string | null) => void;
     setWidgets: (widgets: Array<{ id: string; label: string; enabled: boolean; order: number }>) => void;
     setSplashSettings: (settings: { tagline: string; animation: 'fade' | 'slide' | 'zoom' }) => void;
+
+    // Visual Customization Actions (NEW)
+    setButtonStyle: (style: 'pill' | 'rounded' | 'square') => void;
+    setCornerRadius: (radius: 'sharp' | 'soft' | 'rounded') => void;
+    setCardStyle: (style: 'shadow' | 'flat' | 'glass' | 'gradient') => void;
+    setSpacing: (spacing: 'compact' | 'comfortable' | 'spacious') => void;
+
+    // Screen Customization Actions (NEW)
+    setHomeLayout: (layout: 'default' | 'grid' | 'cardStack' | 'heroFocus') => void;
+    setScheduleView: (view: 'list' | 'calendar' | 'week') => void;
+    setProfileLayout: (layout: 'stats' | 'social' | 'minimal') => void;
+    setCustomLinks: (links: Array<{ label: string; url: string; icon: string }>) => void;
 
     activeTab: string;
     setActiveTab: (tab: string) => void;
@@ -74,7 +98,7 @@ export function BuilderProvider({ children }: { children: ReactNode }) {
 
     // Advanced Branding Defaults
     const [logo, setLogo] = useState<string | null>(null);
-    const [accentColor, setAccentColor] = useState('#4A9FD4'); // Default matches brand
+    const [accentColor, setAccentColor] = useState('#4A9FD4');
     const [surfaceColor, setSurfaceColor] = useState('#ffffff');
 
     // Ultimate Customization Defaults
@@ -89,6 +113,18 @@ export function BuilderProvider({ children }: { children: ReactNode }) {
         tagline: 'Find your flow',
         animation: 'fade'
     });
+
+    // Visual Customization Defaults (NEW)
+    const [buttonStyle, setButtonStyle] = useState<'pill' | 'rounded' | 'square'>('rounded');
+    const [cornerRadius, setCornerRadius] = useState<'sharp' | 'soft' | 'rounded'>('rounded');
+    const [cardStyle, setCardStyle] = useState<'shadow' | 'flat' | 'glass' | 'gradient'>('shadow');
+    const [spacing, setSpacing] = useState<'compact' | 'comfortable' | 'spacious'>('comfortable');
+
+    // Screen Customization Defaults (NEW)
+    const [homeLayout, setHomeLayout] = useState<'default' | 'grid' | 'cardStack' | 'heroFocus'>('default');
+    const [scheduleView, setScheduleView] = useState<'list' | 'calendar' | 'week'>('list');
+    const [profileLayout, setProfileLayout] = useState<'stats' | 'social' | 'minimal'>('stats');
+    const [customLinks, setCustomLinks] = useState<Array<{ label: string; url: string; icon: string }>>([]);
 
     return (
         <BuilderContext.Provider value={{
@@ -110,7 +146,17 @@ export function BuilderProvider({ children }: { children: ReactNode }) {
             surfaceColor, setSurfaceColor,
             heroImage, setHeroImage,
             widgets, setWidgets,
-            splashSettings, setSplashSettings
+            splashSettings, setSplashSettings,
+            // Visual Customization (NEW)
+            buttonStyle, setButtonStyle,
+            cornerRadius, setCornerRadius,
+            cardStyle, setCardStyle,
+            spacing, setSpacing,
+            // Screen Customization (NEW)
+            homeLayout, setHomeLayout,
+            scheduleView, setScheduleView,
+            profileLayout, setProfileLayout,
+            customLinks, setCustomLinks
         }}>
             {children}
         </BuilderContext.Provider>
