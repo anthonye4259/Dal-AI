@@ -335,13 +335,13 @@ export default function BuilderFlow() {
                                 key={theme.id}
                                 onClick={() => applyTheme(theme.id)}
                                 className={`
-                                                relative p - 4 rounded - xl cursor - pointer border - 2 transition - all group overflow - hidden
+                                                relative p-4 rounded-xl cursor-pointer border-2 transition-all group overflow-hidden
                                                 ${isSelected ? 'border-primary bg-primary/5 ring-1 ring-primary' : 'border-border bg-surface hover:border-primary/50'}
 `}
                             >
                                 {/* Visual Header Mockup */}
-                                <div className={`h - 24 w - full rounded - lg mb - 4 p - 3 relative overflow - hidden flex flex - col justify - end shadow - sm
-bg - gradient - to - br ${theme.gradient}
+                                <div className={`h-24 w-full rounded-lg mb-4 p-3 relative overflow-hidden flex flex-col justify-end shadow-sm
+bg-gradient-to-br ${theme.gradient}
 `}>
                                     {/* Mini bars representing text */}
                                     <div className="w-1/2 h-2 bg-white/20 rounded-full mb-2" />
@@ -394,7 +394,7 @@ bg - gradient - to - br ${theme.gradient}
 
         const currentSeq = tourSequence[tourStep];
 
-        if (tourStep >= tourSequence.length - 1) {
+        if (tourStep >= tourSequence.length-1) {
             setIsTourActive(false);
             setTourTabOverride('home');
             setCurrentStep(8); // Go to Launch
@@ -504,7 +504,7 @@ bg - gradient - to - br ${theme.gradient}
     };
 
     const handleNext = () => {
-        if (currentStep < STEPS.length - 1) {
+        if (currentStep < STEPS.length-1) {
             setCurrentStep(currentStep + 1);
         } else {
             handleLaunch();
@@ -513,7 +513,7 @@ bg - gradient - to - br ${theme.gradient}
 
     const handleBack = () => {
         if (currentStep > 0) {
-            setCurrentStep(currentStep - 1);
+            setCurrentStep(currentStep-1);
         }
     };
 
@@ -598,7 +598,7 @@ bg - gradient - to - br ${theme.gradient}
                     {STEPS.map((step, index) => (
                         <div key={step} className="flex items-center flex-shrink-0">
                             <div
-                                className={`w - 8 h - 8 rounded - full flex items - center justify - center text - sm font - medium transition - all ${index < currentStep
+                                className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-medium transition-all ${index < currentStep
                                     ? 'bg-primary text-white'
                                     : index === currentStep
                                         ? 'bg-primary text-white'
@@ -608,14 +608,14 @@ bg - gradient - to - br ${theme.gradient}
                                 {index < currentStep ? <Check className="w-4 h-4" /> : index + 1}
                             </div>
                             <span
-                                className={`ml - 2 text - sm ${index <= currentStep ? 'text-foreground font-medium' : 'text-text-muted'
+                                className={`ml-2 text-sm ${index <= currentStep ? 'text-foreground font-medium' : 'text-text-muted'
                                     } `}
                             >
                                 {step}
                             </span>
-                            {index < STEPS.length - 1 && (
+                            {index < STEPS.length-1 && (
                                 <div
-                                    className={`w - 8 h - 0.5 mx - 2 ${index < currentStep ? 'bg-primary' : 'bg-border'
+                                    className={`w-8 h-0.5 mx-2 ${index < currentStep ? 'bg-primary' : 'bg-border'
                                         } `}
                                 />
                             )}
@@ -712,7 +712,7 @@ bg - gradient - to - br ${theme.gradient}
                                         <button
                                             key={type.value}
                                             onClick={() => setStudioType(type.value as ClassCategory)}
-                                            className={`flex items - center gap - 3 p - 4 rounded - xl border transition - all text - left ${studioType === type.value
+                                            className={`flex items-center gap-3 p-4 rounded-xl border transition-all text-left ${studioType === type.value
                                                 ? 'bg-primary/10 border-primary text-foreground'
                                                 : 'bg-surface border-border text-text-secondary hover:border-primary/50'
                                                 } `}
@@ -792,12 +792,12 @@ bg - gradient - to - br ${theme.gradient}
                                     <button
                                         key={theme.id}
                                         onClick={() => applyTheme(theme.id)}
-                                        className={`group relative p - 6 rounded - 2xl border text - left transition - all overflow - hidden ${themeId === theme.id
+                                        className={`group relative p-6 rounded-2xl border text-left transition-all overflow-hidden ${themeId === theme.id
                                             ? 'border-primary ring-1 ring-primary'
                                             : 'bg-surface border-border hover:border-primary/50'
-                                            } `}
+                                            }`}
                                     >
-                                        <div className={`absolute inset - 0 bg - gradient - to - br ${theme.gradient} opacity - 50`} />
+                                        <div className={`absolute inset-0 bg-gradient-to-br ${theme.gradient} opacity-50`} />
                                         <div className="relative z-10">
                                             <div className="flex justify-between items-start mb-2">
                                                 <span className="text-lg font-bold text-white">{theme.name}</span>
@@ -829,7 +829,7 @@ bg - gradient - to - br ${theme.gradient}
                                         <label className="text-sm font-medium text-text-secondary">Studio Logo</label>
                                         <div className="flex items-center gap-4">
                                             <div
-                                                className={`w - 20 h - 20 rounded - 2xl border - 2 border - dashed flex items - center justify - center overflow - hidden bg - surface relative group ${logo ? 'border-primary' : 'border-border'} `}
+                                                className={`w-20 h-20 rounded-2xl border-2 border-dashed flex items-center justify-center overflow-hidden bg-surface relative group ${logo ? 'border-primary' : 'border-border'} `}
                                             >
                                                 {logo ? (
                                                     <img src={logo} alt="Logo" className="w-full h-full object-cover" />
@@ -941,7 +941,7 @@ bg - gradient - to - br ${theme.gradient}
                                                 <button
                                                     key={font.id}
                                                     onClick={() => setFontFamily(font.family)}
-                                                    className={`p - 3 rounded - xl border text - left transition - all ${fontFamily === font.family
+                                                    className={`p-3 rounded-xl border text-left transition-all ${fontFamily === font.family
                                                         ? 'bg-primary/10 border-primary'
                                                         : 'bg-surface border-border hover:border-border-highlight'
                                                         } `}
@@ -959,11 +959,11 @@ bg - gradient - to - br ${theme.gradient}
                                         <div className="flex gap-2">
                                             <button
                                                 onClick={() => setBackgroundMode('light')}
-                                                className={`w - 8 h - 8 rounded - full border bg - white ${backgroundMode === 'light' ? 'ring-2 ring-primary ring-offset-2' : ''} `}
+                                                className={`w-8 h-8 rounded-full border bg-white ${backgroundMode === 'light' ? 'ring-2 ring-primary ring-offset-2' : ''} `}
                                             />
                                             <button
                                                 onClick={() => setBackgroundMode('black')}
-                                                className={`w - 8 h - 8 rounded - full border bg - black ${backgroundMode === 'black' ? 'ring-2 ring-primary ring-offset-2' : ''} `}
+                                                className={`w-8 h-8 rounded-full border bg-black ${backgroundMode === 'black' ? 'ring-2 ring-primary ring-offset-2' : ''} `}
                                             />
                                         </div>
                                     </div>
@@ -1124,7 +1124,7 @@ bg - gradient - to - br ${theme.gradient}
                                                     }
                                                 }
                                             }}
-                                            className={`p - 4 rounded - xl border text - left transition - all flex items - center justify - between ${isSelected
+                                            className={`p-4 rounded-xl border text-left transition-all flex items-center justify-between ${isSelected
                                                 ? 'border-primary bg-primary/10'
                                                 : isDisabled
                                                     ? 'border-border bg-surface/50 opacity-50 cursor-not-allowed'
@@ -1132,7 +1132,7 @@ bg - gradient - to - br ${theme.gradient}
                                                 } `}
                                         >
                                             <div className="flex items-center gap-4">
-                                                <div className={`p - 2 rounded - lg ${isSelected ? 'bg-primary text-white' : 'bg-background text-text-secondary'} `}>
+                                                <div className={`p-2 rounded-lg ${isSelected ? 'bg-primary text-white' : 'bg-background text-text-secondary'} `}>
                                                     {tab.icon}
                                                 </div>
                                                 <div>
@@ -1148,7 +1148,7 @@ bg - gradient - to - br ${theme.gradient}
 
                             <div className="bg-surface border border-border rounded-xl p-4 flex items-center gap-3">
                                 <Smartphone className="w-5 h-5 text-text-secondary" />
-                                <span className={`text - sm font - medium ${selectedTabs.length < 3 || selectedTabs.length > 5 ? 'text-amber-500' : 'text-green-500'} `}>
+                                <span className={`text-sm font-medium ${selectedTabs.length < 3 || selectedTabs.length > 5 ? 'text-amber-500' : 'text-green-500'} `}>
                                     {selectedTabs.length} tabs selected (Min 3, Max 5)
                                 </span>
                             </div>
@@ -1228,17 +1228,17 @@ bg - gradient - to - br ${theme.gradient}
                                                     setFeatures([...features, feature.id]);
                                                 }
                                             }}
-                                            className={`p - 4 rounded - xl border text - left transition - all flex items - start gap - 4 ${isSelected
+                                            className={`p-4 rounded-xl border text-left transition-all flex items-start gap-4 ${isSelected
                                                 ? 'border-primary bg-primary/5'
                                                 : 'border-border bg-surface hover:border-primary/50'
                                                 } `}
                                         >
-                                            <div className={`p - 2 rounded - lg ${isSelected ? 'bg-primary text-white' : 'bg-surface-hover text-text-secondary'} `}>
+                                            <div className={`p-2 rounded-lg ${isSelected ? 'bg-primary text-white' : 'bg-surface-hover text-text-secondary'} `}>
                                                 {feature.icon}
                                             </div>
                                             <div className="flex-1">
                                                 <div className="flex items-center justify-between">
-                                                    <h3 className={`font - semibold ${isSelected ? 'text-foreground' : 'text-text-secondary'} `}>{feature.label}</h3>
+                                                    <h3 className={`font-semibold ${isSelected ? 'text-foreground' : 'text-text-secondary'} `}>{feature.label}</h3>
                                                     {isSelected && <CheckCircle2 className="w-5 h-5 text-primary" />}
                                                 </div>
                                                 <p className="text-xs text-text-muted mt-1">{feature.desc}</p>
@@ -1378,7 +1378,7 @@ bg - gradient - to - br ${theme.gradient}
                             : 'bg-surface text-text-muted cursor-not-allowed'
                             }`}
                     >
-                        {currentStep === STEPS.length - 1 ? (isLoading ? 'Launching...' : 'Go Live Now ($49)') : 'Next'}
+                        {currentStep === STEPS.length-1 ? (isLoading ? 'Launching...' : 'Go Live Now ($49)') : 'Next'}
                         <ArrowRight className="w-5 h-5" />
                     </button>
                 </div>
