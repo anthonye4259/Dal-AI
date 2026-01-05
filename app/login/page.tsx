@@ -6,7 +6,7 @@ import Image from 'next/image';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '@/lib/firebase';
 import { Sparkles, ArrowRight, Loader2, AlertCircle } from 'lucide-react';
-// import { motion } from 'framer-motion';
+import { useTranslation } from '@/context/I18nContext';
 
 export default function LoginPage() {
     const router = useRouter();
@@ -14,6 +14,7 @@ export default function LoginPage() {
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
     const [isLoading, setIsLoading] = useState(false);
+    const { t } = useTranslation();
 
     const handleLogin = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -49,16 +50,16 @@ export default function LoginPage() {
                     <div className="mx-auto mb-4">
                         <Image src="/logo.png" alt="Dal AI" width={48} height={48} className="rounded-xl bg-white" />
                     </div>
-                    <h1 className="text-2xl font-bold text-foreground mb-2">Welcome back</h1>
+                    <h1 className="text-2xl font-bold text-foreground mb-2">{t('login.title')}</h1>
                     <p className="text-text-secondary">
-                        Log in to manage your studio
+                        {t('login.subtitle')}
                     </p>
                 </div>
 
                 {/* Form */}
                 <form onSubmit={handleLogin} className="space-y-4">
                     <div>
-                        <label className="block text-sm font-medium text-text-secondary mb-1">Email</label>
+                        <label className="block text-sm font-medium text-text-secondary mb-1">{t('login.email')}</label>
                         <input
                             type="email"
                             required
@@ -70,7 +71,7 @@ export default function LoginPage() {
                     </div>
                     <div>
                         <div className="flex items-center justify-between mb-1">
-                            <label className="block text-sm font-medium text-text-secondary">Password</label>
+                            <label className="block text-sm font-medium text-text-secondary">{t('login.password')}</label>
                             <a href="#" className="text-xs text-primary hover:underline">Forgot password?</a>
                         </div>
                         <input
@@ -99,7 +100,7 @@ export default function LoginPage() {
                             <Loader2 className="w-5 h-5 animate-spin" />
                         ) : (
                             <>
-                                Log In
+                                {t('login.button')}
                                 <ArrowRight className="w-4 h-4" />
                             </>
                         )}
@@ -109,12 +110,12 @@ export default function LoginPage() {
                 {/* Footer */}
                 <div className="mt-8 text-center pt-6 border-t border-border">
                     <p className="text-sm text-text-secondary">
-                        Don&apos;t have an account?{' '}
+                        {t('login.noAccount')}{' '}
                         <button
                             onClick={() => router.push('/build')}
                             className="text-primary hover:underline font-medium"
                         >
-                            Build your app
+                            {t('login.createOne')}
                         </button>
                     </p>
                 </div>
@@ -122,3 +123,4 @@ export default function LoginPage() {
         </div>
     );
 }
+

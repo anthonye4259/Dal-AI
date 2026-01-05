@@ -7,11 +7,13 @@ import { Check, Sparkles, ArrowRight, Download, Smartphone, Loader2 } from 'luci
 import { useAuth } from '@/components/auth/AuthProvider';
 import { db, COLLECTIONS } from '@/lib/firebase';
 import { collection, addDoc, serverTimestamp, query, where, getDocs } from 'firebase/firestore';
+import { useTranslation } from '@/context/I18nContext';
 
 function SuccessContent() {
     const router = useRouter();
     const searchParams = useSearchParams();
     const { user } = useAuth();
+    const { t } = useTranslation();
     const [studioData, setStudioData] = useState<{
         studioName: string;
         icon: string;
@@ -172,10 +174,10 @@ function SuccessContent() {
 
                 {/* Headline */}
                 <h1 className="text-3xl font-bold text-foreground mb-4">
-                    Your app is live! 🎉
+                    {t('success.title')} 🎉
                 </h1>
                 <p className="text-text-secondary mb-8">
-                    {studioData?.studioName || 'Your studio'} is ready for your first booking.
+                    {studioData?.studioName || 'Your studio'} {t('success.subtitle')}
                 </p>
 
                 {/* Studio Card */}
@@ -190,7 +192,7 @@ function SuccessContent() {
                             </div>
                             <div className="text-left">
                                 <h3 className="font-semibold text-foreground text-lg">{studioData.studioName}</h3>
-                                <p className="text-sm text-text-secondary">Ready for launch</p>
+                                <p className="text-sm text-text-secondary">{t('success.readyToLaunch')}</p>
                             </div>
                         </div>
                     </div>
@@ -198,15 +200,15 @@ function SuccessContent() {
 
                 {/* Next Steps */}
                 <div className="bg-surface border border-border rounded-2xl p-6 mb-8 text-left">
-                    <h3 className="font-semibold text-foreground mb-4">What's next?</h3>
+                    <h3 className="font-semibold text-foreground mb-4">{t('success.nextSteps.title')}</h3>
                     <div className="space-y-4">
                         <div className="flex items-start gap-3">
                             <div className="w-6 h-6 rounded-full bg-primary/20 flex items-center justify-center flex-shrink-0 mt-0.5">
                                 <span className="text-xs font-medium text-primary">1</span>
                             </div>
                             <div>
-                                <p className="text-foreground font-medium">Download the app</p>
-                                <p className="text-sm text-text-secondary">Manage your studio on the go</p>
+                                <p className="text-foreground font-medium">{t('success.nextSteps.step1')}</p>
+                                <p className="text-sm text-text-secondary">{t('success.nextSteps.step1Desc')}</p>
                             </div>
                         </div>
                         <div className="flex items-start gap-3">
@@ -214,8 +216,8 @@ function SuccessContent() {
                                 <span className="text-xs font-medium text-primary">2</span>
                             </div>
                             <div>
-                                <p className="text-foreground font-medium">Add your classes</p>
-                                <p className="text-sm text-text-secondary">Set your schedule and pricing</p>
+                                <p className="text-foreground font-medium">{t('success.nextSteps.step2')}</p>
+                                <p className="text-sm text-text-secondary">{t('success.nextSteps.step2Desc')}</p>
                             </div>
                         </div>
                         <div className="flex items-start gap-3">
@@ -223,8 +225,8 @@ function SuccessContent() {
                                 <span className="text-xs font-medium text-primary">3</span>
                             </div>
                             <div>
-                                <p className="text-foreground font-medium">Share with clients</p>
-                                <p className="text-sm text-text-secondary">They download YOUR app and start booking</p>
+                                <p className="text-foreground font-medium">{t('success.nextSteps.step3')}</p>
+                                <p className="text-sm text-text-secondary">{t('success.nextSteps.step3Desc')}</p>
                             </div>
                         </div>
                     </div>
@@ -236,20 +238,20 @@ function SuccessContent() {
                         className="w-full px-6 py-4 rounded-xl gradient-primary text-white font-semibold flex items-center justify-center gap-2"
                     >
                         <Smartphone className="w-5 h-5" />
-                        Download Dal AI App
+                        {t('success.downloadApp')}
                     </button>
                     <button
                         onClick={() => router.push('/dashboard')}
                         className="w-full px-6 py-4 rounded-xl bg-surface border border-border text-foreground font-medium flex items-center justify-center gap-2 hover:bg-surface-hover transition-colors"
                     >
-                        Go to Dashboard
+                        {t('success.goToDashboard')}
                         <ArrowRight className="w-5 h-5" />
                     </button>
                 </div>
 
                 {/* Support */}
                 <p className="text-text-muted text-sm mt-8">
-                    Need help? <a href="#" className="text-primary hover:underline">Contact support</a>
+                    {t('success.support')} <a href="#" className="text-primary hover:underline">Contact support</a>
                 </p>
             </motion.div>
         </div>
