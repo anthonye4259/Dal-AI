@@ -15,6 +15,16 @@ const TAB_ICONS: Record<string, any> = {
     profile: User
 };
 
+// Map tab IDs to Labels
+const TAB_LABELS: Record<string, string> = {
+    home: 'Home',
+    schedule: 'Schedule',
+    inbox: 'Inbox',
+    shop: 'Shop',
+    content: 'Content',
+    profile: 'Profile'
+};
+
 export default function IPhoneMockup() {
     const {
         studioName,
@@ -282,13 +292,19 @@ export default function IPhoneMockup() {
                         <div className="flex justify-between items-center relative z-10 w-full px-2">
                             {selectedTabs.map((tabId) => {
                                 const Icon = TAB_ICONS[tabId] || Home;
+                                const label = TAB_LABELS[tabId] || tabId;
                                 const isActive = tabId === activeTab;
                                 return (
-                                    <div key={tabId} onClick={(e) => { e.stopPropagation(); setActiveTab(tabId); }} className="flex flex-col items-center gap-1 min-w-[40px] hover:opacity-80 transition-opacity">
-                                        <div className={`relative transition-all duration-300 ${isActive ? '-translate-y-1' : ''}`}>
+                                    <div key={tabId} onClick={(e) => { e.stopPropagation(); setActiveTab(tabId); }} className="flex flex-col items-center gap-0.5 min-w-[45px] hover:opacity-80 transition-opacity">
+                                        <div className={`relative transition-all duration-300 ${isActive ? '-translate-y-0.5' : ''}`}>
                                             <Icon className={`w-5 h-5`} style={{ color: isActive ? brandColor : (isDark ? 'rgba(255,255,255,0.5)' : 'rgba(0,0,0,0.5)') }} strokeWidth={isActive ? 2.5 : 2} />
-                                            {isActive && <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full" style={{ backgroundColor: brandColor }} />}
                                         </div>
+                                        <span
+                                            className={`text-[9px] font-medium transition-all ${isActive ? 'opacity-100' : 'opacity-50'}`}
+                                            style={{ color: isActive ? brandColor : (isDark ? '#fff' : '#000') }}
+                                        >
+                                            {label}
+                                        </span>
                                     </div>
                                 );
                             })}

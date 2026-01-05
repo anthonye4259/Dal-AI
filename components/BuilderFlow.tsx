@@ -5,7 +5,7 @@ import { useRef, useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useBuilder } from '@/context/BuilderContext';
-import { ChevronRight, Check, Sparkles, Smartphone, Layout, Palette, Globe, Play, Upload, Grid, Settings, ArrowLeft, ArrowRight, CheckCircle2, Plus, Trash2, Clock, DollarSign, Users, Home, Calendar, MessageCircle, ShoppingBag, User, PlayCircle, Trophy, Utensils, TrendingUp, Bell, Gift, Star, Ticket } from 'lucide-react';
+import { ChevronRight, Check, Sparkles, Smartphone, Layout, Palette, Globe, Play, Upload, Grid, Settings, ArrowLeft, ArrowRight, CheckCircle2, Plus, Trash2, Clock, DollarSign, Users, Home, Calendar, MessageCircle, ShoppingBag, User, PlayCircle, Trophy, Utensils, TrendingUp, Bell, Gift, Star, Ticket, Heart, Activity } from 'lucide-react';
 import IPhoneMockup from './builder/IPhoneMockup';
 import { saveAppConfig } from '@/lib/firebase';
 import { ClassCategory } from '@/lib/types';
@@ -113,6 +113,8 @@ export default function BuilderFlow() {
         { id: 'notifications', label: 'Push Notifications', icon: <Bell className="w-5 h-5" />, desc: 'Broadcasts' },
         { id: 'referrals', label: 'Referral Program', icon: <Gift className="w-5 h-5" />, desc: 'Member rewards' },
         { id: 'reviews', label: 'Reviews', icon: <Star className="w-5 h-5" />, desc: 'Class ratings' },
+        { id: 'apple_health', label: 'Apple Health', icon: <Heart className="w-5 h-5" />, desc: 'Sync with Whoop, Apple Watch' },
+        { id: 'wearables', label: 'Wearable Sync', icon: <Activity className="w-5 h-5" />, desc: 'Garmin, Fitbit, Oura' },
         { id: 'ai_coach', label: 'AI Wellness Coach', icon: <Sparkles className="w-5 h-5" />, desc: '24/7 Member Assistant' },
     ];
 
