@@ -8,27 +8,41 @@
         "save": "保存",
         "cancel": "取消",
         "loading": "加载中...",
-        "error": "发生错误"
+        "error": "发生错误",
+        "skip": "跳过",
+        "continue": "继续",
+        "done": "完成",
+        "edit": "编辑",
+        "delete": "删除",
+        "add": "添加",
+        "remove": "移除",
+        "select": "选择",
+        "upload": "上传",
+        "download": "下载",
+        "preview": "预览",
+        "readyToLaunch": "准备发布",
+        "classes": "课程",
+        "included": "已包含"
     },
     "home": {
         "hero": {
             "title1": "您自己的工作室应用。",
             "title2": "秒速创建。",
-            "subtitle": "完整的预约系统、支付和客户管理。无需代码。"
+            "subtitle": "完整的预订系统、支付和客户管理。无需编程。"
         },
         "timeline": {
             "step1Title": "创建您的工作室",
             "step1Desc": "60秒内设计您的品牌应用。无需编程。",
-            "step2Title": "我们帮您发布",
-            "step2Desc": "您的工作室在Dal AI网络中即时上线。",
+            "step2Title": "我们发布它",
+            "step2Desc": "您的工作室立即在Dal AI网络中上线。",
             "step3Title": "客户连接",
-            "step3Desc": "客户下载Dal AI，但只看到您的品牌。这是您自己的真正应用。"
+            "step3Desc": "客户下载Dal AI，但只能看到您的品牌。这是您真正的应用。"
         }
     },
     "builder": {
         "step0": {
             "title": "让我们创建您的应用。",
-            "subtitle": "适用于工作室、教练、培训师和各类讲师。",
+            "subtitle": "适用于工作室、教练、培训师和各类指导员。",
             "businessName": "企业名称",
             "tagline": "标语",
             "appLanguage": "应用语言",
@@ -38,17 +52,100 @@
             "title": "用文字创建您的应用。",
             "subtitle": "描述您的愿景，我们的AI将为您生成起点。",
             "placeholder": "例如：纽约一家注重社区挑战的高能量拳击馆。",
-            "generate": "AI生成",
+            "generate": "用AI生成",
             "skip": "跳至手动"
         },
+        "step2": {
+            "title": "上传您的标志",
+            "subtitle": "您的品牌身份从这里开始。",
+            "uploadLogo": "上传标志",
+            "chooseIcon": "或选择一个图标",
+            "dragDrop": "拖放或点击上传"
+        },
+        "step3": {
+            "title": "选择您的颜色主题",
+            "subtitle": "选择与您品牌匹配的调色板。",
+            "customColor": "自定义颜色",
+            "themes": {
+                "zen": "禅意工作室",
+                "zenDesc": "平静、简约、扎实",
+                "energy": "高能量",
+                "energyDesc": "大胆、强烈、有力",
+                "luxe": "奢华精品",
+                "luxeDesc": "高端、精致",
+                "night": "夜间模式",
+                "nightDesc": "深色而优雅",
+                "earth": "大地色调",
+                "earthDesc": "自然而有机",
+                "ocean": "海洋蓝",
+                "oceanDesc": "清新而平静"
+            }
+        },
+        "step4": {
+            "title": "启动配置",
+            "subtitle": "设置您的启动画面和加载体验。",
+            "splashScreen": "启动画面",
+            "loadingStyle": "加载样式"
+        },
+        "step5": {
+            "title": "自定义您的主屏幕",
+            "subtitle": "设计客户首先看到的内容。",
+            "heroSection": "主要部分",
+            "widgets": "小部件"
+        },
+        "step6": {
+            "title": "选择您的导航标签",
+            "subtitle": "为您的应用主导航选择最多5个标签。",
+            "tabs": {
+                "home": "首页",
+                "schedule": "时间表",
+                "book": "预约",
+                "profile": "个人资料",
+                "shop": "商店",
+                "challenges": "挑战",
+                "community": "社区",
+                "rewards": "奖励"
+            }
+        },
+        "step7": {
+            "title": "添加您的课程",
+            "subtitle": "创建您的课程表。",
+            "addClass": "添加课程",
+            "className": "课程名称",
+            "instructor": "教练",
+            "time": "时间",
+            "duration": "时长",
+            "capacity": "容量",
+            "price": "价格"
+        },
+        "step8": {
+            "title": "启用功能",
+            "subtitle": "选择为您的工作室激活哪些功能。",
+            "features": {
+                "booking": "在线预订",
+                "bookingDesc": "让客户在线预订课程",
+                "payments": "支付",
+                "paymentsDesc": "接受付款并销售套餐",
+                "packages": "课程套餐",
+                "packagesDesc": "销售课程包",
+                "memberships": "会员资格",
+                "membershipsDesc": "定期订阅计划",
+                "waitlist": "候补名单",
+                "waitlistDesc": "管理课程候补名单",
+                "notifications": "推送通知",
+                "notificationsDesc": "向客户发送更新",
+                "reviews": "评价",
+                "reviewsDesc": "收集客户反馈"
+            }
+        },
         "step9": {
-            "title": "准备发布？",
-            "updateAnytime": "随时更新。",
-            "updateDesc": "即使上线后，您也可以编辑内容、颜色和时间表。无需应用商店更新。",
+            "title": "准备发布了吗？",
+            "updateAnytime": "随时即时更新。",
+            "updateDesc": "上线后您仍可以编辑内容、颜色和时间表。无需应用商店更新。",
             "previewTitle": "您在Dal AI中的工作室",
             "monthlyPlan": "月度计划",
             "setupFee": "设置费",
-            "waived": "豁免",
+            "waived": "已免除",
             "totalDue": "今日应付总额",
             "launchButton": "立即上线"
         }
@@ -56,13 +153,14 @@
     "checkout": {
         "header": {
             "badge": "创始会员优惠",
-            "title": "今天预留您的位置",
-            "subtitle": "现在创建您的工作室。您的应用将于2026年1月向公众开放。"
+            "title": "今天确保您的位置",
+            "subtitle": "现在创建您的工作室。您的应用将于2026年1月公开。"
         },
         "billing": {
             "monthly": "月付",
             "annual": "年付",
-            "freeMonths": "免费2个月"
+            "freeMonths": "免费2个月",
+            "annualSavings": "年度节省"
         },
         "dalAi": {
             "name": "Dal AI",
@@ -71,18 +169,43 @@
         },
         "giaPro": {
             "name": "GIA Pro",
-            "desc": "AI附加组件",
-            "tagline": "让GIA为您运营业务"
+            "desc": "AI附加功能",
+            "tagline": "让GIA为您运营业务",
+            "addOn": "添加GIA Pro"
+        },
+        "features": {
+            "unlimited": "无限课程",
+            "booking": "在线预订系统",
+            "clients": "客户管理",
+            "payments": "支付处理",
+            "dashboard": "工作室仪表板",
+            "analytics": "基本分析",
+            "aiAssistant": "AI日程助手",
+            "autoResponses": "自动回复",
+            "smartPricing": "智能定价",
+            "clientInsights": "客户洞察",
+            "marketing": "营销自动化"
         },
         "account": {
             "title": "创建您的管理员账户",
-            "email": "电子邮件",
-            "password": "密码"
+            "email": "邮箱",
+            "password": "密码",
+            "haveAccount": "已有账户？",
+            "signIn": "登录"
         },
         "total": {
             "title": "订单摘要",
             "savings": "您节省了",
-            "button": "完成购买"
+            "button": "完成购买",
+            "processing": "处理中...",
+            "securePayment": "由Stripe提供安全支付"
+        },
+        "errors": {
+            "emailRequired": "请输入邮箱和密码",
+            "invalidCredentials": "邮箱或密码无效",
+            "emailInUse": "邮箱已被使用。请尝试登录。",
+            "weakPassword": "密码至少需要6个字符",
+            "paymentFailed": "支付失败。请重试。"
         }
     },
     "dashboard": {
@@ -95,32 +218,55 @@
             "gia": "GIA",
             "settings": "设置"
         },
-        "editApp": "编辑应用"
+        "editApp": "编辑应用",
+        "overview": {
+            "todayBookings": "今日预订",
+            "totalClients": "总客户数",
+            "revenue": "收入",
+            "upcomingClasses": "即将开始的课程"
+        },
+        "welcome": "欢迎回来",
+        "noClasses": "暂无课程安排",
+        "addFirstClass": "添加您的第一节课"
     },
     "success": {
         "title": "您的应用已上线！",
-        "subtitle": "已准备好接受您的第一个预约。",
+        "subtitle": "已准备好接受您的第一次预订。",
         "readyToLaunch": "准备发布",
         "nextSteps": {
-            "title": "下一步？",
+            "title": "接下来做什么？",
             "step1": "下载应用",
             "step1Desc": "随时随地管理您的工作室",
             "step2": "添加您的课程",
-            "step2Desc": "设置您的时间表和定价",
+            "step2Desc": "设置您的时间表和价格",
             "step3": "分享给客户",
-            "step3Desc": "他们下载您的应用并开始预约"
+            "step3Desc": "他们下载您的应用并开始预订"
         },
         "downloadApp": "下载Dal AI应用",
         "goToDashboard": "前往仪表板",
-        "support": "需要帮助？"
+        "support": "需要帮助？",
+        "contactSupport": "联系客服"
     },
     "login": {
         "title": "欢迎回来",
         "subtitle": "登录以管理您的工作室",
-        "email": "电子邮件",
+        "email": "邮箱",
         "password": "密码",
         "button": "登录",
-        "noAccount": "没有账户？",
-        "createOne": "创建一个"
+        "noAccount": "还没有账户？",
+        "createOne": "创建一个",
+        "forgotPassword": "忘记密码？",
+        "errors": {
+            "invalidCredentials": "邮箱或密码无效。",
+            "userNotFound": "未找到此邮箱的账户。",
+            "generic": "出现问题。请重试。"
+        }
+    },
+    "errors": {
+        "generic": "出现问题",
+        "tryAgain": "请重试",
+        "notFound": "页面未找到",
+        "unauthorized": "您必须登录",
+        "networkError": "网络错误。请检查您的连接。"
     }
 }

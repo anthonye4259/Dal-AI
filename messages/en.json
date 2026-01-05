@@ -8,7 +8,21 @@
         "save": "Save",
         "cancel": "Cancel",
         "loading": "Loading...",
-        "error": "An error occurred"
+        "error": "An error occurred",
+        "skip": "Skip",
+        "continue": "Continue",
+        "done": "Done",
+        "edit": "Edit",
+        "delete": "Delete",
+        "add": "Add",
+        "remove": "Remove",
+        "select": "Select",
+        "upload": "Upload",
+        "download": "Download",
+        "preview": "Preview",
+        "readyToLaunch": "Ready to launch",
+        "classes": "classes",
+        "included": "Included"
     },
     "home": {
         "hero": {
@@ -41,6 +55,89 @@
             "generate": "Generate with AI",
             "skip": "Skip to manual"
         },
+        "step2": {
+            "title": "Upload your logo",
+            "subtitle": "Your brand identity starts here.",
+            "uploadLogo": "Upload Logo",
+            "chooseIcon": "Or choose an icon",
+            "dragDrop": "Drag and drop or click to upload"
+        },
+        "step3": {
+            "title": "Choose your color theme",
+            "subtitle": "Pick a palette that matches your brand.",
+            "customColor": "Custom Color",
+            "themes": {
+                "zen": "Zen Studio",
+                "zenDesc": "Calm, minimal, and grounding",
+                "energy": "High Energy",
+                "energyDesc": "Bold, intense, and powerful",
+                "luxe": "Luxe Boutique",
+                "luxeDesc": "Premium, sophisticated",
+                "night": "Night Mode",
+                "nightDesc": "Dark and sleek",
+                "earth": "Earth Tones",
+                "earthDesc": "Natural and organic",
+                "ocean": "Ocean Blue",
+                "oceanDesc": "Fresh and calming"
+            }
+        },
+        "step4": {
+            "title": "Launch configuration",
+            "subtitle": "Set up your splash screen and loading experience.",
+            "splashScreen": "Splash Screen",
+            "loadingStyle": "Loading Style"
+        },
+        "step5": {
+            "title": "Customize your home screen",
+            "subtitle": "Design the first thing your clients see.",
+            "heroSection": "Hero Section",
+            "widgets": "Widgets"
+        },
+        "step6": {
+            "title": "Choose your navigation tabs",
+            "subtitle": "Select up to 5 tabs for your app's main navigation.",
+            "tabs": {
+                "home": "Home",
+                "schedule": "Schedule",
+                "book": "Book",
+                "profile": "Profile",
+                "shop": "Shop",
+                "challenges": "Challenges",
+                "community": "Community",
+                "rewards": "Rewards"
+            }
+        },
+        "step7": {
+            "title": "Add your classes",
+            "subtitle": "Create your class schedule.",
+            "addClass": "Add Class",
+            "className": "Class Name",
+            "instructor": "Instructor",
+            "time": "Time",
+            "duration": "Duration",
+            "capacity": "Capacity",
+            "price": "Price"
+        },
+        "step8": {
+            "title": "Enable features",
+            "subtitle": "Choose which features to activate for your studio.",
+            "features": {
+                "booking": "Online Booking",
+                "bookingDesc": "Let clients book classes online",
+                "payments": "Payments",
+                "paymentsDesc": "Accept payments and sell packages",
+                "packages": "Class Packages",
+                "packagesDesc": "Sell bundles of classes",
+                "memberships": "Memberships",
+                "membershipsDesc": "Recurring subscription plans",
+                "waitlist": "Waitlist",
+                "waitlistDesc": "Manage class waitlists",
+                "notifications": "Push Notifications",
+                "notificationsDesc": "Send updates to clients",
+                "reviews": "Reviews",
+                "reviewsDesc": "Collect client feedback"
+            }
+        },
         "step9": {
             "title": "Ready to launch?",
             "updateAnytime": "Update Anytime, Instantly.",
@@ -62,7 +159,8 @@
         "billing": {
             "monthly": "Monthly",
             "annual": "Annual",
-            "freeMonths": "2 mo free"
+            "freeMonths": "2 mo free",
+            "annualSavings": "Annual savings"
         },
         "dalAi": {
             "name": "Dal AI",
@@ -72,17 +170,42 @@
         "giaPro": {
             "name": "GIA Pro",
             "desc": "AI Add-on",
-            "tagline": "Let GIA run your business for you"
+            "tagline": "Let GIA run your business for you",
+            "addOn": "Add GIA Pro"
+        },
+        "features": {
+            "unlimited": "Unlimited classes",
+            "booking": "Online booking system",
+            "clients": "Client management",
+            "payments": "Payment processing",
+            "dashboard": "Studio dashboard",
+            "analytics": "Basic analytics",
+            "aiAssistant": "AI scheduling assistant",
+            "autoResponses": "Automated responses",
+            "smartPricing": "Smart pricing",
+            "clientInsights": "Client insights",
+            "marketing": "Marketing automation"
         },
         "account": {
             "title": "Create your admin account",
             "email": "Email",
-            "password": "Password"
+            "password": "Password",
+            "haveAccount": "Already have an account?",
+            "signIn": "Sign in"
         },
         "total": {
             "title": "Order Summary",
             "savings": "You're saving",
-            "button": "Complete Purchase"
+            "button": "Complete Purchase",
+            "processing": "Processing...",
+            "securePayment": "Secure payment powered by Stripe"
+        },
+        "errors": {
+            "emailRequired": "Please enter email and password",
+            "invalidCredentials": "Invalid email or password",
+            "emailInUse": "Email already in use. Try signing in.",
+            "weakPassword": "Password must be at least 6 characters",
+            "paymentFailed": "Payment failed. Please try again."
         }
     },
     "dashboard": {
@@ -95,7 +218,16 @@
             "gia": "GIA",
             "settings": "Settings"
         },
-        "editApp": "Edit App"
+        "editApp": "Edit App",
+        "overview": {
+            "todayBookings": "Today's Bookings",
+            "totalClients": "Total Clients",
+            "revenue": "Revenue",
+            "upcomingClasses": "Upcoming Classes"
+        },
+        "welcome": "Welcome back",
+        "noClasses": "No classes scheduled",
+        "addFirstClass": "Add your first class"
     },
     "success": {
         "title": "Your app is live!",
@@ -112,7 +244,8 @@
         },
         "downloadApp": "Download Dal AI App",
         "goToDashboard": "Go to Dashboard",
-        "support": "Need help?"
+        "support": "Need help?",
+        "contactSupport": "Contact support"
     },
     "login": {
         "title": "Welcome back",
@@ -121,6 +254,19 @@
         "password": "Password",
         "button": "Sign In",
         "noAccount": "Don't have an account?",
-        "createOne": "Create one"
+        "createOne": "Create one",
+        "forgotPassword": "Forgot password?",
+        "errors": {
+            "invalidCredentials": "Invalid email or password.",
+            "userNotFound": "No account found with this email.",
+            "generic": "Something went wrong. Please try again."
+        }
+    },
+    "errors": {
+        "generic": "Something went wrong",
+        "tryAgain": "Please try again",
+        "notFound": "Page not found",
+        "unauthorized": "You must be logged in",
+        "networkError": "Network error. Check your connection."
     }
 }

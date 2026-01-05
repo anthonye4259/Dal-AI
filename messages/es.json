@@ -8,17 +8,31 @@
         "save": "Guardar",
         "cancel": "Cancelar",
         "loading": "Cargando...",
-        "error": "Ocurrió un error"
+        "error": "Ocurrió un error",
+        "skip": "Omitir",
+        "continue": "Continuar",
+        "done": "Hecho",
+        "edit": "Editar",
+        "delete": "Eliminar",
+        "add": "Agregar",
+        "remove": "Quitar",
+        "select": "Seleccionar",
+        "upload": "Subir",
+        "download": "Descargar",
+        "preview": "Vista previa",
+        "readyToLaunch": "Listo para lanzar",
+        "classes": "clases",
+        "included": "Incluido"
     },
     "home": {
         "hero": {
             "title1": "Tu propia app de estudio.",
             "title2": "Creada en segundos.",
-            "subtitle": "Sistema completo de reservas, pagos y gestión de clientes. Sin código."
+            "subtitle": "Sistema completo de reservas, pagos y gestión de clientes. Sin código requerido."
         },
         "timeline": {
-            "step1Title": "Construye tu estudio",
-            "step1Desc": "Diseña tu app de marca en 60 segundos. Sin programación.",
+            "step1Title": "Crea tu estudio",
+            "step1Desc": "Diseña tu app personalizada en 60 segundos. Sin necesidad de código.",
             "step2Title": "Nosotros lo lanzamos",
             "step2Desc": "Tu estudio se activa instantáneamente dentro de la red Dal AI.",
             "step3Title": "Los clientes se conectan",
@@ -28,7 +42,7 @@
     "builder": {
         "step0": {
             "title": "Construyamos tu app.",
-            "subtitle": "Para estudios, entrenadores, coaches e instructores de todo tipo.",
+            "subtitle": "Para estudios, entrenadores, coaches e instructores de cualquier tipo.",
             "businessName": "Nombre del Negocio",
             "tagline": "Eslogan",
             "appLanguage": "Idioma de la App",
@@ -39,30 +53,114 @@
             "subtitle": "Describe tu visión y nuestra IA generará un punto de partida para ti.",
             "placeholder": "ej. Un gimnasio de boxeo de alta energía en Nueva York con enfoque en desafíos comunitarios.",
             "generate": "Generar con IA",
-            "skip": "Saltar a manual"
+            "skip": "Ir a manual"
+        },
+        "step2": {
+            "title": "Sube tu logo",
+            "subtitle": "Tu identidad de marca comienza aquí.",
+            "uploadLogo": "Subir Logo",
+            "chooseIcon": "O elige un icono",
+            "dragDrop": "Arrastra y suelta o haz clic para subir"
+        },
+        "step3": {
+            "title": "Elige tu tema de colores",
+            "subtitle": "Selecciona una paleta que combine con tu marca.",
+            "customColor": "Color Personalizado",
+            "themes": {
+                "zen": "Estudio Zen",
+                "zenDesc": "Tranquilo, minimalista y centrado",
+                "energy": "Alta Energía",
+                "energyDesc": "Audaz, intenso y poderoso",
+                "luxe": "Boutique de Lujo",
+                "luxeDesc": "Premium, sofisticado",
+                "night": "Modo Nocturno",
+                "nightDesc": "Oscuro y elegante",
+                "earth": "Tonos Tierra",
+                "earthDesc": "Natural y orgánico",
+                "ocean": "Azul Océano",
+                "oceanDesc": "Fresco y relajante"
+            }
+        },
+        "step4": {
+            "title": "Configuración de lanzamiento",
+            "subtitle": "Configura tu pantalla de inicio y experiencia de carga.",
+            "splashScreen": "Pantalla de Inicio",
+            "loadingStyle": "Estilo de Carga"
+        },
+        "step5": {
+            "title": "Personaliza tu pantalla de inicio",
+            "subtitle": "Diseña lo primero que verán tus clientes.",
+            "heroSection": "Sección Principal",
+            "widgets": "Widgets"
+        },
+        "step6": {
+            "title": "Elige tus pestañas de navegación",
+            "subtitle": "Selecciona hasta 5 pestañas para la navegación principal de tu app.",
+            "tabs": {
+                "home": "Inicio",
+                "schedule": "Horario",
+                "book": "Reservar",
+                "profile": "Perfil",
+                "shop": "Tienda",
+                "challenges": "Desafíos",
+                "community": "Comunidad",
+                "rewards": "Recompensas"
+            }
+        },
+        "step7": {
+            "title": "Agrega tus clases",
+            "subtitle": "Crea tu horario de clases.",
+            "addClass": "Agregar Clase",
+            "className": "Nombre de la Clase",
+            "instructor": "Instructor",
+            "time": "Hora",
+            "duration": "Duración",
+            "capacity": "Capacidad",
+            "price": "Precio"
+        },
+        "step8": {
+            "title": "Habilita funciones",
+            "subtitle": "Elige qué funciones activar para tu estudio.",
+            "features": {
+                "booking": "Reservas en Línea",
+                "bookingDesc": "Permite que los clientes reserven clases en línea",
+                "payments": "Pagos",
+                "paymentsDesc": "Acepta pagos y vende paquetes",
+                "packages": "Paquetes de Clases",
+                "packagesDesc": "Vende paquetes de clases",
+                "memberships": "Membresías",
+                "membershipsDesc": "Planes de suscripción recurrentes",
+                "waitlist": "Lista de Espera",
+                "waitlistDesc": "Gestiona listas de espera",
+                "notifications": "Notificaciones Push",
+                "notificationsDesc": "Envía actualizaciones a clientes",
+                "reviews": "Reseñas",
+                "reviewsDesc": "Recopila comentarios de clientes"
+            }
         },
         "step9": {
             "title": "¿Listo para lanzar?",
             "updateAnytime": "Actualiza en Cualquier Momento.",
-            "updateDesc": "Puedes editar tu contenido, colores y horario incluso después de publicar. No se requieren actualizaciones de la tienda de apps.",
+            "updateDesc": "Puedes editar tu contenido, colores y horario incluso después de ir en vivo. No se requieren actualizaciones de la tienda de apps.",
             "previewTitle": "Tu Estudio en Dal AI",
             "monthlyPlan": "Plan Mensual",
-            "setupFee": "Cuota de Instalación",
-            "waived": "Exento",
+            "setupFee": "Tarifa de Configuración",
+            "waived": "Exonerada",
             "totalDue": "Total a pagar hoy",
-            "launchButton": "Publicar Ahora"
+            "launchButton": "Lanzar Ahora"
         }
     },
     "checkout": {
         "header": {
             "badge": "Oferta de Miembro Fundador",
             "title": "Asegura tu lugar hoy",
-            "subtitle": "Construye tu estudio ahora. Tu app estará disponible al público en enero de 2026."
+            "subtitle": "Construye tu estudio ahora. Tu app será pública en enero 2026."
         },
         "billing": {
             "monthly": "Mensual",
             "annual": "Anual",
-            "freeMonths": "2 meses gratis"
+            "freeMonths": "2 meses gratis",
+            "annualSavings": "Ahorro anual"
         },
         "dalAi": {
             "name": "Dal AI",
@@ -72,17 +170,42 @@
         "giaPro": {
             "name": "GIA Pro",
             "desc": "Complemento de IA",
-            "tagline": "Deja que GIA maneje tu negocio por ti"
+            "tagline": "Deja que GIA maneje tu negocio por ti",
+            "addOn": "Agregar GIA Pro"
+        },
+        "features": {
+            "unlimited": "Clases ilimitadas",
+            "booking": "Sistema de reservas en línea",
+            "clients": "Gestión de clientes",
+            "payments": "Procesamiento de pagos",
+            "dashboard": "Panel del estudio",
+            "analytics": "Análisis básico",
+            "aiAssistant": "Asistente de programación IA",
+            "autoResponses": "Respuestas automáticas",
+            "smartPricing": "Precios inteligentes",
+            "clientInsights": "Información del cliente",
+            "marketing": "Automatización de marketing"
         },
         "account": {
             "title": "Crea tu cuenta de administrador",
-            "email": "Correo Electrónico",
-            "password": "Contraseña"
+            "email": "Correo electrónico",
+            "password": "Contraseña",
+            "haveAccount": "¿Ya tienes una cuenta?",
+            "signIn": "Iniciar sesión"
         },
         "total": {
             "title": "Resumen del Pedido",
             "savings": "Estás ahorrando",
-            "button": "Completar Compra"
+            "button": "Completar Compra",
+            "processing": "Procesando...",
+            "securePayment": "Pago seguro con Stripe"
+        },
+        "errors": {
+            "emailRequired": "Por favor ingresa correo y contraseña",
+            "invalidCredentials": "Correo o contraseña inválidos",
+            "emailInUse": "El correo ya está en uso. Intenta iniciar sesión.",
+            "weakPassword": "La contraseña debe tener al menos 6 caracteres",
+            "paymentFailed": "El pago falló. Por favor intenta de nuevo."
         }
     },
     "dashboard": {
@@ -95,32 +218,55 @@
             "gia": "GIA",
             "settings": "Configuración"
         },
-        "editApp": "Editar App"
+        "editApp": "Editar App",
+        "overview": {
+            "todayBookings": "Reservas de Hoy",
+            "totalClients": "Total de Clientes",
+            "revenue": "Ingresos",
+            "upcomingClasses": "Próximas Clases"
+        },
+        "welcome": "Bienvenido de nuevo",
+        "noClasses": "No hay clases programadas",
+        "addFirstClass": "Agrega tu primera clase"
     },
     "success": {
         "title": "¡Tu app está en vivo!",
-        "subtitle": "está listo para tu primera reserva.",
-        "readyToLaunch": "Listo para lanzar",
+        "subtitle": "está lista para tu primera reserva.",
+        "readyToLaunch": "Lista para lanzar",
         "nextSteps": {
             "title": "¿Qué sigue?",
             "step1": "Descarga la app",
-            "step1Desc": "Administra tu estudio sobre la marcha",
+            "step1Desc": "Gestiona tu estudio desde cualquier lugar",
             "step2": "Agrega tus clases",
-            "step2Desc": "Configura tu horario y precios",
+            "step2Desc": "Define tu horario y precios",
             "step3": "Comparte con clientes",
-            "step3Desc": "Ellos descargan TU app y comienzan a reservar"
+            "step3Desc": "Ellos descargan TU app y empiezan a reservar"
         },
         "downloadApp": "Descargar App Dal AI",
         "goToDashboard": "Ir al Panel",
-        "support": "¿Necesitas ayuda?"
+        "support": "¿Necesitas ayuda?",
+        "contactSupport": "Contactar soporte"
     },
     "login": {
         "title": "Bienvenido de nuevo",
-        "subtitle": "Inicia sesión para administrar tu estudio",
-        "email": "Correo Electrónico",
+        "subtitle": "Inicia sesión para gestionar tu estudio",
+        "email": "Correo electrónico",
         "password": "Contraseña",
         "button": "Iniciar Sesión",
         "noAccount": "¿No tienes cuenta?",
-        "createOne": "Crea una"
+        "createOne": "Crear una",
+        "forgotPassword": "¿Olvidaste tu contraseña?",
+        "errors": {
+            "invalidCredentials": "Correo o contraseña inválidos.",
+            "userNotFound": "No se encontró cuenta con este correo.",
+            "generic": "Algo salió mal. Por favor intenta de nuevo."
+        }
+    },
+    "errors": {
+        "generic": "Algo salió mal",
+        "tryAgain": "Por favor intenta de nuevo",
+        "notFound": "Página no encontrada",
+        "unauthorized": "Debes iniciar sesión",
+        "networkError": "Error de red. Verifica tu conexión."
     }
 }

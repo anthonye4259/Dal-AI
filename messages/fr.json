@@ -8,61 +8,159 @@
         "save": "Enregistrer",
         "cancel": "Annuler",
         "loading": "Chargement...",
-        "error": "Une erreur s'est produite"
+        "error": "Une erreur s'est produite",
+        "skip": "Passer",
+        "continue": "Continuer",
+        "done": "Terminé",
+        "edit": "Modifier",
+        "delete": "Supprimer",
+        "add": "Ajouter",
+        "remove": "Retirer",
+        "select": "Sélectionner",
+        "upload": "Télécharger",
+        "download": "Télécharger",
+        "preview": "Aperçu",
+        "readyToLaunch": "Prêt à lancer",
+        "classes": "cours",
+        "included": "Inclus"
     },
     "home": {
         "hero": {
-            "title1": "Votre propre app studio.",
-            "title2": "Créée en quelques secondes.",
-            "subtitle": "Système complet de réservation, paiements et gestion des clients. Sans code."
+            "title1": "Votre propre app de studio.",
+            "title2": "Créée en secondes.",
+            "subtitle": "Système complet de réservation, paiements et gestion clients. Aucun code requis."
         },
         "timeline": {
-            "step1Title": "Construisez votre studio",
-            "step1Desc": "Concevez votre app de marque en 60 secondes. Sans programmation.",
+            "step1Title": "Créez votre studio",
+            "step1Desc": "Concevez votre app personnalisée en 60 secondes. Sans code requis.",
             "step2Title": "Nous le lançons",
-            "step2Desc": "Votre studio est en ligne instantanément dans le réseau Dal AI.",
+            "step2Desc": "Votre studio est actif instantanément dans le réseau Dal AI.",
             "step3Title": "Les clients se connectent",
-            "step3Desc": "Les clients téléchargent Dal AI, mais ne voient que votre marque. C'est votre propre vraie app."
+            "step3Desc": "Les clients téléchargent Dal AI, mais ne voient que votre marque. C'est votre vraie app."
         }
     },
     "builder": {
         "step0": {
-            "title": "Construisons votre application.",
-            "subtitle": "Pour les studios, entraîneurs, coachs et instructeurs de tout type.",
+            "title": "Construisons votre app.",
+            "subtitle": "Pour studios, entraîneurs, coachs et instructeurs de tout type.",
             "businessName": "Nom de l'Entreprise",
             "tagline": "Slogan",
-            "appLanguage": "Langue de l'Application",
-            "appLanguageDesc": "Vos clients verront votre application dans cette langue"
+            "appLanguage": "Langue de l'App",
+            "appLanguageDesc": "Vos clients verront votre app dans cette langue"
         },
         "step1": {
-            "title": "Construisez votre application avec des mots.",
+            "title": "Créez votre app avec des mots.",
             "subtitle": "Décrivez votre vision et notre IA générera un point de départ pour vous.",
-            "placeholder": "ex. Une salle de boxe haute énergie à New York avec un focus sur les défis communautaires.",
+            "placeholder": "ex. Une salle de boxe haute énergie à Paris axée sur les défis communautaires.",
             "generate": "Générer avec l'IA",
             "skip": "Passer au manuel"
         },
+        "step2": {
+            "title": "Téléchargez votre logo",
+            "subtitle": "Votre identité de marque commence ici.",
+            "uploadLogo": "Télécharger le Logo",
+            "chooseIcon": "Ou choisissez une icône",
+            "dragDrop": "Glissez-déposez ou cliquez pour télécharger"
+        },
+        "step3": {
+            "title": "Choisissez votre thème de couleurs",
+            "subtitle": "Sélectionnez une palette qui correspond à votre marque.",
+            "customColor": "Couleur Personnalisée",
+            "themes": {
+                "zen": "Studio Zen",
+                "zenDesc": "Calme, minimal et ancré",
+                "energy": "Haute Énergie",
+                "energyDesc": "Audacieux, intense et puissant",
+                "luxe": "Boutique de Luxe",
+                "luxeDesc": "Premium, sophistiqué",
+                "night": "Mode Nuit",
+                "nightDesc": "Sombre et élégant",
+                "earth": "Tons Terre",
+                "earthDesc": "Naturel et organique",
+                "ocean": "Bleu Océan",
+                "oceanDesc": "Frais et apaisant"
+            }
+        },
+        "step4": {
+            "title": "Configuration de lancement",
+            "subtitle": "Configurez votre écran d'accueil et l'expérience de chargement.",
+            "splashScreen": "Écran d'Accueil",
+            "loadingStyle": "Style de Chargement"
+        },
+        "step5": {
+            "title": "Personnalisez votre écran d'accueil",
+            "subtitle": "Concevez ce que vos clients verront en premier.",
+            "heroSection": "Section Principale",
+            "widgets": "Widgets"
+        },
+        "step6": {
+            "title": "Choisissez vos onglets de navigation",
+            "subtitle": "Sélectionnez jusqu'à 5 onglets pour la navigation principale de votre app.",
+            "tabs": {
+                "home": "Accueil",
+                "schedule": "Horaire",
+                "book": "Réserver",
+                "profile": "Profil",
+                "shop": "Boutique",
+                "challenges": "Défis",
+                "community": "Communauté",
+                "rewards": "Récompenses"
+            }
+        },
+        "step7": {
+            "title": "Ajoutez vos cours",
+            "subtitle": "Créez votre emploi du temps.",
+            "addClass": "Ajouter un Cours",
+            "className": "Nom du Cours",
+            "instructor": "Instructeur",
+            "time": "Heure",
+            "duration": "Durée",
+            "capacity": "Capacité",
+            "price": "Prix"
+        },
+        "step8": {
+            "title": "Activez les fonctionnalités",
+            "subtitle": "Choisissez les fonctionnalités à activer pour votre studio.",
+            "features": {
+                "booking": "Réservation en Ligne",
+                "bookingDesc": "Permettez aux clients de réserver en ligne",
+                "payments": "Paiements",
+                "paymentsDesc": "Acceptez les paiements et vendez des forfaits",
+                "packages": "Forfaits de Cours",
+                "packagesDesc": "Vendez des packs de cours",
+                "memberships": "Abonnements",
+                "membershipsDesc": "Plans d'abonnement récurrents",
+                "waitlist": "Liste d'Attente",
+                "waitlistDesc": "Gérez les listes d'attente",
+                "notifications": "Notifications Push",
+                "notificationsDesc": "Envoyez des mises à jour aux clients",
+                "reviews": "Avis",
+                "reviewsDesc": "Collectez les commentaires clients"
+            }
+        },
         "step9": {
             "title": "Prêt à lancer?",
-            "updateAnytime": "Mettez à Jour à Tout Moment.",
-            "updateDesc": "Vous pouvez modifier votre contenu, couleurs et horaire même après publication. Aucune mise à jour de l'App Store requise.",
+            "updateAnytime": "Mettez à jour à tout moment.",
+            "updateDesc": "Vous pouvez modifier votre contenu, couleurs et horaire même après le lancement. Aucune mise à jour d'app store requise.",
             "previewTitle": "Votre Studio dans Dal AI",
             "monthlyPlan": "Plan Mensuel",
             "setupFee": "Frais d'Installation",
-            "waived": "Exonéré",
+            "waived": "Offerts",
             "totalDue": "Total dû aujourd'hui",
-            "launchButton": "Mettre en Ligne"
+            "launchButton": "Lancer Maintenant"
         }
     },
     "checkout": {
         "header": {
             "badge": "Offre Membre Fondateur",
             "title": "Réservez votre place aujourd'hui",
-            "subtitle": "Construisez votre studio maintenant. Votre application sera disponible au public en janvier 2026."
+            "subtitle": "Créez votre studio maintenant. Votre app sera publique en janvier 2026."
         },
         "billing": {
             "monthly": "Mensuel",
             "annual": "Annuel",
-            "freeMonths": "2 mois gratuits"
+            "freeMonths": "2 mois offerts",
+            "annualSavings": "Économies annuelles"
         },
         "dalAi": {
             "name": "Dal AI",
@@ -72,21 +170,46 @@
         "giaPro": {
             "name": "GIA Pro",
             "desc": "Module IA",
-            "tagline": "Laissez GIA gérer votre entreprise pour vous"
+            "tagline": "Laissez GIA gérer votre entreprise",
+            "addOn": "Ajouter GIA Pro"
+        },
+        "features": {
+            "unlimited": "Cours illimités",
+            "booking": "Système de réservation en ligne",
+            "clients": "Gestion des clients",
+            "payments": "Traitement des paiements",
+            "dashboard": "Tableau de bord studio",
+            "analytics": "Analytiques de base",
+            "aiAssistant": "Assistant de planification IA",
+            "autoResponses": "Réponses automatiques",
+            "smartPricing": "Tarification intelligente",
+            "clientInsights": "Insights clients",
+            "marketing": "Automatisation marketing"
         },
         "account": {
-            "title": "Créez votre compte administrateur",
+            "title": "Créez votre compte admin",
             "email": "Email",
-            "password": "Mot de passe"
+            "password": "Mot de passe",
+            "haveAccount": "Vous avez déjà un compte?",
+            "signIn": "Se connecter"
         },
         "total": {
-            "title": "Résumé de la Commande",
+            "title": "Récapitulatif",
             "savings": "Vous économisez",
-            "button": "Finaliser l'Achat"
+            "button": "Finaliser l'Achat",
+            "processing": "Traitement...",
+            "securePayment": "Paiement sécurisé par Stripe"
+        },
+        "errors": {
+            "emailRequired": "Veuillez entrer email et mot de passe",
+            "invalidCredentials": "Email ou mot de passe invalide",
+            "emailInUse": "Email déjà utilisé. Essayez de vous connecter.",
+            "weakPassword": "Le mot de passe doit contenir au moins 6 caractères",
+            "paymentFailed": "Échec du paiement. Veuillez réessayer."
         }
     },
     "dashboard": {
-        "title": "Tableau de Bord du Studio",
+        "title": "Tableau de Bord Studio",
         "tabs": {
             "overview": "Aperçu",
             "classes": "Cours",
@@ -95,24 +218,34 @@
             "gia": "GIA",
             "settings": "Paramètres"
         },
-        "editApp": "Modifier l'App"
+        "editApp": "Modifier l'App",
+        "overview": {
+            "todayBookings": "Réservations du Jour",
+            "totalClients": "Total Clients",
+            "revenue": "Revenus",
+            "upcomingClasses": "Cours à Venir"
+        },
+        "welcome": "Bon retour",
+        "noClasses": "Aucun cours programmé",
+        "addFirstClass": "Ajoutez votre premier cours"
     },
     "success": {
-        "title": "Votre application est en ligne!",
-        "subtitle": "est prêt pour votre première réservation.",
-        "readyToLaunch": "Prêt à lancer",
+        "title": "Votre app est en ligne!",
+        "subtitle": "est prête pour votre première réservation.",
+        "readyToLaunch": "Prête à lancer",
         "nextSteps": {
             "title": "Prochaines étapes?",
-            "step1": "Téléchargez l'application",
+            "step1": "Téléchargez l'app",
             "step1Desc": "Gérez votre studio en déplacement",
             "step2": "Ajoutez vos cours",
-            "step2Desc": "Configurez votre horaire et vos tarifs",
-            "step3": "Partagez avec les clients",
+            "step2Desc": "Définissez votre horaire et vos tarifs",
+            "step3": "Partagez avec vos clients",
             "step3Desc": "Ils téléchargent VOTRE app et commencent à réserver"
         },
-        "downloadApp": "Télécharger l'App Dal AI",
+        "downloadApp": "Télécharger Dal AI",
         "goToDashboard": "Aller au Tableau de Bord",
-        "support": "Besoin d'aide?"
+        "support": "Besoin d'aide?",
+        "contactSupport": "Contacter le support"
     },
     "login": {
         "title": "Bon retour",
@@ -121,6 +254,19 @@
         "password": "Mot de passe",
         "button": "Se Connecter",
         "noAccount": "Pas de compte?",
-        "createOne": "Créez-en un"
+        "createOne": "En créer un",
+        "forgotPassword": "Mot de passe oublié?",
+        "errors": {
+            "invalidCredentials": "Email ou mot de passe invalide.",
+            "userNotFound": "Aucun compte trouvé avec cet email.",
+            "generic": "Une erreur s'est produite. Veuillez réessayer."
+        }
+    },
+    "errors": {
+        "generic": "Une erreur s'est produite",
+        "tryAgain": "Veuillez réessayer",
+        "notFound": "Page non trouvée",
+        "unauthorized": "Vous devez être connecté",
+        "networkError": "Erreur réseau. Vérifiez votre connexion."
     }
 }
