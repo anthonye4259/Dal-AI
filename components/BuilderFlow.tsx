@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { ArrowLeft, ArrowRight, Check, CheckCircle2, Sparkles, Plus, Trash2, Clock, DollarSign, Users, Home, Calendar, MessageCircle, ShoppingBag, User, PlayCircle, Settings, Palette, Smartphone, Trophy, Utensils, TrendingUp, Bell, Gift, Star, Ticket } from 'lucide-react';
+import { ArrowLeft, ArrowRight, Check, CheckCircle2, Sparkles, Plus, Trash2, Clock, DollarSign, Users, Home, Calendar, MessageCircle, ShoppingBag, User, PlayCircle, Settings, Palette, Smartphone, Trophy, Utensils, TrendingUp, Bell, Gift, Star, Ticket, Play } from 'lucide-react';
 import { ClassCategory } from '@/lib/types';
 
 // Theme Presets (Mobile Parity)
@@ -231,7 +231,7 @@ const AVAILABLE_TABS = [
     { id: 'profile', label: 'Profile', icon: <User className="w-5 h-5" />, desc: 'Account settings' },
 ];
 
-const STEPS = ['Studio', 'Magic Build', 'Theme', 'Brand', 'Navigation', 'Classes', 'Features', 'Launch'];
+const STEPS = ['Studio', 'Magic Build', 'Theme', 'Brand', 'Navigation', 'Classes', 'Features', 'Preview', 'Launch'];
 
 
 export default function BuilderFlow({ onPreviewUpdate }: { onPreviewUpdate?: (props: any) => void }) {
@@ -277,6 +277,11 @@ export default function BuilderFlow({ onPreviewUpdate }: { onPreviewUpdate?: (pr
 
     const [isLoading, setIsLoading] = useState(false);
 
+    // Tour State
+    const [isTourActive, setIsTourActive] = useState(false);
+    const [tourStep, setTourStep] = useState(0);
+    const [tourTabOverride, setTourTabOverride] = useState<string | null>(null);
+
     // Update preview
     useEffect(() => {
         if (onPreviewUpdate) {
@@ -292,10 +297,11 @@ export default function BuilderFlow({ onPreviewUpdate }: { onPreviewUpdate?: (pr
                 fontFamily,
                 backgroundMode: backgroundMode,
                 tabs: selectedTabs,
-                classes: classes || []
+                classes: classes || [],
+                activeTabOverride: tourTabOverride // Pass the override for the tour
             });
         }
-    }, [studioName, brandColor, customColor, useCustomColor, studioType, icon, themeId, tagline, fontFamily, backgroundMode, selectedTabs, classes, onPreviewUpdate]);
+    }, [studioName, brandColor, customColor, useCustomColor, studioType, icon, themeId, tagline, fontFamily, backgroundMode, selectedTabs, classes, onPreviewUpdate, tourTabOverride]);
 
     // Apply Theme Presets
     const applyTheme = (id: string) => {
@@ -314,6 +320,40 @@ export default function BuilderFlow({ onPreviewUpdate }: { onPreviewUpdate?: (pr
             setStudioName(name);
         }
     }, [searchParams]);
+
+    // Tour Logic
+    useEffect(() => {
+        if (!isTourActive) return;
+
+        const tourSequence = [
+            { step: 0, tab: 'home', duration: 4000 },
+            { step: 1, tab: 'schedule', duration: 4000 },
+            { step: 2, tab: features.includes('shop') ? 'shop' : 'home', duration: 4000 }, // Fallback if no shop
+            { step: 3, tab: 'home', duration: 0 } // End
+        ];
+
+        const currentSeq = tourSequence[tourStep];
+
+        if (tourStep >= tourSequence.length - 1) {
+            setIsTourActive(false);
+            setTourTabOverride(null);
+            setCurrentStep(8); // Go to Launch
+            return;
+        }
+
+        setTourTabOverride(currentSeq.tab);
+
+        const timer = setTimeout(() => {
+            setTourStep(prev => prev + 1);
+        }, currentSeq.duration);
+
+        return () => clearTimeout(timer);
+    }, [isTourActive, tourStep, features]);
+
+    const startTour = () => {
+        setIsTourActive(true);
+        setTourStep(0);
+    };
 
     // Magic Build Logic (Mock AI)
     const handleMagicBuild = () => {
@@ -396,7 +436,8 @@ export default function BuilderFlow({ onPreviewUpdate }: { onPreviewUpdate?: (pr
             case 4: return selectedTabs.length >= 3 && selectedTabs.length <= 5; // Navigation
             case 5: return classes.length > 0; // Classes
             case 6: return true; // Features
-            case 7: return true; // Launch
+            case 7: return true; // Preview
+            case 8: return true; // Launch
             default: return false;
         }
     };
@@ -512,6 +553,55 @@ export default function BuilderFlow({ onPreviewUpdate }: { onPreviewUpdate?: (pr
                         </div>
                     ))}
                 </div>
+
+                {/* Tour Overlay */}
+                {isTourActive && (
+                    <div className="absolute inset-0 z-50 bg-background/90 backdrop-blur-sm flex flex-col items-center justify-center p-8 text-center animate-in fade-in duration-500">
+                        <div className="max-w-md space-y-6">
+                            <div className="w-16 h-16 rounded-full bg-primary/20 flex items-center justify-center mx-auto mb-4">
+                                <Sparkles className="w-8 h-8 text-primary animate-pulse" />
+                            </div>
+
+                            {tourStep === 0 && (
+                                <div className="space-y-2 animate-in slide-in-from-bottom-4 fade-in">
+                                    <h3 className="text-3xl font-bold">Welcome to {studioName || 'Your Studio'}</h3>
+                                    <p className="text-xl text-text-secondary">Your app is fully branded with your {themeId} theme and custom colors.</p>
+                                </div>
+                            )}
+                            {tourStep === 1 && (
+                                <div className="space-y-2 animate-in slide-in-from-bottom-4 fade-in">
+                                    <h3 className="text-3xl font-bold">Seamless Booking</h3>
+                                    <p className="text-xl text-text-secondary">Clients can browse your {studioType} schedule and book instantly.</p>
+                                </div>
+                            )}
+                            {tourStep === 2 && (
+                                <div className="space-y-2 animate-in slide-in-from-bottom-4 fade-in">
+                                    <h3 className="text-3xl font-bold">More than just booking</h3>
+                                    <p className="text-xl text-text-secondary">Engage users with features like {features.includes('shop') ? 'Merch Store' : 'Community'} and Member Profiles.</p>
+                                </div>
+                            )}
+
+                            <div className="w-full h-1 bg-border rounded-full overflow-hidden mt-8">
+                                <div
+                                    className="h-full bg-primary transition-all duration-[4000ms] ease-linear"
+                                    style={{ width: '100%' }}
+                                    key={tourStep} // Reset animation on step change
+                                />
+                            </div>
+
+                            <button
+                                onClick={() => {
+                                    setIsTourActive(false);
+                                    setTourTabOverride(null);
+                                    setCurrentStep(8);
+                                }}
+                                className="text-sm text-text-muted hover:text-foreground mt-4"
+                            >
+                                Skip Tour
+                            </button>
+                        </div>
+                    </div>
+                )}
 
                 {/* Step Content */}
                 <div key={currentStep} className="pb-24">
@@ -932,8 +1022,58 @@ export default function BuilderFlow({ onPreviewUpdate }: { onPreviewUpdate?: (pr
                         </div>
                     )}
 
-                    {/* Step 7: Launch (Shifted from 6) */}
+                    {/* Step 7: Preview (New) */}
                     {currentStep === 7 && (
+                        <div className="space-y-8 py-8 text-center">
+                            <div className="space-y-4">
+                                <h2 className="text-3xl font-bold">Let's review your app.</h2>
+                                <p className="text-xl text-text-secondary max-w-md mx-auto">
+                                    Take a guided tour of the app you just built to see how your clients will experience it.
+                                </p>
+                            </div>
+
+                            <div className="bg-surface border border-border rounded-2xl p-6 max-w-sm mx-auto text-left space-y-4">
+                                <div className="flex items-center gap-4 border-b border-border pb-4">
+                                    <div className="w-12 h-12 rounded-xl bg-primary/20 flex items-center justify-center text-2xl">
+                                        {icon}
+                                    </div>
+                                    <div>
+                                        <h3 className="font-bold text-lg">{studioName}</h3>
+                                        <p className="text-sm text-text-secondary capitalize">{studioType} Studio</p>
+                                    </div>
+                                </div>
+                                <div className="grid grid-cols-2 gap-4 text-sm">
+                                    <div>
+                                        <p className="text-text-muted">Classes</p>
+                                        <p className="font-medium">{classes.length} setup</p>
+                                    </div>
+                                    <div>
+                                        <p className="text-text-muted">Features</p>
+                                        <p className="font-medium">{features.length} enabled</p>
+                                    </div>
+                                    <div>
+                                        <p className="text-text-muted">Theme</p>
+                                        <p className="font-medium capitalize">{themeId}</p>
+                                    </div>
+                                    <div>
+                                        <p className="text-text-muted">Tabs</p>
+                                        <p className="font-medium">{selectedTabs.length}</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <button
+                                onClick={startTour}
+                                className="w-full max-w-sm mx-auto py-4 bg-foreground text-background rounded-xl font-bold text-lg flex items-center justify-center gap-2 hover:scale-105 transition-transform shadow-xl"
+                            >
+                                <Play className="w-5 h-5 fill-current" />
+                                Start Interactive Tour
+                            </button>
+                        </div>
+                    )}
+
+                    {/* Step 8: Launch (Shifted from 7) */}
+                    {currentStep === 8 && (
                         <div className="text-center space-y-8 py-8">
                             <div className="w-20 h-20 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-6 animate-bounce-slow">
                                 <Sparkles className="w-10 h-10 text-primary" />

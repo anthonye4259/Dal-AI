@@ -46,33 +46,47 @@ export default function SplitLandingPage() {
             Complete booking system, payments, and client management. No code required.
           </p>
 
-          {/* Feature Pills */}
-          <div className="space-y-4 mb-10">
-            <div className="flex items-center gap-3 text-foreground">
-              <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center">
-                <Smartphone className="w-4 h-4 text-primary" />
+          {/* Process Timeline */}
+          <div className="space-y-8 mb-10 relative">
+            {/* Connecting Line */}
+            <div className="absolute left-[15px] top-2 bottom-10 w-0.5 bg-border -z-10" />
+
+            {/* Step 1: Build */}
+            <div className="flex gap-4">
+              <div className="w-8 h-8 rounded-full bg-primary text-white flex items-center justify-center font-bold text-sm shrink-0 shadow-lg shadow-primary/25 ring-4 ring-surface">
+                1
               </div>
               <div>
-                <p className="font-bold">Native Mobile App</p>
-                <p className="text-xs text-text-secondary">Clients download 'Dal AI' & find you instantly.</p>
+                <h3 className="font-bold text-foreground">Build your studio</h3>
+                <p className="text-sm text-text-secondary leading-relaxed">
+                  Design your branded app in 60 seconds. No coding required.
+                </p>
               </div>
             </div>
-            <div className="flex items-center gap-3 text-foreground">
-              <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center">
-                <CreditCard className="w-4 h-4 text-primary" />
+
+            {/* Step 2: Publish */}
+            <div className="flex gap-4">
+              <div className="w-8 h-8 rounded-full bg-surface border-2 border-primary text-primary flex items-center justify-center font-bold text-sm shrink-0 ring-4 ring-surface">
+                2
               </div>
               <div>
-                <p className="font-bold">Global Payments</p>
-                <p className="text-xs text-text-secondary">Credit cards, memberships, and packages.</p>
+                <h3 className="font-bold text-foreground">We launch it</h3>
+                <p className="text-sm text-text-secondary leading-relaxed">
+                  Your studio goes live instantly inside the Dal AI network.
+                </p>
               </div>
             </div>
-            <div className="flex items-center gap-3 text-foreground">
-              <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center">
-                <Zap className="w-4 h-4 text-primary" />
+
+            {/* Step 3: Access */}
+            <div className="flex gap-4">
+              <div className="w-8 h-8 rounded-full bg-surface border-2 border-text-secondary text-text-secondary flex items-center justify-center font-bold text-sm shrink-0 ring-4 ring-surface">
+                3
               </div>
               <div>
-                <p className="font-bold">Real-time Booking</p>
-                <p className="text-xs text-text-secondary">Waitlists, calendars, and instant notifications.</p>
+                <h3 className="font-bold text-foreground">Clients connect</h3>
+                <p className="text-sm text-text-secondary leading-relaxed">
+                  Clients download <span className="font-semibold text-foreground">Dal AI</span>, but they see <em>only</em> your brand. It <strong>is</strong> your own real app.
+                </p>
               </div>
             </div>
           </div>
@@ -84,6 +98,7 @@ export default function SplitLandingPage() {
               brandColor={previewProps.brandColor}
               icon={previewProps.icon}
               classes={previewProps.classes}
+              activeTab={previewProps.activeTabOverride}
             />
           </div>
         </div>

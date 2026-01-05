@@ -13,11 +13,20 @@ interface IPhoneMockupProps {
         instructor: string;
         category?: ClassCategory;
     }>;
+    activeTab?: string;
 }
+
+const TAB_MAPPING: Record<string, number> = {
+    'home': 0,
+    'schedule': 1,
+    'shop': 2,
+    'content': 2,
+    'profile': 3
+};
 
 const DAY_NAMES = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
 
-export default function IPhoneMockup({ studioName, brandColor, icon, classes }: IPhoneMockupProps) {
+export default function IPhoneMockup({ studioName, brandColor, icon, classes, activeTab = 'home' }: IPhoneMockupProps) {
     const today = new Date();
     const formattedDate = today.toLocaleDateString('en-US', {
         weekday: 'long',
@@ -154,14 +163,18 @@ export default function IPhoneMockup({ studioName, brandColor, icon, classes }: 
                     {/* Bottom Nav */}
                     <div className="absolute bottom-0 left-0 right-0 bg-[#1C1C1E] border-t border-white/10 px-8 py-4">
                         <div className="flex justify-between items-center">
-                            {['🏠', '📅', '📊', '👤'].map((emoji, index) => (
-                                <div
-                                    key={index}
-                                    className={`text-lg ${index === 0 ? 'opacity-100' : 'opacity-40'}`}
-                                >
-                                    {emoji}
-                                </div>
-                            ))}
+                            {['🏠', '📅', '🛍️', '👤'].map((emoji, index) => {
+                                const isActive = TAB_MAPPING[activeTab] === index || (activeTab === 'home' && index === 0);
+                                return (
+                                    <div
+                                        key={index}
+                                        className={`text-lg transition-opacity duration-300 ${isActive ? 'opacity-100 scale-110' : 'opacity-40'}`}
+                                        style={isActive ? { color: brandColor } : {}}
+                                    >
+                                        {emoji}
+                                    </div>
+                                );
+                            })}
                         </div>
                         {/* Home Indicator */}
                         <div className="absolute bottom-1 left-1/2 -translate-x-1/2 w-32 h-1 bg-white/30 rounded-full" />
