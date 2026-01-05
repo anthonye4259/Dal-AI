@@ -12,19 +12,17 @@
     },
     "home": {
         "hero": {
-            "title": "Créez votre application studio en 60 secondes",
-            "subtitle": "La plateforme alimentée par l'IA pour les instructeurs de fitness pour lancer leur propre application mobile de marque",
-            "cta": "Commencer à Construire",
-            "secondary": "Voir la Démo"
+            "title1": "Votre propre app studio.",
+            "title2": "Créée en quelques secondes.",
+            "subtitle": "Système complet de réservation, paiements et gestion des clients. Sans code."
         },
-        "features": {
-            "title": "Tout ce dont vous avez besoin pour gérer votre studio",
-            "booking": "Réservation de Cours",
-            "bookingDesc": "Permettez aux clients de réserver et payer les cours instantanément",
-            "payments": "Paiements",
-            "paymentsDesc": "Acceptez les paiements et vendez des forfaits de cours",
-            "branding": "Votre Marque",
-            "brandingDesc": "Votre logo, vos couleurs, votre application"
+        "timeline": {
+            "step1Title": "Construisez votre studio",
+            "step1Desc": "Concevez votre app de marque en 60 secondes. Sans programmation.",
+            "step2Title": "Nous le lançons",
+            "step2Desc": "Votre studio est en ligne instantanément dans le réseau Dal AI.",
+            "step3Title": "Les clients se connectent",
+            "step3Desc": "Les clients téléchargent Dal AI, mais ne voient que votre marque. C'est votre propre vraie app."
         }
     },
     "builder": {

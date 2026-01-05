@@ -12,19 +12,17 @@
     },
     "home": {
         "hero": {
-            "title": "60秒内创建您的工作室应用",
-            "subtitle": "AI驱动的平台，帮助健身教练发布自己的品牌移动应用",
-            "cta": "开始创建",
-            "secondary": "观看演示"
+            "title1": "您自己的工作室应用。",
+            "title2": "秒速创建。",
+            "subtitle": "完整的预约系统、支付和客户管理。无需代码。"
         },
-        "features": {
-            "title": "经营工作室所需的一切",
-            "booking": "课程预约",
-            "bookingDesc": "让客户即时预约和支付课程",
-            "payments": "支付",
-            "paymentsDesc": "接受付款和销售课程套餐",
-            "branding": "您的品牌",
-            "brandingDesc": "您的标志、您的颜色、您的应用"
+        "timeline": {
+            "step1Title": "创建您的工作室",
+            "step1Desc": "60秒内设计您的品牌应用。无需编程。",
+            "step2Title": "我们帮您发布",
+            "step2Desc": "您的工作室在Dal AI网络中即时上线。",
+            "step3Title": "客户连接",
+            "step3Desc": "客户下载Dal AI，但只看到您的品牌。这是您自己的真正应用。"
         }
     },
     "builder": {

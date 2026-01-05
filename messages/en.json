@@ -12,19 +12,17 @@
     },
     "home": {
         "hero": {
-            "title": "Build your studio app in 60 seconds",
-            "subtitle": "The AI-powered platform for fitness instructors to launch their own branded mobile app",
-            "cta": "Start Building",
-            "secondary": "Watch Demo"
+            "title1": "Your own studio app.",
+            "title2": "Built in seconds.",
+            "subtitle": "Complete booking system, payments, and client management. No code required."
         },
-        "features": {
-            "title": "Everything you need to run your studio",
-            "booking": "Class Booking",
-            "bookingDesc": "Let clients book and pay for classes instantly",
-            "payments": "Payments",
-            "paymentsDesc": "Accept payments and sell class packs",
-            "branding": "Your Brand",
-            "brandingDesc": "Your logo, your colors, your app"
+        "timeline": {
+            "step1Title": "Build your studio",
+            "step1Desc": "Design your branded app in 60 seconds. No coding required.",
+            "step2Title": "We launch it",
+            "step2Desc": "Your studio goes live instantly inside the Dal AI network.",
+            "step3Title": "Clients connect",
+            "step3Desc": "Clients download Dal AI, but they see only your brand. It is your own real app."
         }
     },
     "builder": {

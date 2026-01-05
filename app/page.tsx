@@ -8,6 +8,7 @@ import BuilderFlow from '@/components/BuilderFlow';
 import IPhoneMockup from '@/components/builder/IPhoneMockup';
 import { BuilderProvider, useBuilder } from '@/context/BuilderContext';
 import LanguageSwitcher from '@/components/LanguageSwitcher';
+import { useTranslation } from '@/context/I18nContext';
 
 export default function SplitLandingPage() {
   return (
@@ -20,6 +21,7 @@ export default function SplitLandingPage() {
 function SplitLandingPageContent() {
   const router = useRouter();
   const { step } = useBuilder();
+  const { t } = useTranslation();
 
   return (
     <div className="h-screen bg-background overflow-hidden flex flex-col md:flex-row">
@@ -43,7 +45,7 @@ function SplitLandingPageContent() {
               onClick={() => router.push('/login')}
               className="text-sm text-primary font-medium hover:underline"
             >
-              Login
+              {t('common.login')}
             </button>
           </div>
         </div>
@@ -52,14 +54,14 @@ function SplitLandingPageContent() {
         <div className={`flex-1 flex flex-col justify-center px-12 relative z-10 transition-all duration-500 ${step > 0 ? 'opacity-0 translate-x-[-20px] absolute pointer-events-none' : 'opacity-100 translate-x-0'}`}>
 
           <h1 className="text-4xl lg:text-5xl font-bold mb-6 leading-tight">
-            Your own studio app. <br />
+            {t('home.hero.title1')} <br />
             <span className="text-transparent bg-clip-text gradient-primary">
-              Built in seconds.
+              {t('home.hero.title2')}
             </span>
           </h1>
 
           <p className="text-lg text-text-secondary mb-8 leading-relaxed max-w-md">
-            Complete booking system, payments, and client management. No code required.
+            {t('home.hero.subtitle')}
           </p>
 
           {/* Process Timeline */}
@@ -73,9 +75,9 @@ function SplitLandingPageContent() {
                 1
               </div>
               <div>
-                <h3 className="font-bold text-foreground">Build your studio</h3>
+                <h3 className="font-bold text-foreground">{t('home.timeline.step1Title')}</h3>
                 <p className="text-sm text-text-secondary leading-relaxed">
-                  Design your branded app in 60 seconds. No coding required.
+                  {t('home.timeline.step1Desc')}
                 </p>
               </div>
             </div>
@@ -86,9 +88,9 @@ function SplitLandingPageContent() {
                 2
               </div>
               <div>
-                <h3 className="font-bold text-foreground">We launch it</h3>
+                <h3 className="font-bold text-foreground">{t('home.timeline.step2Title')}</h3>
                 <p className="text-sm text-text-secondary leading-relaxed">
-                  Your studio goes live instantly inside the Dal AI network.
+                  {t('home.timeline.step2Desc')}
                 </p>
               </div>
             </div>
@@ -99,9 +101,9 @@ function SplitLandingPageContent() {
                 3
               </div>
               <div>
-                <h3 className="font-bold text-foreground">Clients connect</h3>
+                <h3 className="font-bold text-foreground">{t('home.timeline.step3Title')}</h3>
                 <p className="text-sm text-text-secondary leading-relaxed">
-                  Clients download <span className="font-semibold text-foreground">Dal AI</span>, but they see <em>only</em> your brand. It <strong>is</strong> your own real app.
+                  {t('home.timeline.step3Desc')}
                 </p>
               </div>
             </div>
@@ -125,12 +127,15 @@ function SplitLandingPageContent() {
             <Image src="/logo.png" alt="Dal AI" width={24} height={24} className="rounded-md bg-white" />
             <span className="font-bold text-lg">Dal AI</span>
           </div>
-          <button
-            onClick={() => router.push('/login')}
-            className="text-sm text-primary font-medium hover:underline"
-          >
-            Login
-          </button>
+          <div className="flex items-center gap-3">
+            <LanguageSwitcher />
+            <button
+              onClick={() => router.push('/login')}
+              className="text-sm text-primary font-medium hover:underline"
+            >
+              {t('common.login')}
+            </button>
+          </div>
         </div>
 
         <div className="flex-1 relative">
