@@ -1,5 +1,6 @@
-import { initializeApp, getApps, getApp } from 'firebase/app';
-import { getFirestore, collection, addDoc } from 'firebase/firestore';
+import { initializeApp, getApps, getApp, FirebaseApp } from 'firebase/app';
+import { getFirestore, collection, addDoc, Firestore } from 'firebase/firestore';
+import { getAuth, Auth } from 'firebase/auth';
 
 const firebaseConfig = {
     apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
@@ -10,16 +11,36 @@ const firebaseConfig = {
     appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
 };
 
-import { getAuth } from 'firebase/auth';
+// Lazy initialization to avoid SSR build errors
+let app: FirebaseApp | undefined;
+let db: Firestore | undefined;
+let auth: Auth | undefined;
 
-// Initialize Firebase
-const app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
-const db = getFirestore(app);
-const auth = getAuth(app);
+function getFirebaseApp(): FirebaseApp {
+    if (!app) {
+        app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
+    }
+    return app;
+}
+
+function getFirebaseDb(): Firestore {
+    if (!db) {
+        db = getFirestore(getFirebaseApp());
+    }
+    return db;
+}
+
+function getFirebaseAuth(): Auth {
+    if (!auth) {
+        auth = getAuth(getFirebaseApp());
+    }
+    return auth;
+}
 
 export const saveAppConfig = async (config: any) => {
     try {
-        const docRef = await addDoc(collection(db, "builder_leads"), {
+        const firestore = getFirebaseDb();
+        const docRef = await addDoc(collection(firestore, "builder_leads"), {
             ...config,
             createdAt: new Date().toISOString(),
             status: 'pending'
@@ -37,4 +58,6 @@ export const COLLECTIONS = {
     BUILDER_LEADS: "builder_leads"
 };
 
-export { db, auth };
+// Export getters instead of instances to avoid SSR issues
+export { getFirebaseDb as db, getFirebaseAuth as auth };
+

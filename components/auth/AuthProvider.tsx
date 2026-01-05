@@ -25,13 +25,14 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
     useEffect(() => {
         // Safe check for auth instance
-        if (!auth) {
+        const authInstance = auth();
+        if (!authInstance) {
             console.warn("Firebase Auth not initialized - check environment variables");
             setLoading(false);
             return;
         }
 
-        const unsubscribe = onAuthStateChanged(auth, (user) => {
+        const unsubscribe = onAuthStateChanged(authInstance, (user) => {
             setUser(user);
             setLoading(false);
         });

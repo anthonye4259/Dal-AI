@@ -27,9 +27,10 @@ export default function DashboardPage() {
     // Fetch Studio Data
     useEffect(() => {
         const fetchStudio = async () => {
-            if (!user || !db) return; // FIX: Ensure db is initialized 
+            const firestore = db();
+            if (!user || !firestore) return; // FIX: Ensure db is initialized 
             try {
-                const q = query(collection(db, COLLECTIONS.STUDIOS), where("ownerId", "==", user.uid));
+                const q = query(collection(firestore, COLLECTIONS.STUDIOS), where("ownerId", "==", user.uid));
                 const snapshot = await getDocs(q);
                 if (!snapshot.empty) {
                     setStudio({ id: snapshot.docs[0].id, ...snapshot.docs[0].data() });
@@ -50,8 +51,9 @@ export default function DashboardPage() {
 
     const handleLogout = async () => {
         try {
-            if (!auth) throw new Error("Authentication not initialized");
-            await signOut(auth);
+            const authInstance = auth();
+            if (!authInstance) throw new Error("Authentication not initialized");
+            await signOut(authInstance);
             router.push('/login');
         } catch (error) {
             console.error('Logout error:', error);

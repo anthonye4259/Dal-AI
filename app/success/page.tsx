@@ -37,8 +37,9 @@ function SuccessContent() {
             setIsSaving(true);
 
             try {
-                if (!db) throw new Error("Firestore not initialized");
-                const studiosRef = collection(db, COLLECTIONS.STUDIOS);
+                const firestore = db();
+                if (!firestore) throw new Error("Firestore not initialized");
+                const studiosRef = collection(firestore, COLLECTIONS.STUDIOS);
                 const q = query(studiosRef, where("ownerId", "==", user.uid));
                 const querySnapshot = await getDocs(q);
 

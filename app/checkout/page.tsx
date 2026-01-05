@@ -83,12 +83,14 @@ export default function CheckoutPage() {
 
                 try {
                     if (isLoginMode) {
-                        if (!auth) throw new Error("Authentication not initialized");
-                        const credential = await signInWithEmailAndPassword(auth, email, password);
+                        const authInstance = auth();
+                        if (!authInstance) throw new Error("Authentication not initialized");
+                        const credential = await signInWithEmailAndPassword(authInstance, email, password);
                         currentUser = credential.user;
                     } else {
-                        if (!auth) throw new Error("Authentication not initialized");
-                        const credential = await createUserWithEmailAndPassword(auth, email, password);
+                        const authInstance = auth();
+                        if (!authInstance) throw new Error("Authentication not initialized");
+                        const credential = await createUserWithEmailAndPassword(authInstance, email, password);
                         currentUser = credential.user;
                     }
                 } catch (err: any) {

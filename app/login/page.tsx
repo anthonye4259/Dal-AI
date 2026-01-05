@@ -21,8 +21,9 @@ export default function LoginPage() {
         setError('');
 
         try {
-            if (!auth) throw new Error("Authentication not initialized");
-            await signInWithEmailAndPassword(auth, email, password);
+            const authInstance = auth();
+            if (!authInstance) throw new Error("Authentication not initialized");
+            await signInWithEmailAndPassword(authInstance, email, password);
             router.push('/dashboard');
         } catch (err: any) {
             console.error('Login error:', err);
