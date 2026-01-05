@@ -976,9 +976,9 @@ bg - gradient - to - br ${theme.gradient}
                             </div>
                         )}
 
-                        {/* Step 4: Home Screen Customization (New) */}
+                        {/* Step 4: Home Screen Customization */}
                         {currentStep === 4 && (
-                            <div className="space-y-8">
+                            <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4">
                                 <div>
                                     <h2 className="text-2xl font-bold mb-2">Build your Home Screen.</h2>
                                     <p className="text-text-secondary mb-6">Customize what your members see first.</p>
@@ -999,411 +999,393 @@ bg - gradient - to - br ${theme.gradient}
                                                 {/* Hover Overlay */}
                                                 <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2">
                                                     <label className="cursor-pointer px-3 py-1.5 bg-white text-black text-xs font-bold rounded-lg hover:scale-105 transition-transform">
-                                                        {/* Step 4: Home Screen (Restored) */}
-                                                        {currentStep === 4 && (
-                                                            <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4">
-                                                                <h2 className="text-2xl font-bold">Customize your Home Screen.</h2>
-                                                                <p className="text-text-secondary">Choose what your members see first.</p>
-
-                                                                {/* Hero Image Upload */}
-                                                                <div className="space-y-4">
-                                                                    <label className="text-sm font-medium text-text-secondary">Hero Image</label>
-                                                                    <div className="bg-surface border border-border rounded-xl p-4">
-                                                                        <div className="flex items-center gap-4">
-                                                                            {heroImage ? (
-                                                                                <img src={heroImage} alt="Hero" className="w-16 h-16 rounded-lg object-cover" />
-                                                                            ) : (
-                                                                                <div className="w-16 h-16 rounded-lg bg-surface-hover flex items-center justify-center">
-                                                                                    <Layout className="w-6 h-6 text-text-muted" />
-                                                                                </div>
-                                                                            )}
-                                                                            <div className="flex-1">
-                                                                                <p className="font-medium text-foreground">Main Header Image</p>
-                                                                                <p className="text-xs text-text-muted">Appears at the top of the home tab</p>
-                                                                            </div>
-                                                                            <div className="flex gap-2">
-                                                                                <label className="cursor-pointer px-3 py-1.5 bg-primary/10 text-primary text-xs font-bold rounded-lg hover:bg-primary/20 transition-colors">
-                                                                                    Change
-                                                                                    <input
-                                                                                        type="file"
-                                                                                        accept="image/*"
-                                                                                        className="hidden"
-                                                                                        onChange={(e) => {
-                                                                                            const file = e.target.files?.[0];
-                                                                                            if (file) {
-                                                                                                const reader = new FileReader();
-                                                                                                reader.onload = (e) => setHeroImage(e.target?.result as string);
-                                                                                                reader.readAsDataURL(file);
-                                                                                            }
-                                                                                        }}
-                                                                                    />
-                                                                                </label>
-                                                                                {heroImage && (
-                                                                                    <button
-                                                                                        onClick={() => setHeroImage(null)}
-                                                                                        className="px-3 py-1.5 bg-red-500 text-white text-xs font-bold rounded-lg hover:scale-105 transition-transform"
-                                                                                    >
-                                                                                        Reset
-                                                                                    </button>
-                                                                                )}
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-
-                                                                {/* Widget Manager */}
-                                                                <div className="space-y-4">
-                                                                    <label className="text-sm font-medium text-text-secondary">Home Screen Widgets</label>
-                                                                    <div className="space-y-2">
-                                                                        {widgets.sort((a, b) => a.order - b.order).map((widget, index) => (
-                                                                            <div
-                                                                                key={widget.id}
-                                                                                className={`flex items-center gap-3 p-3 rounded-xl border transition-all ${widget.enabled ? 'bg-surface border-border' : 'bg-surface/50 border-border/50 opacity-60'
-                                                                                    } `}
-                                                                            >
-                                                                                <div className="flex flex-col gap-1 text-text-muted cursor-move">
-                                                                                    <div className="w-4 h-1 bg-current rounded-full opacity-20" />
-                                                                                    <div className="w-4 h-1 bg-current rounded-full opacity-20" />
-                                                                                </div>
-
-                                                                                <div className="flex-1">
-                                                                                    <p className="font-semibold text-sm text-foreground">{widget.label}</p>
-                                                                                </div>
-
-                                                                                <button
-                                                                                    onClick={() => {
-                                                                                        const newWidgets = widgets.map(w =>
-                                                                                            w.id === widget.id ? { ...w, enabled: !w.enabled } : w
-                                                                                        );
-                                                                                        setWidgets(newWidgets);
-                                                                                    }}
-                                                                                    className={`w-10 h-6 rounded-full transition-colors relative ${widget.enabled ? 'bg-primary' : 'bg-border'
-                                                                                        } `}
-                                                                                >
-                                                                                    <div className={`absolute top-1 w-4 h-4 bg-white rounded-full transition-all ${widget.enabled ? 'left-5' : 'left-1'
-                                                                                        } `} />
-                                                                                </button>
-                                                                            </div>
-                                                                        ))}
-                                                                    </div>
-                                                                    <p className="text-xs text-text-muted text-center pt-2">Drag handles coming soon (uses simple order for now)</p>
-                                                                </div>
-                                                            </div>
-                                                        )}
-
-
-                                                        {/* Step 5: Navigation (Shifted to 5) */}
-                                                        {currentStep === 5 && (
-                                                            <div className="space-y-6">
-                                                                <div className="space-y-2">
-                                                                    <h2 className="text-2xl font-bold">Build your bottom bar.</h2>
-                                                                    <p className="text-text-secondary">Select 3 to 5 tabs for your app's main navigation.</p>
-                                                                </div>
-
-                                                                {/* Tab Amount Selector */}
-                                                                <div className="p-4 bg-surface border border-border rounded-xl">
-                                                                    <label className="text-sm font-medium text-text-secondary mb-3 block">Target Number of Tabs</label>
-                                                                    <div className="flex gap-2">
-                                                                        {[3, 4, 5].map(num => (
-                                                                            <button
-                                                                                key={num}
-                                                                                onClick={() => {
-                                                                                    // Logic to trim/alert if selection doesn't match, or just visual highlight
-                                                                                    // For now, let's just use it as a visual guide and maybe auto-trim if > num
-                                                                                    if (selectedTabs.length > num) {
-                                                                                        setSelectedTabs(selectedTabs.slice(0, num));
-                                                                                    }
-                                                                                }}
-                                                                                className={`flex-1 py-2 rounded-lg font-medium text-sm transition-all ${selectedTabs.length === num
-                                                                                        ? 'bg-primary text-white'
-                                                                                        : 'bg-background text-text-secondary border border-border hover:border-text-muted'
-                                                                                    }`}
-                                                                            >
-                                                                                {num} Tabs
-                                                                            </button>
-                                                                        ))}
-                                                                    </div>
-                                                                </div>
-
-                                                                <div className="grid grid-cols-1 gap-3">
-                                                                    {AVAILABLE_TABS.map((tab) => {
-                                                                        const isSelected = selectedTabs.includes(tab.id);
-                                                                        const isDisabled = !isSelected && selectedTabs.length >= 5;
-
-                                                                        return (
-                                                                            <button
-                                                                                key={tab.id}
-                                                                                disabled={isDisabled}
-                                                                                onClick={() => {
-                                                                                    if (isSelected) {
-                                                                                        if (selectedTabs.length > 3) {
-                                                                                            setSelectedTabs(selectedTabs.filter(t => t !== tab.id));
-                                                                                        }
-                                                                                    } else {
-                                                                                        if (selectedTabs.length < 5) {
-                                                                                            setSelectedTabs([...selectedTabs, tab.id]);
-                                                                                        }
-                                                                                    }
-                                                                                }}
-                                                                                className={`p - 4 rounded - xl border text - left transition - all flex items - center justify - between ${isSelected
-                                                                                    ? 'border-primary bg-primary/10'
-                                                                                    : isDisabled
-                                                                                        ? 'border-border bg-surface/50 opacity-50 cursor-not-allowed'
-                                                                                        : 'border-border bg-surface hover:border-primary/50'
-                                                                                    } `}
-                                                                            >
-                                                                                <div className="flex items-center gap-4">
-                                                                                    <div className={`p - 2 rounded - lg ${isSelected ? 'bg-primary text-white' : 'bg-background text-text-secondary'} `}>
-                                                                                        {tab.icon}
-                                                                                    </div>
-                                                                                    <div>
-                                                                                        <h3 className="font-semibold text-foreground">{tab.label}</h3>
-                                                                                        <p className="text-xs text-text-secondary">{tab.desc}</p>
-                                                                                    </div>
-                                                                                </div>
-                                                                                {isSelected && <CheckCircle2 className="w-5 h-5 text-primary" />}
-                                                                            </button>
-                                                                        );
-                                                                    })}
-                                                                </div>
-
-                                                                <div className="bg-surface border border-border rounded-xl p-4 flex items-center gap-3">
-                                                                    <Smartphone className="w-5 h-5 text-text-secondary" />
-                                                                    <span className={`text - sm font - medium ${selectedTabs.length < 3 || selectedTabs.length > 5 ? 'text-amber-500' : 'text-green-500'} `}>
-                                                                        {selectedTabs.length} tabs selected (Min 3, Max 5)
-                                                                    </span>
-                                                                </div>
-                                                            </div>
-                                                        )}
-
-                                                        {/* Step 6: Classes (Shifted to 6) */}
-                                                        {currentStep === 6 && (
-                                                            <div className="space-y-6">
-                                                                <div className="flex items-center justify-between">
-                                                                    <h2 className="text-2xl font-bold">Your Schedule</h2>
-                                                                    <button onClick={addClass} className="text-primary text-sm font-medium flex items-center gap-1 hover:text-primary-hover">
-                                                                        <Plus className="w-4 h-4" /> Add Class
-                                                                    </button>
-                                                                </div>
-
-                                                                <div className="space-y-4">
-                                                                    {classes.map((cls, index) => (
-                                                                        <div key={index} className="bg-surface border border-border rounded-xl p-4 animate-in fade-in slide-in-from-bottom-4">
-                                                                            <div className="flex justify-between items-start mb-4">
-                                                                                <div className="space-y-3 flex-1 mr-4">
-                                                                                    <input
-                                                                                        type="text"
-                                                                                        value={cls.name}
-                                                                                        onChange={(e) => updateClass(index, 'name', e.target.value)}
-                                                                                        placeholder="Class Name"
-                                                                                        className="w-full bg-transparent text-lg font-medium placeholder:text-text-muted focus:outline-none"
-                                                                                    />
-                                                                                    <div className="flex gap-3">
-                                                                                        <div className="flex items-center gap-2 bg-background rounded-lg px-2 py-1 border border-border">
-                                                                                            <Clock className="w-3 h-3 text-text-secondary" />
-                                                                                            <input
-                                                                                                type="text"
-                                                                                                value={cls.time}
-                                                                                                onChange={(e) => updateClass(index, 'time', e.target.value)}
-                                                                                                className="bg-transparent w-16 text-sm focus:outline-none"
-                                                                                            />
-                                                                                        </div>
-                                                                                        <div className="flex items-center gap-2 bg-background rounded-lg px-2 py-1 border border-border">
-                                                                                            <Users className="w-3 h-3 text-text-secondary" />
-                                                                                            <input
-                                                                                                type="text"
-                                                                                                value={cls.instructor}
-                                                                                                onChange={(e) => updateClass(index, 'instructor', e.target.value)}
-                                                                                                placeholder="Instructor"
-                                                                                                className="bg-transparent w-24 text-sm focus:outline-none"
-                                                                                            />
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </div>
-                                                                                <button onClick={() => removeClass(index)} className="text-text-muted hover:text-red-500">
-                                                                                    <Trash2 className="w-4 h-4" />
-                                                                                </button>
-                                                                            </div>
-                                                                        </div>
-                                                                    ))}
-                                                                </div>
-                                                            </div>
-                                                        )}
-
-                                                        {/* Step 7: Features (Shifted to 7) */}
-                                                        {currentStep === 7 && (
-                                                            <div className="space-y-6">
-                                                                <h2 className="text-2xl font-bold">App Features</h2>
-                                                                <p className="text-text-secondary">Toggle the features you want in your app.</p>
-
-                                                                <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                                                                    {FEATURES.map((feature) => {
-                                                                        const isSelected = features.includes(feature.id);
-                                                                        return (
-                                                                            <button
-                                                                                key={feature.id}
-                                                                                onClick={() => {
-                                                                                    if (isSelected) {
-                                                                                        setFeatures(features.filter(f => f !== feature.id));
-                                                                                    } else {
-                                                                                        setFeatures([...features, feature.id]);
-                                                                                    }
-                                                                                }}
-                                                                                className={`p - 4 rounded - xl border text - left transition - all flex items - start gap - 4 ${isSelected
-                                                                                    ? 'border-primary bg-primary/5'
-                                                                                    : 'border-border bg-surface hover:border-primary/50'
-                                                                                    } `}
-                                                                            >
-                                                                                <div className={`p - 2 rounded - lg ${isSelected ? 'bg-primary text-white' : 'bg-surface-hover text-text-secondary'} `}>
-                                                                                    {feature.icon}
-                                                                                </div>
-                                                                                <div className="flex-1">
-                                                                                    <div className="flex items-center justify-between">
-                                                                                        <h3 className={`font - semibold ${isSelected ? 'text-foreground' : 'text-text-secondary'} `}>{feature.label}</h3>
-                                                                                        {isSelected && <CheckCircle2 className="w-5 h-5 text-primary" />}
-                                                                                    </div>
-                                                                                    <p className="text-xs text-text-muted mt-1">{feature.desc}</p>
-                                                                                </div>
-                                                                            </button>
-                                                                        );
-                                                                    })}
-                                                                </div>
-                                                            </div>
-                                                        )}
-
-                                                        {/* Step 8: Preview (Shifted to 8) */}
-                                                        {currentStep === 8 && (
-                                                            <div className="space-y-8 py-8 text-center">
-                                                                <div className="space-y-4">
-                                                                    <h2 className="text-3xl font-bold">Let's review your app.</h2>
-                                                                    <p className="text-xl text-text-secondary max-w-md mx-auto">
-                                                                        Take a guided tour of the app you just built to see how your clients will experience it.
-                                                                    </p>
-                                                                </div>
-
-                                                                <div className="bg-surface border border-border rounded-2xl p-6 max-w-sm mx-auto text-left space-y-4">
-                                                                    <div className="flex items-center gap-4 border-b border-border pb-4">
-                                                                        <div className="w-12 h-12 rounded-xl bg-primary/20 flex items-center justify-center text-2xl">
-                                                                            {icon}
-                                                                        </div>
-                                                                        <div>
-                                                                            <h3 className="font-bold text-lg">{studioName}</h3>
-                                                                            <p className="text-sm text-text-secondary capitalize">{studioType} Studio</p>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div className="grid grid-cols-2 gap-4 text-sm">
-                                                                        <div>
-                                                                            <p className="text-text-muted">Classes</p>
-                                                                            <p className="font-medium">{classes.length} setup</p>
-                                                                        </div>
-                                                                        <div>
-                                                                            <p className="text-text-muted">Features</p>
-                                                                            <p className="font-medium">{features.length} enabled</p>
-                                                                        </div>
-                                                                        <div>
-                                                                            <p className="text-text-muted">Theme</p>
-                                                                            <p className="font-medium capitalize">{themeId}</p>
-                                                                        </div>
-                                                                        <div>
-                                                                            <p className="text-text-muted">Tabs</p>
-                                                                            <p className="font-medium">{selectedTabs.length}</p>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-
-                                                                <button
-                                                                    onClick={startTour}
-                                                                    className="w-full max-w-sm mx-auto py-4 bg-foreground text-background rounded-xl font-bold text-lg flex items-center justify-center gap-2 hover:scale-105 transition-transform shadow-xl"
-                                                                >
-                                                                    <Play className="w-5 h-5 fill-current" />
-                                                                    Start Interactive Tour
-                                                                </button>
-
-                                                                {/* QR Preview (Instant Verification) */}
-                                                                <div className="pt-6 border-t border-border max-w-sm mx-auto">
-                                                                    <p className="text-sm text-text-muted mb-4 uppercase tracking-wider font-bold">Or see it on your phone</p>
-                                                                    <div className="flex items-center gap-4 bg-white p-2 rounded-xl border border-white/10 w-fit mx-auto shadow-lg">
-                                                                        <img
-                                                                            src={`https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://dal.ai/preview/${studioName.toLowerCase().replace(/[^a-z0-9]/g, '-') || 'demo'}&color=000000`}
-                                                                            alt="Scan to preview"
-                                                                            className="w-20 h-20 rounded-lg"
-                                                                        />
-                                                                        <div className="text-left">
-                                                                            <p className="text-black font-bold text-sm">Scan Camera</p>
-                                                                            <p className="text-black/60 text-xs text-balance">Instant real-device preview.</p>
-                                                                        </div>
-                                                                    </div >
-                                                                </div >
-                                                            </div >
-                                                        )}
-
-                                                        {/* Step 9: Launch (Shifted to 9) */}
-                                                        {
-                                                            currentStep === 9 && (
-                                                                <div className="text-center space-y-8 py-8">
-                                                                    <div className="w-20 h-20 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-6 animate-bounce-slow">
-                                                                        <Sparkles className="w-10 h-10 text-primary" />
-                                                                    </div>
-
-                                                                    <div className="space-y-4">
-                                                                        <h2 className="text-4xl font-bold">Ready to launch?</h2>
-                                                                        <div className="bg-primary/5 border border-primary/20 rounded-xl p-4 max-w-md mx-auto">
-                                                                            <p className="text-lg text-foreground font-medium">
-                                                                                🚀 Update Anytime, Instantly.
-                                                                            </p>
-                                                                            <p className="text-sm text-text-secondary mt-1">
-                                                                                You can edit your content, colors, and schedule even after going live. No app store updates required.
-                                                                            </p>
-                                                                        </div>
-                                                                    </div>
-
-                                                                    <div className="bg-surface border border-border rounded-2xl p-6 max-w-sm mx-auto text-left space-y-4">
-                                                                        <div className="flex justify-between items-center text-sm">
-                                                                            <span className="text-text-secondary">Monthly Plan</span>
-                                                                            <span className="font-bold">$49/mo</span>
-                                                                        </div>
-                                                                        <div className="flex justify-between items-center text-sm">
-                                                                            <span className="text-text-secondary">Setup Fee</span>
-                                                                            <span className="text-green-500 font-bold">Waived</span>
-                                                                        </div>
-                                                                        <div className="h-px bg-border" />
-                                                                        <div className="flex justify-between items-center">
-                                                                            <span className="font-bold">Total due today</span>
-                                                                            <span className="font-bold text-xl">$49</span>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            )
-                                                        }
-                                                </div>
-
-                                                {/* Navigation Buttons */}
-                                                <div className="flex items-center justify-between pt-6 border-t border-border mt-auto bg-background/95 backdrop-blur z-10 absolute bottom-0 left-0 right-0 p-8">
-                                                    <button
-                                                        onClick={handleBack}
-                                                        disabled={currentStep === 0}
-                                                        className={`flex items-center gap-2 px-6 py-3 rounded-xl font-medium transition-all ${currentStep === 0
-                                                            ? 'text-text-muted cursor-not-allowed hidden'
-                                                            : 'text-foreground hover:bg-surface'
-                                                            }`}
-                                                    >
-                                                        <ArrowLeft className="w-5 h-5" />
-                                                        Back
-                                                    </button>
-
-                                                    <button
-                                                        onClick={handleNext}
-                                                        disabled={!canProceed()}
-                                                        className={`flex items-center gap-2 px-8 py-3 rounded-xl font-bold text-lg shadow-lg transition-all ml-auto ${canProceed()
-                                                            ? 'gradient-primary text-white hover:opacity-90 hover:scale-105'
-                                                            : 'bg-surface text-text-muted cursor-not-allowed'
-                                                            }`}
-                                                    >
-                                                        {currentStep === STEPS.length - 1 ? (isLoading ? 'Launching...' : 'Go Live Now ($49)') : 'Next'}
-                                                        <ArrowRight className="w-5 h-5" />
-                                                    </button>
+                                                        Change
+                                                        <input
+                                                            type="file"
+                                                            accept="image/*"
+                                                            className="hidden"
+                                                            onChange={(e) => {
+                                                                const file = e.target.files?.[0];
+                                                                if (file) {
+                                                                    const reader = new FileReader();
+                                                                    reader.onload = (e) => setHeroImage(e.target?.result as string);
+                                                                    reader.readAsDataURL(file);
+                                                                }
+                                                            }}
+                                                        />
+                                                    </label>
+                                                    {heroImage && (
+                                                        <button
+                                                            onClick={() => setHeroImage(null)}
+                                                            className="px-3 py-1.5 bg-red-500 text-white text-xs font-bold rounded-lg hover:scale-105 transition-transform"
+                                                        >
+                                                            Reset
+                                                        </button>
+                                                    )}
                                                 </div>
                                             </div>
+                                            <p className="text-xs text-text-muted">Appears at the top of the home tab. 16:9 ratio recommended.</p>
                                         </div>
+                                    </div>
+
+                                    {/* Widget Manager */}
+                                    <div className="space-y-4">
+                                        <div className="flex items-center justify-between">
+                                            <label className="text-sm font-medium text-text-secondary">Widgets</label>
+                                            <span className="text-xs text-text-muted">{widgets.filter(w => w.enabled).length} Active</span>
+                                        </div>
+
+                                        <div className="space-y-2">
+                                            {widgets.sort((a, b) => a.order - b.order).map((widget) => (
+                                                <div
+                                                    key={widget.id}
+                                                    className={`flex items-center gap-3 p-3 rounded-xl border transition-all ${widget.enabled ? 'bg-surface border-border' : 'bg-surface/50 border-border/50 opacity-60'
+                                                        } `}
+                                                >
+                                                    <div className="flex flex-col gap-1 text-text-muted cursor-move">
+                                                        <div className="w-4 h-1 bg-current rounded-full opacity-20" />
+                                                        <div className="w-4 h-1 bg-current rounded-full opacity-20" />
+                                                    </div>
+
+                                                    <div className="flex-1">
+                                                        <p className="font-semibold text-sm text-foreground">{widget.label}</p>
+                                                    </div>
+
+                                                    <button
+                                                        onClick={() => {
+                                                            const newWidgets = widgets.map(w =>
+                                                                w.id === widget.id ? { ...w, enabled: !w.enabled } : w
+                                                            );
+                                                            setWidgets(newWidgets);
+                                                        }}
+                                                        className={`w-10 h-6 rounded-full transition-colors relative ${widget.enabled ? 'bg-primary' : 'bg-border'
+                                                            } `}
+                                                    >
+                                                        <div className={`absolute top-1 w-4 h-4 bg-white rounded-full transition-all ${widget.enabled ? 'left-5' : 'left-1'
+                                                            } `} />
+                                                    </button>
+                                                </div>
+                                            ))}
+                                        </div>
+                                        <p className="text-xs text-text-muted text-center pt-2">Drag handles coming soon</p>
+                                    </div>
+                                </div>
+                            </div>
+                        )}
+
+
+                        {/* Step 5: Navigation (Shifted to 5) */}
+                        {currentStep === 5 && (
+                            <div className="space-y-6">
+                                <div className="space-y-2">
+                                    <h2 className="text-2xl font-bold">Build your bottom bar.</h2>
+                                    <p className="text-text-secondary">Select 3 to 5 tabs for your app's main navigation.</p>
+                                </div>
+
+                                {/* Tab Amount Selector */}
+                                <div className="p-4 bg-surface border border-border rounded-xl">
+                                    <label className="text-sm font-medium text-text-secondary mb-3 block">Target Number of Tabs</label>
+                                    <div className="flex gap-2">
+                                        {[3, 4, 5].map(num => (
+                                            <button
+                                                key={num}
+                                                onClick={() => {
+                                                    // Logic to trim/alert if selection doesn't match, or just visual highlight
+                                                    // For now, let's just use it as a visual guide and maybe auto-trim if > num
+                                                    if (selectedTabs.length > num) {
+                                                        setSelectedTabs(selectedTabs.slice(0, num));
+                                                    }
+                                                }}
+                                                className={`flex-1 py-2 rounded-lg font-medium text-sm transition-all ${selectedTabs.length === num
+                                                    ? 'bg-primary text-white'
+                                                    : 'bg-background text-text-secondary border border-border hover:border-text-muted'
+                                                    }`}
+                                            >
+                                                {num} Tabs
+                                            </button>
+                                        ))}
+                                    </div>
+                                </div>
+
+                                <div className="grid grid-cols-1 gap-3">
+                                    {AVAILABLE_TABS.map((tab) => {
+                                        const isSelected = selectedTabs.includes(tab.id);
+                                        const isDisabled = !isSelected && selectedTabs.length >= 5;
+
+                                        return (
+                                            <button
+                                                key={tab.id}
+                                                disabled={isDisabled}
+                                                onClick={() => {
+                                                    if (isSelected) {
+                                                        if (selectedTabs.length > 3) {
+                                                            setSelectedTabs(selectedTabs.filter(t => t !== tab.id));
+                                                        }
+                                                    } else {
+                                                        if (selectedTabs.length < 5) {
+                                                            setSelectedTabs([...selectedTabs, tab.id]);
+                                                        }
+                                                    }
+                                                }}
+                                                className={`p - 4 rounded - xl border text - left transition - all flex items - center justify - between ${isSelected
+                                                    ? 'border-primary bg-primary/10'
+                                                    : isDisabled
+                                                        ? 'border-border bg-surface/50 opacity-50 cursor-not-allowed'
+                                                        : 'border-border bg-surface hover:border-primary/50'
+                                                    } `}
+                                            >
+                                                <div className="flex items-center gap-4">
+                                                    <div className={`p - 2 rounded - lg ${isSelected ? 'bg-primary text-white' : 'bg-background text-text-secondary'} `}>
+                                                        {tab.icon}
+                                                    </div>
+                                                    <div>
+                                                        <h3 className="font-semibold text-foreground">{tab.label}</h3>
+                                                        <p className="text-xs text-text-secondary">{tab.desc}</p>
+                                                    </div>
+                                                </div>
+                                                {isSelected && <CheckCircle2 className="w-5 h-5 text-primary" />}
+                                            </button>
                                         );
+                                    })}
+                                </div>
+
+                                <div className="bg-surface border border-border rounded-xl p-4 flex items-center gap-3">
+                                    <Smartphone className="w-5 h-5 text-text-secondary" />
+                                    <span className={`text - sm font - medium ${selectedTabs.length < 3 || selectedTabs.length > 5 ? 'text-amber-500' : 'text-green-500'} `}>
+                                        {selectedTabs.length} tabs selected (Min 3, Max 5)
+                                    </span>
+                                </div>
+                            </div>
+                        )}
+
+                        {/* Step 6: Classes (Shifted to 6) */}
+                        {currentStep === 6 && (
+                            <div className="space-y-6">
+                                <div className="flex items-center justify-between">
+                                    <h2 className="text-2xl font-bold">Your Schedule</h2>
+                                    <button onClick={addClass} className="text-primary text-sm font-medium flex items-center gap-1 hover:text-primary-hover">
+                                        <Plus className="w-4 h-4" /> Add Class
+                                    </button>
+                                </div>
+
+                                <div className="space-y-4">
+                                    {classes.map((cls, index) => (
+                                        <div key={index} className="bg-surface border border-border rounded-xl p-4 animate-in fade-in slide-in-from-bottom-4">
+                                            <div className="flex justify-between items-start mb-4">
+                                                <div className="space-y-3 flex-1 mr-4">
+                                                    <input
+                                                        type="text"
+                                                        value={cls.name}
+                                                        onChange={(e) => updateClass(index, 'name', e.target.value)}
+                                                        placeholder="Class Name"
+                                                        className="w-full bg-transparent text-lg font-medium placeholder:text-text-muted focus:outline-none"
+                                                    />
+                                                    <div className="flex gap-3">
+                                                        <div className="flex items-center gap-2 bg-background rounded-lg px-2 py-1 border border-border">
+                                                            <Clock className="w-3 h-3 text-text-secondary" />
+                                                            <input
+                                                                type="text"
+                                                                value={cls.time}
+                                                                onChange={(e) => updateClass(index, 'time', e.target.value)}
+                                                                className="bg-transparent w-16 text-sm focus:outline-none"
+                                                            />
+                                                        </div>
+                                                        <div className="flex items-center gap-2 bg-background rounded-lg px-2 py-1 border border-border">
+                                                            <Users className="w-3 h-3 text-text-secondary" />
+                                                            <input
+                                                                type="text"
+                                                                value={cls.instructor}
+                                                                onChange={(e) => updateClass(index, 'instructor', e.target.value)}
+                                                                placeholder="Instructor"
+                                                                className="bg-transparent w-24 text-sm focus:outline-none"
+                                                            />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <button onClick={() => removeClass(index)} className="text-text-muted hover:text-red-500">
+                                                    <Trash2 className="w-4 h-4" />
+                                                </button>
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+                        )}
+
+                        {/* Step 7: Features (Shifted to 7) */}
+                        {currentStep === 7 && (
+                            <div className="space-y-6">
+                                <h2 className="text-2xl font-bold">App Features</h2>
+                                <p className="text-text-secondary">Toggle the features you want in your app.</p>
+
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                                    {FEATURES.map((feature) => {
+                                        const isSelected = features.includes(feature.id);
+                                        return (
+                                            <button
+                                                key={feature.id}
+                                                onClick={() => {
+                                                    if (isSelected) {
+                                                        setFeatures(features.filter(f => f !== feature.id));
+                                                    } else {
+                                                        setFeatures([...features, feature.id]);
+                                                    }
+                                                }}
+                                                className={`p - 4 rounded - xl border text - left transition - all flex items - start gap - 4 ${isSelected
+                                                    ? 'border-primary bg-primary/5'
+                                                    : 'border-border bg-surface hover:border-primary/50'
+                                                    } `}
+                                            >
+                                                <div className={`p - 2 rounded - lg ${isSelected ? 'bg-primary text-white' : 'bg-surface-hover text-text-secondary'} `}>
+                                                    {feature.icon}
+                                                </div>
+                                                <div className="flex-1">
+                                                    <div className="flex items-center justify-between">
+                                                        <h3 className={`font - semibold ${isSelected ? 'text-foreground' : 'text-text-secondary'} `}>{feature.label}</h3>
+                                                        {isSelected && <CheckCircle2 className="w-5 h-5 text-primary" />}
+                                                    </div>
+                                                    <p className="text-xs text-text-muted mt-1">{feature.desc}</p>
+                                                </div>
+                                            </button>
+                                        );
+                                    })}
+                                </div>
+                            </div>
+                        )}
+
+                        {/* Step 8: Preview (Shifted to 8) */}
+                        {currentStep === 8 && (
+                            <div className="space-y-8 py-8 text-center">
+                                <div className="space-y-4">
+                                    <h2 className="text-3xl font-bold">Let's review your app.</h2>
+                                    <p className="text-xl text-text-secondary max-w-md mx-auto">
+                                        Take a guided tour of the app you just built to see how your clients will experience it.
+                                    </p>
+                                </div>
+
+                                <div className="bg-surface border border-border rounded-2xl p-6 max-w-sm mx-auto text-left space-y-4">
+                                    <div className="flex items-center gap-4 border-b border-border pb-4">
+                                        <div className="w-12 h-12 rounded-xl bg-primary/20 flex items-center justify-center text-2xl">
+                                            {icon}
+                                        </div>
+                                        <div>
+                                            <h3 className="font-bold text-lg">{studioName}</h3>
+                                            <p className="text-sm text-text-secondary capitalize">{studioType} Studio</p>
+                                        </div>
+                                    </div>
+                                    <div className="grid grid-cols-2 gap-4 text-sm">
+                                        <div>
+                                            <p className="text-text-muted">Classes</p>
+                                            <p className="font-medium">{classes.length} setup</p>
+                                        </div>
+                                        <div>
+                                            <p className="text-text-muted">Features</p>
+                                            <p className="font-medium">{features.length} enabled</p>
+                                        </div>
+                                        <div>
+                                            <p className="text-text-muted">Theme</p>
+                                            <p className="font-medium capitalize">{themeId}</p>
+                                        </div>
+                                        <div>
+                                            <p className="text-text-muted">Tabs</p>
+                                            <p className="font-medium">{selectedTabs.length}</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <button
+                                    onClick={startTour}
+                                    className="w-full max-w-sm mx-auto py-4 bg-foreground text-background rounded-xl font-bold text-lg flex items-center justify-center gap-2 hover:scale-105 transition-transform shadow-xl"
+                                >
+                                    <Play className="w-5 h-5 fill-current" />
+                                    Start Interactive Tour
+                                </button>
+
+                                {/* QR Preview (Instant Verification) */}
+                                <div className="pt-6 border-t border-border max-w-sm mx-auto">
+                                    <p className="text-sm text-text-muted mb-4 uppercase tracking-wider font-bold">Or see it on your phone</p>
+                                    <div className="flex items-center gap-4 bg-white p-2 rounded-xl border border-white/10 w-fit mx-auto shadow-lg">
+                                        <img
+                                            src={`https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://dal.ai/preview/${studioName.toLowerCase().replace(/[^a-z0-9]/g, '-') || 'demo'}&color=000000`}
+                                            alt="Scan to preview"
+                                            className="w-20 h-20 rounded-lg"
+                                        />
+                                        <div className="text-left">
+                                            <p className="text-black font-bold text-sm">Scan Camera</p>
+                                            <p className="text-black/60 text-xs text-balance">Instant real-device preview.</p>
+                                        </div>
+                                    </div >
+                                </div >
+                            </div >
+                        )}
+
+                        {/* Step 9: Launch (Shifted to 9) */}
+                        {
+                            currentStep === 9 && (
+                                <div className="text-center space-y-8 py-8">
+                                    <div className="w-20 h-20 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-6 animate-bounce-slow">
+                                        <Sparkles className="w-10 h-10 text-primary" />
+                                    </div>
+
+                                    <div className="space-y-4">
+                                        <h2 className="text-4xl font-bold">Ready to launch?</h2>
+                                        <div className="bg-primary/5 border border-primary/20 rounded-xl p-4 max-w-md mx-auto">
+                                            <p className="text-lg text-foreground font-medium">
+                                                🚀 Update Anytime, Instantly.
+                                            </p>
+                                            <p className="text-sm text-text-secondary mt-1">
+                                                You can edit your content, colors, and schedule even after going live. No app store updates required.
+                                            </p>
+                                        </div>
+                                    </div>
+
+                                    <div className="bg-surface border border-border rounded-2xl p-6 max-w-sm mx-auto text-left space-y-4">
+                                        <div className="flex justify-between items-center text-sm">
+                                            <span className="text-text-secondary">Monthly Plan</span>
+                                            <span className="font-bold">$49/mo</span>
+                                        </div>
+                                        <div className="flex justify-between items-center text-sm">
+                                            <span className="text-text-secondary">Setup Fee</span>
+                                            <span className="text-green-500 font-bold">Waived</span>
+                                        </div>
+                                        <div className="h-px bg-border" />
+                                        <div className="flex justify-between items-center">
+                                            <span className="font-bold">Total due today</span>
+                                            <span className="font-bold text-xl">$49</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            )
+                        }
+                    </div>
+
+                    {/* Navigation Buttons */}
+                    <div className="flex items-center justify-between pt-6 border-t border-border mt-auto bg-background/95 backdrop-blur z-10 absolute bottom-0 left-0 right-0 p-8">
+                        <button
+                            onClick={handleBack}
+                            disabled={currentStep === 0}
+                            className={`flex items-center gap-2 px-6 py-3 rounded-xl font-medium transition-all ${currentStep === 0
+                                ? 'text-text-muted cursor-not-allowed hidden'
+                                : 'text-foreground hover:bg-surface'
+                                }`}
+                        >
+                            <ArrowLeft className="w-5 h-5" />
+                            Back
+                        </button>
+
+                        <button
+                            onClick={handleNext}
+                            disabled={!canProceed()}
+                            className={`flex items-center gap-2 px-8 py-3 rounded-xl font-bold text-lg shadow-lg transition-all ml-auto ${canProceed()
+                                ? 'gradient-primary text-white hover:opacity-90 hover:scale-105'
+                                : 'bg-surface text-text-muted cursor-not-allowed'
+                                }`}
+                        >
+                            {currentStep === STEPS.length - 1 ? (isLoading ? 'Launching...' : 'Go Live Now ($49)') : 'Next'}
+                            <ArrowRight className="w-5 h-5" />
+                        </button>
+                    </div>
+                </div>
+            </div>
+        );
     }
