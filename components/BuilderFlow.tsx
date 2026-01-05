@@ -9,6 +9,7 @@ import { ChevronRight, Check, Sparkles, Smartphone, Layout, Palette, Globe, Play
 import IPhoneMockup from './builder/IPhoneMockup';
 import { saveAppConfig } from '@/lib/firebase';
 import { ClassCategory } from '@/lib/types';
+import confetti from 'canvas-confetti';
 
 const STEPS = [
     { title: 'Studio Name', icon: Smartphone, description: 'Start with your brand identity' },
@@ -394,7 +395,7 @@ bg-gradient-to-br ${theme.gradient}
 
         const currentSeq = tourSequence[tourStep];
 
-        if (tourStep >= tourSequence.length-1) {
+        if (tourStep >= tourSequence.length - 1) {
             setIsTourActive(false);
             setTourTabOverride('home');
             setCurrentStep(8); // Go to Launch
@@ -504,7 +505,7 @@ bg-gradient-to-br ${theme.gradient}
     };
 
     const handleNext = () => {
-        if (currentStep < STEPS.length-1) {
+        if (currentStep < STEPS.length - 1) {
             setCurrentStep(currentStep + 1);
         } else {
             handleLaunch();
@@ -513,11 +514,19 @@ bg-gradient-to-br ${theme.gradient}
 
     const handleBack = () => {
         if (currentStep > 0) {
-            setCurrentStep(currentStep-1);
+            setCurrentStep(currentStep - 1);
         }
     };
 
     const handleLaunch = async () => {
+        // Trigger confetti celebration!
+        confetti({
+            particleCount: 150,
+            spread: 100,
+            origin: { y: 0.6 },
+            colors: [brandColor, accentColor || '#FFD700', '#00FF00']
+        });
+
         try {
             setIsLoading(true);
             const config = {
@@ -613,7 +622,7 @@ bg-gradient-to-br ${theme.gradient}
                             >
                                 {step}
                             </span>
-                            {index < STEPS.length-1 && (
+                            {index < STEPS.length - 1 && (
                                 <div
                                     className={`w-8 h-0.5 mx-2 ${index < currentStep ? 'bg-primary' : 'bg-border'
                                         } `}
@@ -1336,6 +1345,24 @@ bg-gradient-to-br ${theme.gradient}
                                     </div>
                                 </div>
 
+                                {/* Your Studio in Dal AI Preview Card */}
+                                <div className="bg-surface border border-border rounded-2xl p-6 max-w-sm mx-auto">
+                                    <p className="text-xs text-text-muted uppercase tracking-wider mb-4">Your Studio in Dal AI</p>
+                                    <div className="flex items-center gap-4 text-left">
+                                        <div
+                                            className="w-16 h-16 rounded-2xl flex items-center justify-center text-2xl shadow-lg"
+                                            style={{ backgroundColor: brandColor }}
+                                        >
+                                            {logo ? <img src={logo} alt="Logo" className="w-full h-full object-cover rounded-2xl" /> : icon}
+                                        </div>
+                                        <div className="flex-1">
+                                            <h3 className="font-bold text-lg text-foreground">{studioName || 'Your Studio'}</h3>
+                                            <p className="text-sm text-text-secondary">{tagline || 'Your tagline here'}</p>
+                                            <span className="inline-block mt-1 px-2 py-0.5 bg-primary/10 text-primary text-xs rounded-full capitalize">{studioType || 'Wellness'}</span>
+                                        </div>
+                                    </div>
+                                </div>
+
                                 <div className="bg-surface border border-border rounded-2xl p-6 max-w-sm mx-auto text-left space-y-4">
                                     <div className="flex justify-between items-center text-sm">
                                         <span className="text-text-secondary">Monthly Plan</span>
@@ -1378,7 +1405,7 @@ bg-gradient-to-br ${theme.gradient}
                             : 'bg-surface text-text-muted cursor-not-allowed'
                             }`}
                     >
-                        {currentStep === STEPS.length-1 ? (isLoading ? 'Launching...' : 'Go Live Now ($49)') : 'Next'}
+                        {currentStep === STEPS.length - 1 ? (isLoading ? 'Launching...' : 'Go Live Now ($49)') : 'Next'}
                         <ArrowRight className="w-5 h-5" />
                     </button>
                 </div>
