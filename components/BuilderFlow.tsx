@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { ArrowLeft, ArrowRight, Check, CheckCircle2, Sparkles, Plus, Trash2, Clock, DollarSign, Users, Home, Calendar, MessageCircle, ShoppingBag, User, PlayCircle, Settings, Palette, Smartphone, Trophy, Utensils, TrendingUp, Bell, Gift, Star, Ticket, Play } from 'lucide-react';
+import { ArrowLeft, ArrowRight, Check, CheckCircle2, Sparkles, Plus, Trash2, Clock, DollarSign, Users, Home, Calendar, MessageCircle, ShoppingBag, User, PlayCircle, Settings, Palette, Smartphone, Trophy, Utensils, TrendingUp, Bell, Gift, Star, Ticket, Play, Globe } from 'lucide-react';
 import { ClassCategory } from '@/lib/types';
 
 // Theme Presets (Mobile Parity)
@@ -620,9 +620,8 @@ export default function BuilderFlow({ onPreviewUpdate }: { onPreviewUpdate?: (pr
                                     type="text"
                                     value={studioName}
                                     onChange={(e) => setStudioName(e.target.value)}
-                                    placeholder="e.g. Zen Yoga"
-                                    className="w-full bg-surface border border-border rounded-xl px-4 py-3 text-lg focus:outline-none focus:border-primary transition-colors"
-                                    autoFocus
+                                    placeholder="e.g. Zen Yoga Studio"
+                                    className="w-full bg-surface border border-border rounded-xl px-4 py-3 text-lg font-medium placeholder:text-text-muted focus:outline-none focus:border-primary transition-colors"
                                 />
                             </div>
 
@@ -857,7 +856,7 @@ export default function BuilderFlow({ onPreviewUpdate }: { onPreviewUpdate?: (pr
                                                         }`}
                                                     style={{ backgroundColor: mode.bg }}
                                                 >
-                                                    <span className={`text-sm font-medium`} style={{ color: mode.text }}>{mode.label}</span>
+                                                    <span className="text-sm font-medium" style={{ color: mode.text }}>{mode.label}</span>
                                                     {backgroundMode === mode.id && <CheckCircle2 className="w-4 h-4 text-primary" />}
                                                 </button>
                                             ))}
@@ -1069,6 +1068,22 @@ export default function BuilderFlow({ onPreviewUpdate }: { onPreviewUpdate?: (pr
                                 <Play className="w-5 h-5 fill-current" />
                                 Start Interactive Tour
                             </button>
+
+                            {/* QR Preview (Instant Verification) */}
+                            <div className="pt-6 border-t border-border max-w-sm mx-auto">
+                                <p className="text-sm text-text-muted mb-4 uppercase tracking-wider font-bold">Or see it on your phone</p>
+                                <div className="flex items-center gap-4 bg-white p-2 rounded-xl border border-white/10 w-fit mx-auto shadow-lg">
+                                    <img
+                                        src={`https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://dal.ai/preview/${studioName.toLowerCase().replace(/[^a-z0-9]/g, '-') || 'demo'}&color=000000`}
+                                        alt="Scan to preview"
+                                        className="w-20 h-20 rounded-lg"
+                                    />
+                                    <div className="text-left">
+                                        <p className="text-black font-bold text-sm">Scan Camera</p>
+                                        <p className="text-black/60 text-xs text-balance">Instant real-device preview.</p>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     )}
 
@@ -1082,7 +1097,7 @@ export default function BuilderFlow({ onPreviewUpdate }: { onPreviewUpdate?: (pr
                             <div className="space-y-4">
                                 <h2 className="text-4xl font-bold">Ready to launch?</h2>
                                 <p className="text-xl text-text-secondary max-w-md mx-auto">
-                                    Your app is ready to be built. Create your account to go live on the App Store.
+                                    Your app is ready. Publish now, and remember: <span className="text-foreground font-semibold">you can change anything, anytime</span> even after going live.
                                 </p>
                             </div>
 
