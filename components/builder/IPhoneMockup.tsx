@@ -53,7 +53,8 @@ export default function IPhoneMockup() {
         homeLayout,
         scheduleView,
         profileLayout,
-        customLinks
+        customLinks,
+        welcomeMessage
     } = useBuilder();
 
     // Local state for interactive preview
@@ -145,7 +146,7 @@ export default function IPhoneMockup() {
                                 {icon}
                             </div>
                             <div className="flex flex-col">
-                                <p className={`text-[10px] uppercase tracking-wider font-bold opacity-70 ${textClass}`}>Welcome Back</p>
+                                <p className={`text-[10px] uppercase tracking-wider font-bold opacity-70 ${textClass}`}>{welcomeMessage || 'Welcome Back'}</p>
                                 <h1 className={`text-lg font-bold leading-tight ${textClass}`}>{studioName || 'Studio'}</h1>
                             </div>
                         </div>

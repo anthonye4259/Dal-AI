@@ -39,6 +39,7 @@ export interface BuilderState {
     scheduleView: 'list' | 'calendar' | 'week';
     profileLayout: 'stats' | 'social' | 'minimal';
     customLinks: Array<{ label: string; url: string; icon: string }>;
+    welcomeMessage: string;
 
     // Actions
     setStep: (step: number) => void;
@@ -73,6 +74,7 @@ export interface BuilderState {
     setScheduleView: (view: 'list' | 'calendar' | 'week') => void;
     setProfileLayout: (layout: 'stats' | 'social' | 'minimal') => void;
     setCustomLinks: (links: Array<{ label: string; url: string; icon: string }>) => void;
+    setWelcomeMessage: (message: string) => void;
 
     activeTab: string;
     setActiveTab: (tab: string) => void;
@@ -125,6 +127,7 @@ export function BuilderProvider({ children }: { children: ReactNode }) {
     const [scheduleView, setScheduleView] = useState<'list' | 'calendar' | 'week'>('list');
     const [profileLayout, setProfileLayout] = useState<'stats' | 'social' | 'minimal'>('stats');
     const [customLinks, setCustomLinks] = useState<Array<{ label: string; url: string; icon: string }>>([]);
+    const [welcomeMessage, setWelcomeMessage] = useState('Welcome Back');
 
     return (
         <BuilderContext.Provider value={{
@@ -156,7 +159,10 @@ export function BuilderProvider({ children }: { children: ReactNode }) {
             homeLayout, setHomeLayout,
             scheduleView, setScheduleView,
             profileLayout, setProfileLayout,
-            customLinks, setCustomLinks
+            customLinks,
+            setCustomLinks,
+            welcomeMessage,
+            setWelcomeMessage,
         }}>
             {children}
         </BuilderContext.Provider>

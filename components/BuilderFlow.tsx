@@ -347,7 +347,8 @@ export default function BuilderFlow() {
         homeLayout, setHomeLayout,
         scheduleView, setScheduleView,
         profileLayout, setProfileLayout,
-        customLinks, setCustomLinks
+        customLinks, setCustomLinks,
+        welcomeMessage, setWelcomeMessage
     } = useBuilder();
 
     // Magic Build State (Local is fine for input text)
@@ -1220,6 +1221,23 @@ bg-gradient-to-br ${theme.gradient}
                             <div>
                                 <h2 className="text-2xl font-bold mb-2">{t('builder.step5.title')}</h2>
                                 <p className="text-text-secondary mb-6">{t('builder.step5.subtitle')}</p>
+
+                                {/* Header Settings */}
+                                <div className="space-y-4 mb-6">
+                                    <label className="text-sm font-medium text-text-secondary">Header Text</label>
+                                    <div className="bg-surface border border-border rounded-xl p-4">
+                                        <div className="space-y-2">
+                                            <label className="text-xs font-bold uppercase text-text-muted">Welcome Message</label>
+                                            <input
+                                                type="text"
+                                                value={welcomeMessage}
+                                                onChange={(e) => setWelcomeMessage(e.target.value)}
+                                                placeholder="e.g. Welcome Back, Let's Sweat, Good Morning"
+                                                className="w-full bg-background border border-border rounded-lg px-3 py-2 text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all"
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
 
                                 {/* Hero Image Upload */}
                                 <div className="space-y-4 mb-8">
