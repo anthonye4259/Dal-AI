@@ -348,7 +348,9 @@ export default function BuilderFlow() {
         scheduleView, setScheduleView,
         profileLayout, setProfileLayout,
         customLinks, setCustomLinks,
-        welcomeMessage, setWelcomeMessage
+        welcomeMessage, setWelcomeMessage,
+        headerStyle, setHeaderStyle,
+        fontType, setFontType
     } = useBuilder();
 
     // Magic Build State (Local is fine for input text)
@@ -1050,6 +1052,30 @@ bg-gradient-to-br ${theme.gradient}
                                         </div>
                                     </div>
 
+                                    {/* Typography Style (New) */}
+                                    <div className="space-y-3">
+                                        <label className="text-sm font-medium text-text-secondary">Font Style</label>
+                                        <div className="grid grid-cols-2 gap-3">
+                                            {[
+                                                { id: 'sans', label: 'Modern (Sans)', font: 'Inter' },
+                                                { id: 'serif', label: 'Luxury (Serif)', font: 'Playfair Display' },
+                                            ].map((type) => (
+                                                <button
+                                                    key={type.id}
+                                                    onClick={() => setFontType(type.id as any)}
+                                                    className={`p-3 rounded-xl border text-left transition-all ${fontType === type.id
+                                                        ? 'bg-primary/10 border-primary'
+                                                        : 'bg-surface border-border hover:border-border-highlight'
+                                                        } `}
+                                                >
+                                                    <span className={`block font-bold text-lg text-foreground mb-0.5 ${(type.id === 'serif' ? 'font-serif' : 'font-sans')}`}>{type.label}</span>
+                                                    <span className="text-xs text-text-secondary">Abc</span>
+                                                </button>
+                                            ))}
+                                        </div>
+                                    </div>
+
+
                                     {/* Typography */}
                                     <div className="space-y-3">
                                         <label className="text-sm font-medium text-text-secondary">Typography</label>
@@ -1221,6 +1247,28 @@ bg-gradient-to-br ${theme.gradient}
                             <div>
                                 <h2 className="text-2xl font-bold mb-2">{t('builder.step5.title')}</h2>
                                 <p className="text-text-secondary mb-6">{t('builder.step5.subtitle')}</p>
+
+                                {/* Header Layout Style */}
+                                <div className="space-y-4 mb-6">
+                                    <label className="text-sm font-medium text-text-secondary">Header Layout</label>
+                                    <div className="bg-surface border border-border rounded-xl p-2 flex gap-2">
+                                        {[
+                                            { id: 'left', label: 'Modern Left', icon: 'AlignLeft' },
+                                            { id: 'center', label: 'Boutique Center', icon: 'AlignCenter' },
+                                        ].map((style) => (
+                                            <button
+                                                key={style.id}
+                                                onClick={() => setHeaderStyle(style.id as any)} // Cast to any to avoid strict union check issues temporarily
+                                                className={`flex-1 py-3 px-4 rounded-lg flex items-center justify-center gap-2 text-sm font-bold transition-all ${headerStyle === style.id
+                                                    ? 'bg-primary text-white shadow-md'
+                                                    : 'bg-transparent text-text-secondary hover:bg-background'
+                                                    }`}
+                                            >
+                                                <span>{style.label}</span>
+                                            </button>
+                                        ))}
+                                    </div>
+                                </div>
 
                                 {/* Header Settings */}
                                 <div className="space-y-4 mb-6">

@@ -40,6 +40,8 @@ export interface BuilderState {
     profileLayout: 'stats' | 'social' | 'minimal';
     customLinks: Array<{ label: string; url: string; icon: string }>;
     welcomeMessage: string;
+    headerStyle: 'left' | 'center';
+    fontType: 'sans' | 'serif';
 
     // Actions
     setStep: (step: number) => void;
@@ -75,6 +77,8 @@ export interface BuilderState {
     setProfileLayout: (layout: 'stats' | 'social' | 'minimal') => void;
     setCustomLinks: (links: Array<{ label: string; url: string; icon: string }>) => void;
     setWelcomeMessage: (message: string) => void;
+    setHeaderStyle: (style: 'left' | 'center') => void;
+    setFontType: (type: 'sans' | 'serif') => void;
 
     activeTab: string;
     setActiveTab: (tab: string) => void;
@@ -128,6 +132,8 @@ export function BuilderProvider({ children }: { children: ReactNode }) {
     const [profileLayout, setProfileLayout] = useState<'stats' | 'social' | 'minimal'>('stats');
     const [customLinks, setCustomLinks] = useState<Array<{ label: string; url: string; icon: string }>>([]);
     const [welcomeMessage, setWelcomeMessage] = useState('Welcome Back');
+    const [headerStyle, setHeaderStyle] = useState<'left' | 'center'>('left');
+    const [fontType, setFontType] = useState<'sans' | 'serif'>('sans');
 
     return (
         <BuilderContext.Provider value={{
@@ -163,6 +169,8 @@ export function BuilderProvider({ children }: { children: ReactNode }) {
             setCustomLinks,
             welcomeMessage,
             setWelcomeMessage,
+            headerStyle, setHeaderStyle,
+            fontType, setFontType
         }}>
             {children}
         </BuilderContext.Provider>

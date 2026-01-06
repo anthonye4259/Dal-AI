@@ -2,7 +2,7 @@
 
 import { motion, AnimatePresence } from 'framer-motion';
 import { useBuilder } from '@/context/BuilderContext';
-import { Home, Calendar, ShoppingBag, User, MessageCircle, PlayCircle, MapPin, ChevronRight, Bell, Search, Star, Sun, Moon } from 'lucide-react';
+import { Home, Calendar, ShoppingBag, User, MessageCircle, PlayCircle, MapPin, ChevronRight, Bell, Search, Star, Sun, Moon, Menu } from 'lucide-react';
 import { useEffect, useState } from 'react';
 
 // Map tab IDs to Lucide Icons
@@ -54,7 +54,9 @@ export default function IPhoneMockup() {
         scheduleView,
         profileLayout,
         customLinks,
-        welcomeMessage
+        welcomeMessage,
+        headerStyle,
+        fontType
     } = useBuilder();
 
     // Local state for interactive preview
@@ -128,6 +130,10 @@ export default function IPhoneMockup() {
     // Legacy cardBg (replace usages with cardClass + radiusClass)
     const cardBg = `${cardClass} ${radiusClass}`;
 
+    const effectiveFontFamily = fontType === 'serif'
+        ? '"Playfair Display", "Merriweather", "Georgia", serif'
+        : fontFamily;
+
     // --- VIEWS ---
 
     const HomeView = () => (
@@ -135,13 +141,21 @@ export default function IPhoneMockup() {
             {/* Header */}
             <div onClick={() => setStep(0)} className="cursor-pointer group">
                 <div className="flex items-center justify-between mb-4 relative z-10">
+                    {/* Left Icon (Menu logic) */}
+                    {headerStyle === 'center' ? (
+                        <div className={`w-8 h-8 rounded-full ${isDark ? 'bg-white/10' : 'bg-black/5'} flex items-center justify-center`}>
+                            <Menu className={`w-4 h-4 ${textClass}`} />
+                        </div>
+                    ) : null}
+
+                    {/* Branding Area */}
                     {logo ? (
-                        <div className="h-10">
+                        <div className={`h-10 ${headerStyle === 'center' ? 'mx-auto' : ''}`}>
                             <img src={logo} alt="Studio Logo" className="h-full object-contain" />
                         </div>
                     ) : (
-                        <div className="flex items-center gap-3">
-                            <div className="w-10 h-10 rounded-full flex items-center justify-center text-xl shadow-lg"
+                        <div className={`flex ${headerStyle === 'center' ? 'flex-col items-center text-center mx-auto' : 'items-center gap-3'}`}>
+                            <div className={`w-10 h-10 rounded-full flex items-center justify-center text-xl shadow-lg ${headerStyle === 'center' ? 'mb-1 w-8 h-8 text-sm' : ''}`}
                                 style={{ backgroundColor: brandColor, color: '#fff' }}>
                                 {icon}
                             </div>
@@ -151,6 +165,8 @@ export default function IPhoneMockup() {
                             </div>
                         </div>
                     )}
+
+                    {/* Right Icon */}
                     <div className={`w-8 h-8 rounded-full ${isDark ? 'bg-white/10' : 'bg-black/5'} flex items-center justify-center`}>
                         <Bell className={`w-4 h-4 ${textClass}`} />
                     </div>
@@ -301,7 +317,7 @@ export default function IPhoneMockup() {
 
     const ScheduleView = () => (
         <div className="px-5 pb-24 space-y-6 pt-6">
-            <h2 className={`text-2xl font-bold ${textClass}`}>Schedule</h2>
+            <h2 className={`text-2xl font-bold ${textClass} ${headerStyle === 'center' ? 'text-center' : ''}`}>Schedule</h2>
 
             {scheduleView === 'calendar' ? (
                 <div className="space-y-4">
@@ -498,7 +514,7 @@ export default function IPhoneMockup() {
             <div className="relative w-[300px] h-[620px] bg-[#1C1C1E] rounded-[48px] p-[10px] shadow-2xl border-[6px] border-[#2C2C2E] ring-1 ring-white/10">
                 <div className="absolute top-5 left-1/2 -translate-x-1/2 w-[90px] h-[24px] bg-black rounded-full z-50 pointer-events-none" />
 
-                <div className={`relative w-full h-full rounded-[38px] overflow-hidden flex flex-col font-sans transition-colors duration-300`} style={{ fontFamily, backgroundColor: finalBgColor }}>
+                <div className={`relative w-full h-full rounded-[38px] overflow-hidden flex flex-col font-sans transition-colors duration-300`} style={{ fontFamily: effectiveFontFamily, backgroundColor: finalBgColor }}>
 
                     {/* Splash Overlay */}
                     <AnimatePresence>
